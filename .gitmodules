@@ -1,0 +1,4 @@
+[submodule "water-ma"]
+	path = water-ma
+	url = https://github.com/DevInnovationLab/water-ma.git
+	branch = public
