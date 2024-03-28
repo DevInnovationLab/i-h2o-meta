@@ -58,25 +58,25 @@
 \end{figure}
 {\noindent\fontsize{10}{10}\selectfont Notes: The relationship between treatment effect estimates (y axis) and the study year (x axis) across 18 studies included in the sample. Year of intervention is the year that each studied intervention was launched. We find no association (slope is less than 0.0002 per year, with SD = 0.0025) between mortality and study year. Each point represents a study. The size of each bubble is inversely proportional to the standard errors of treatment effect estimate.}
 
-\newpage
-\noindent\textbf{Fig. S6.}  Predicted mortality among treated as a function of control group mortality 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics{figures/mortality-vs-baseline.pdf}
-\end{figure}
-
-{\noindent\fontsize{10}{10}\selectfont Notes: The relationship between a given mortality rate in control group, $p$ (x axis) and mortality among treated (y axis) is, for a given $OR$, $\frac{OR[p/(1-p)]}{1 + OR[p/(1-p)]}$. For small values of $p$ the relationship is nearly linear, as seen in the figure. We use the posterior predictive distribution (of $OR$'s in a new setting) from the Bayesian model to construct mean (solid line) and 90\% interval (shaded area) for mortality among treated.}
 
 
 \newpage
-\noindent\textbf{Fig. S7.} Diarrhea prevalence in included studies compared to distribution low- and middle- income countries
+\noindent\textbf{Fig. S6.} Diarrhea prevalence in included studies compared to distribution low- and middle- income countries
 \begin{figure}[H]
     \centering
     \includegraphics{figures/dist-diarrhea-prevalence.pdf}
 \end{figure}
 
-{\noindent\fontsize{10}{10}\selectfont Notes: The gray area represents the density over 43,323 observations of diarrhea prevalence at the sub-national level from 94 countries, based on data from Institute for Health Metrics and Evaluation, 2020. The red histogram is of diarrhea prevalence among the studies included in the meta-analysis. The black bar shows the weighted average of diarrhea prevalence among the studies in the meta-analysis, which is 17\%.}
+{\noindent\fontsize{10}{10}\selectfont Notes: The gray area represents the density over 43,323 observations of diarrhea prevalence at the sub-national level from 94 countries, based on data from Institute for Health Metrics and Evaluation, 2020. The red histogram is of diarrhea prevalence among the studies included in this meta-analysis. The black bar shows the weighted average of diarrhea prevalence among the studies in the meta-analysis, which is 15.6\%. This corresponds to the 61st percentile of the distribution of sub national diarrhea estimates.}
+
+\newpage
+\noindent\textbf{Fig. S7.} Cost-effectiveness as a function of treatment effect
+\begin{figure}[H]
+    \centering
+    \includegraphics{figures/cea_or_relationship.pdf}
+\end{figure}
+
+{\noindent\fontsize{10}{10}\selectfont Notes: The calculation from Table S7 is repeated in this plot, varying the odds ratios on all-cause mortality (X axis) and recalculating USD cost per DALY averted for each of the three methods we investigated. The vertical line corresponds to 0.039 reduction in OR, which we discuss in Section 7 of the supplement. The horizontal line is the most stringent cut-off of 200 USD.}
 
 
 \end{document}
