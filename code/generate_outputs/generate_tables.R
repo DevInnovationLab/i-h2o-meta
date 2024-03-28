@@ -3,7 +3,8 @@ library(here)
 library(baggr)
 
 source(here("code/ma_models/fit_ma_frequentist.R"))
-source(here("code/ma_models/load_bayes_ma.R"))
+load(here("output/stan/bayesian-models-for-exhibits.Rdata"))
+load(here("output/stan/bayesian-models-subsets.Rdata"))
 
 # Table Summary Estimates (main results) ======================================
 
@@ -35,13 +36,28 @@ write.csv(summary_df, "output/tables/freq-bayes-summary-mortality.csv")
 # indiv mortality summary
 mortality_all_summary <- 
   df_all_ma_adj %>%
+  # Remove different versions of the same study
+  dplyr::filter(
+    !(trial %in% c(
+      "Null et al., 2018 (W vs. active control)",
+      "Null et al., 2018 (W vs. active + passive control) + Haushofer et al., 2020 (W vs. passive control)",
+      "Kremer et. al., 2011 (Year 1 Treatment vs control + Year 2 Treatment)"
+    ))
+  ) %>%
+  mutate(
+    robustness = trial_name_short %in% c("du Preez et al., 2011", "Boisson et al., 2010")
+  ) %>%
+  arrange(
+    robustness,
+    trial_name_short
+  ) %>%
   dplyr::select(
     trial_name_short,
     tcases,
     tnoncases,
     ccases,
     cnoncases
-  )
+  ) 
 
 write_csv(
   mortality_all_summary, 
@@ -96,7 +112,8 @@ row_list <- c(
   "df_tableS6_withcontamctrl_2",
   "df_tableS6_acctrl",
   "df_tableS6_springproc",
-  "df_noWASH"
+  "df_noWASH",
+  "different_OR_def"
 )
 
 for (row in row_list) {
@@ -133,7 +150,9 @@ colnames(additional_sa_table) <-
     "Mean Freq OR (9)",
     "Mean Bayesian OR (10)",
     "Mean Freq OR (11)",
-    "Mean Bayesian OR (12)"
+    "Mean Bayesian OR (12)",
+    "Mean Freq OR (13)",
+    "Mean Bayesian OR (14)"
   )
 
 rownames(additional_sa_table) <-

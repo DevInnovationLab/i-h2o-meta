@@ -7,6 +7,7 @@
 library(tidyverse)
 library(baggr)
 library(here)
+set.seed(1990)
 
 # Prepare Bayesian models -----
 
@@ -14,6 +15,7 @@ load(here("output/stan/bayesian-ma-models.Rdata"))
 
 bg_main <- bg_loo$full_model
 bg_main_full <- bg_loo_full$full_model
+bg_main_or_ppd <- effect_draw(bg_main, transform=exp)
 
 load(here("output/stan/bayesian-mr-models.Rdata"))
 load(here("data/final/ma_datasets.Rdata"))
@@ -71,6 +73,7 @@ summarise_prevalence_compliance <-
     trial_name,
     prevalence,
     compliance,
+    takeup_control,
     year,
     Obs,
     weeks,
@@ -89,6 +92,12 @@ summarise_prevalence_compliance <-
         mean(compliance, na.rm = T), 
         compliance
       ),
+    takeup_control = 
+      ifelse(
+        is.na(takeup_control), 
+        mean(takeup_control, na.rm = T), 
+        takeup_control
+      ),
     prevalence = 
       ifelse(
         is.na(prevalence), 
@@ -103,14 +112,18 @@ summarise_prevalence_compliance <-
     year1 = year * weights1,
     compliance1 = compliance * weights1,
     compliance2 = compliance * weights2,
-    compliance_chlor1 = compliance * weights1 * chlor / sum(weights1 * chlor)
+    compliance_chlor1 = compliance * weights1 * chlor / sum(weights1 * chlor),
+    tkup_ctrl1  = takeup_control * weights1,
+    tkup_ctrl2  = takeup_control * weights2
   ) %>%
   select(
     prevalence1,
     prevalence2,
     compliance1,
     compliance2,
-    compliance_chlor1
+    compliance_chlor1,
+    tkup_ctrl1,
+    tkup_ctrl2
   ) %>%
   summarise(
     across(
@@ -133,6 +146,7 @@ sodis_studies_bayes <-
 save(
   loo_bayes,
   bg_main,
+  bg_main_or_ppd,
   bg_main_full,
   overall_est_bayes,
   ind_est_bayes,
@@ -143,5 +157,10 @@ save(
   spring_studies_bayes,
   sodis_studies_bayes,
   summarise_prevalence_compliance,
-  file = here("output/stan/bayesian-models-for-exhibits.Rdata")
+  file = "output/stan/bayesian-models-for-exhibits.Rdata"
+)
+
+save(
+  bg_subsets,
+  file = "output/stan/bayesian-models-subsets.Rdata"
 )

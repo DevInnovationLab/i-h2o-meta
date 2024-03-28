@@ -5,6 +5,7 @@ library(tidyverse)
 
 source(here("code/cea/cea-setup.R"))
 
+# Combine CEA for all approaches -----------------------------------------------
 df_cea <- 
   bind_rows(
     list(
@@ -15,6 +16,12 @@ df_cea <-
     .id = "model"
   )
 
+df_cea %>% 
+  write_meta(
+    path_data = "data/transformed/df_cea"
+  )
+
+# Clean up ---------------------------------------------------------------------
 df_cea_tab <- 
   df_cea %>%
   mutate_all(as.character) %>%
@@ -32,7 +39,8 @@ df_cea_tab <-
 df_cea_bigtab <- 
   df_cea_tab %>% 
   select(
-    p1, rr, t_ma, tkup, 
+    bayes_OR, bayes_CI, 
+    p1, rr, t_ma, effective_tkup, 
     reduction, daly_reduction, 
     cost, cost_per_death, cost_per_daly, net_ben
   ) %>% 
@@ -43,30 +51,94 @@ df_cea_bigtab %>%
   write.csv("output/tables/table-cea-estimates.csv")
 
 # Summary table in the main text -----------------------------------------------
-df_cea_summary <- df_cea_tab %>% 
-  select(c(bayes_OR, bayes_CI, daly_reduction, 
-           cost, cost_per_death, cost_per_daly, net_ben)) %>% 
+df_cea_summary <- 
+  df_cea_tab %>% 
+  select(
+    c(
+      bayes_OR, 
+      bayes_CI, 
+      effective_tkup, 
+      daly_reduction, 
+      cost, 
+      cost_per_death, 
+      cost_per_daly, 
+      net_ben
+    )
+  ) %>% 
   t()
+
 colnames(df_cea_summary) <- df_cea[["model"]]
-df_cea_summary %>% write.csv("output/tables/table-cea-summary.csv")
+
+df_cea_summary %>% 
+  write.csv("output/tables/table-cea-summary.csv")
 
 # Some text --------------------------------------------------------------------
 
 # Discussion: Ratio of GDP to cost per DALY reduction
-default_gdp_pc / (df_cea_tab$cost_per_daly %>% as.numeric())
+# Our estimates suggest that water treatment exceeds the 1x GDP threshold over xx-xx times
+round(rev(default_gdp_pc)/df_cea$cost_per_daly) %>% 
+  write.csv("output/text/1x-gdp-threshold-exceed.csv") 
 
+# Discussion: threshold of compliance at which CE matches 1x GDP:
+cea_tkup <- function(...) {
+  cea_v2(x = mean(default_or_ppd), input = "or", ...)$cost_per_daly
+}
+cea_compliance_df <- rbind(
+  data.frame(method = "dsw",
+             p1=.0692, 
+             cost=dsw_cost, 
+             u5_per_hh=1,
+             gdp_pc=default_gdp_pc[["dsw"]]),
+  data.frame(method = "ilc",
+             p1 = 0.039,
+             cost = 59.57/5,
+             u5_per_hh=1,
+             gdp_pc=default_gdp_pc[["ilc"]]),
+  data.frame(method = "coupons",
+             p1 = u5_mr$avg_mortality_rate,
+             cost = cost_vouchers,
+             u5_per_hh=u5_per_hh_coupons[["x"]],
+             gdp_pc=default_gdp_pc[["coupons"]])
+) %>% 
+  # mutate(x = default_or_ppd) %>% 
+  expand_grid(tkup = seq(.001, .5, .0005)) %>%
+  mutate(result = "table") %>% 
+  # group_by(method) %>% 
+  mutate(res = pmap_dbl(select(., -method), cea_tkup))
+# min(cea_compliance_df$tkup[cea_compliance_df$res < default_gdp_pc[["dsw"]] & 
+                             # cea_compliance_df$method == "dsw"])
+
+# However, the effective take-up in water treatment needed to reach 1x GDP per 
+# capita threshold ranges from 0.4% (for coupons) to 1.9% (for ILC)
+cea_compliance_df %>% 
+  dplyr::filter(gdp_pc >= res) %>% 
+  group_by(method) %>% 
+  summarise(min(tkup)) %>% 
+  write_csv(
+    "output/text/1x-gdp-threshold-compliance.csv"
+  )
 
 # Discussion: "we find that cost-effectiveness threshold
-# is reached at 0.5% reduction in risk of under 5 mortality":
-benken <- cea_v2(result = "table", 
-                 input="rr", .995,
-                 p1=.0692, 
-                 tkup=0.51, 
-                 cost=9.1, 
-                 u5_per_hh=1,
-                 gdp_pc=default_gdp_pc[["dsw"]])$cost_per_daly
-benken/default_gdp_pc[["dsw"]]
+# is reached at 0.7% reduction in risk of under 5 mortality":
+benken <- Inf
+rr_check <- .999
+while(benken > default_gdp_pc[["dsw"]]){
+  benken <- cea_v2(result = "table", 
+                   input="rr", rr_check,
+                   p1=.0692, 
+                   tkup=0.51, 
+                   cost=dsw_cost, 
+                   u5_per_hh=1,
+                   gdp_pc=default_gdp_pc[["dsw"]])$cost_per_daly
+  rr_check <- rr_check - .001
+}
 
+ce_threshold <- (100*(1-rr_check)) %>% round(2)
+
+write.csv(
+  ce_threshold,
+  "output/text/ce-threshold.csv"
+)
 
 # Global benefits --------------------------------------------------------------
 
@@ -163,3 +235,7 @@ mortality_rate %>%
   write_csv(
     here("output/tables/cea-globalbenefits.csv")
   )
+
+
+
+

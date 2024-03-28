@@ -7,9 +7,11 @@ library(baggr)
 library(here)
 
 load(here("data/final/ma_datasets.Rdata"))
-
+load(here("output/stan/bayesian-models-for-exhibits.Rdata"))
+load(here("output/stan/bayesian-mr-models.Rdata"))
+source(here("code/functions/helpers.R"))
 source(here("code/ma_models/fit_ma_frequentist.R"))
-source(here("code/ma_models/load_bayes_ma.R"))
+
 
 # Forest plots #################################################################
 
@@ -161,7 +163,7 @@ forest <- forestplot::forestplot(
   output[, 1],
   output[, 2],
   output[, 3],
-  new_page = TRUE,
+  new_page = FALSE,
   is.summary = c(
     TRUE,
     TRUE,
@@ -193,13 +195,27 @@ forest <- forestplot::forestplot(
   hrzl_lines = list("2" = gpar(lwd = 1, columns = 1:3))
 )
 
-pdf(
-  file = here('output/figures/freq-forest.pdf'),
-  width = 5.5,
-  height = 5.5
+dev.off()
+
+png(
+  file = here('output/figures/freq-forest.png'),
+  width = 8,
+  height = 8,
+  unit = "in",
+  res = 300
 )
 
-  forest
+print(forest)
+
+dev.off()
+
+pdf(
+  file = here('output/figures/freq-forest.pdf'),
+  width = 8,
+  height = 8
+)
+
+print(forest)
 
 dev.off()
 
@@ -220,13 +236,28 @@ tabletext <-
 
 tabletext[1,] <- c("Study", "OR", "95% CI")
 
+png(
+  file = here('output/figures/bayes-forest.png'),
+  width = 8,
+  height = 8,
+  unit = "in",
+  res = 300
+)
+
+plot <- dev.cur()
+
+pdf(file = here('output/figures/bayes-forest.pdf'), 
+    width = 8, height = 8)
+
+dev.control("enable")
+
 forest <-
   forestplot::forestplot(
   tabletext,
   output2[, 1],
   output2[, 2],
   output2[, 3],
-  new_page = TRUE,
+  new_page = FALSE,
   is.summary = c(
     TRUE,
     TRUE,
@@ -258,12 +289,10 @@ forest <-
   hrzl_lines = list("2" = gpar(lwd = 1, columns = 1:3))
 )
 
-pdf(
-  file = "output/figures/bayes-forest.pdf",
-  width = 5.5,
-  height = 5.5
-)
-  forest
+print(forest)
+  
+dev.copy(which = plot)
+dev.off()
 dev.off()
 
 # Sensitivity to exclusion of shorter studies ##################################
@@ -272,7 +301,7 @@ freq_estimates_duration %>%
   ggplot(aes(x = Weeks)) +
   geom_hline(yintercept = 1,
              linetype = "dashed",
-             size = 0.5) +
+             linewidth = 0.5) +
   geom_point(aes(y = mean, colour = "Freq OR estimate")) +
   geom_line(aes(y = mean, colour = "Freq OR estimate"), linetype = "dashed") +
   geom_errorbar(
@@ -362,7 +391,7 @@ df_main_ma_adj %>%
 
 # Graphing
 df_diarrhea_prev <-
-  read_csv("https://cloud.ihme.washington.edu/s/RaFCk3p7qyNNSPT/download?path=%2F2%20-%20Data%20%5BCSV%5D%2F2%20-%20Prevalence%2F1%20-%20Under%205&files=IHME_GLOBAL_DIARRHEA_2000_2019_PREV_A1_S3_ADMIN_1_Y2020M08D31.CSV")
+  read_csv("data/raw/IHME_GLOBAL_DIARRHEA_2000_2019_PREV_A1_S3_ADMIN_1_Y2020M08D31.CSV")
 
 df_all_ma_adj_prev <- 
   df_all_ma_adj %>%
@@ -392,7 +421,7 @@ df_prev <- rbind(df_all_ma_adj_prev, df_diarrhea_prev)
 ggplot(df_prev, aes(x = mean, fill = group)) +
   geom_histogram(
     data = subset(df_prev, group == 'Studies'),
-    aes(y = ..count.., fill = group),
+    aes(y = after_stat(count), fill = group),
     alpha = 0.2,
     binwidth = 0.02,
     color = "red",
@@ -402,7 +431,7 @@ ggplot(df_prev, aes(x = mean, fill = group)) +
     data = subset(df_prev, group == 'IHME'),
     aes(y = ..density.., fill = group),
     alpha = 0.2,
-    binwidth = 0.02,
+    adjust = 1,
     color = "black",
     fill = "black"
   ) +
@@ -437,11 +466,12 @@ ggsave(
 # Comparison of included vs excluded: effect on diarrhea and compliance ########
 
 df_studies <-
-  read_rds("data/final/diarrhea_studies.rds")
+  read_rds("data/final/diarrhea_studies.rds") %>%
+  select(effect_estimate_on_diarrhea, compliance_rate, reference, included) %>%
+  unique
 
 hist_diarr_effect <- 
   df_studies %>%
-  dplyr::filter(!is.na(effect_estimate_on_diarrhea)) %>%
   ggplot(aes(x = effect_estimate_on_diarrhea)) +
   geom_histogram() +
   facet_grid(included ~ .) +
@@ -449,7 +479,8 @@ hist_diarr_effect <-
   xlab("Effect on diarrhea (OR)") +
   default_theme
 
-hist_compliance <- df_studies %>%
+hist_compliance <- 
+  df_studies %>%
   ggplot(aes(x = compliance_rate)) +
   geom_histogram() +
   facet_grid(included ~ .) +
@@ -470,46 +501,6 @@ ggsave(
   "output/figures/fig-compliance-diarr-hist.png",
   width = 14,
   height = 8,
-  units = "cm"
-)
-
-# Mortality vs. Baseline #######################################################
-
-or <- exp(effect_draw(bg_main, 1e05))
-p1 <- seq(0, .1, length = 100)
-m <- sapply(p1, function(p1) {
-  o1 <- p1 / (1 - p1)
-  o2 <- or * p1
-  p2 <- o2 / (1 + o2)
-  p2
-})
-
-t(apply(m, 2, baggr::mint, int = 0.9)) %>%
-  as.data.frame() %>%
-  setNames(c("low", "mean", "high")) %>%
-  mutate(p1 = p1) %>%
-  ggplot(aes(
-    x = p1,
-    y = mean,
-    ymax = high,
-    ymin = low
-  )) +
-  geom_line() + geom_ribbon(alpha = .2) + theme_minimal() +
-  xlab("Control group mortality rate") + ylab("Treated group mortality rate") +
-  scale_x_continuous(labels = scales::percent, limits = c(0, .11)) +
-  scale_y_continuous(labels = scales::percent, limits = c(0, .11))
-
-ggsave(
-  "output/figures/mortality-vs-baseline.pdf",
-  width = 14,
-  height = 10,
-  units = "cm"
-)
-
-ggsave(
-  "output/figures/mortality-vs-baseline.png",
-  width = 14,
-  height = 10,
   units = "cm"
 )
 

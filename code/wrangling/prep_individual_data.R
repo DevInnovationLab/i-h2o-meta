@@ -3,6 +3,7 @@ library(haven)
 library(tidyverse)
 library(digest)
 library(here)
+library(lubridate)
 
 # (0) Functions for data processing and checks =================================
 
@@ -216,6 +217,7 @@ mortality_dupas = data_dupas %>%
     childmob,
     coupon,
     wash_effect,
+    wash,
     fd_effect,
     ration_effect,
     bl_childage_years,
@@ -228,8 +230,12 @@ mortality_dupas = data_dupas %>%
          death = ifelse(is.na(death), 0, death)) %>%
   dplyr::filter(!((
     fd_effect == 1 | ration_effect == 1 |
-      wash_effect == 1
+      wash_effect == 1 | coupon == 1 #| wash == 1
   ) & coupon != 1)) %>%
+  # dplyr::filter(!(wash_effect == 1 & coupon == 1) & 
+  #                 !(ration_effect == 1 & coupon == 1) &
+  #                 !(fd_effect == 1 & coupon == 1)) %>%
+  # coupon == 1 or (fd_effect == 0 and ration_effect == 0 and wash_effect == 0)
   # group_by(id, coupon, fd_effect, ration_effect) %>% # Took out grouping by wash_effect
   group_by(child_id) %>%
   summarise(
@@ -737,20 +743,16 @@ data_reller <- data_reller %>%
 
 
 # Children <5 with no diarrhea data - no age data
-no_dair <- c(NA, 0, 12, "12487", "CC", 1, NA) %>%
-  rbind(c(NA, 0, 12, "12487", "CC", 1, NA)) %>%
-  rbind(c(NA, 0, 14, "14324", "CC", 1, NA)) %>%
-  rbind(c(NA, 1, 9, "09623", "CS", 1, NA)) %>%
-  rbind(c(NA, 1, 9, "09245", "CS", 1, NA)) %>%
-  as_tibble()
+no_dair <- 
+  tribble(
+    ~childid, ~wtreatment,  ~strata, ~clust_level, ~grupo, ~death, ~child_order, 
+    NA, 0, 12, "12487", "CC", 1, NA,
+    NA, 0, 12, "12487", "CC", 1, NA,
+    NA, 0, 14, "14324", "CC", 1, NA,
+    NA, 1, 9, "09623", "CS", 1, NA,
+    NA, 1, 9, "09245", "CS", 1, NA
+  )
 
-colnames(no_dair) <- c("childid",
-                       "wtreatment",
-                       "strata",
-                       "clust_level",
-                       "grupo",
-                       "death",
-                       "child_order")
 no_dair <- no_dair %>%
   mutate(
     wtreatment = as.numeric(wtreatment),
@@ -1099,7 +1101,7 @@ vars = c(
 )
 mortality_all <-
   lapply(mortality_all, function(x)
-    select(ungroup(x) , vars))
+    select(ungroup(x) , all_of(vars)))
 for (i in 1:length(mortality_all)) {
   # Ensure treatment indicator is not a factor
   mortality_all[[i]]$wtreatment = as.numeric(mortality_all[[i]]$wtreatment)
@@ -1141,6 +1143,6 @@ mortality_all_df %>%
       age_year
     )
   ) %>%
-  write_rds(
-    here("data/final/individual_data_anonymised.rds")
+  write_meta(
+    path_data = "data/final/individual_data_anonymised"
   )

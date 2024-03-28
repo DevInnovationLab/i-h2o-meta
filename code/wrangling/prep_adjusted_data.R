@@ -178,6 +178,18 @@ df_subsets_ma_adj <- list(
 
 # Save outputs =================================================================
 
+map(
+  c(
+    "df_main_ma_adj",
+    "df_all_ma_adj"
+  ),
+  ~ write_meta(
+    get(.),
+    meta_only = TRUE,
+    path_data = paste0("data/transformed/", .)
+  )
+)
+
 save(df_main_ma_adj,
      df_all_ma_adj,
      df_subsets_ma_adj,

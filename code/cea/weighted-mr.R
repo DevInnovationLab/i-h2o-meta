@@ -3,7 +3,7 @@
 # This code calculates a weighted average mortality rate for children under 5 
 # in low-income and lower middle-income countries as per the World Bank.
 #
-# Author: Andreas Zeniou
+# Author: Andreas Petrou-Zeniou
 #
 #------------------------------------------------------------------------------#
 #
@@ -33,9 +33,6 @@ library(here)
 
 #LA: where do these data sets come from? "all data" is not a very meaningful name
 all_data <- read_csv(here("data/raw/weighted_mr/all_data.csv"))
-
-# Drinking water data from https://washdata.org/data/household#!/table?geo0=region&geo1=sdg
-washdash_download <- read_csv(here("data/raw/weighted_mr/washdash-download.csv"))
 
 # Wash data from from https://washdata.org/data/country/WLD/household/download
 wash_data <- read_excel(here("data/raw/weighted_mr/JMP_2021_WLD.xlsx"), 'wat')
@@ -92,31 +89,6 @@ wb_regions <-
     Region
   ) 
 
-# Prepare washdash data ========================================================
-
-#LA: what's the difference between this data the and "wash" data?
-
-wash <-
-  washdash_download %>% 
-  select(
-    Country, 
-    `Service level`, 
-    Population
-  ) %>% 
-  spread(
-    `Service level`,
-    Population,
-    fill = NA,
-    convert = FALSE
-  ) %>%
-  mutate(
-    # LA: Why replacing NAs with zero ?
-    across(
-      everything(),
-      ~ replace_na(., 0)
-    )
-  )
-
 # Prepare wash data ============================================================
 
 wash_data <- 
@@ -149,7 +121,9 @@ wash_data <-
     # https://washdata.org/monitoring/drinking-water
     wat_sm_n = ((100 - wat_unimp_n / pop_n - wat_sur_n / pop_n)  / 100) * wat_sm_n / 100 * pop_n,
     wat_nsm_n = pop_n - wat_sm_n,
-    # LA: Why replacing NAs with zero ?
+    # Replace NAs with zeros, since some countries are missing water safety data
+    # in given years. Changing the value with which we replace the NAs has 
+    # essentially no impact on the final weighted_mr calculation.
     across(
       everything(),
       ~ replace_na(., 0)
@@ -247,12 +221,7 @@ joined <-
 joined <-
   joined %>%
   mutate(
-    pop_badwater = `wat_unpiped_n` + `Surface water` + `Unimproved`,
-    # LA: Why replacing NAs with zero ?
-    across(
-      everything(),
-      ~ replace_na(., 0)
-    )
+    pop_badwater = `wat_unpiped_n` + `Surface water` + `Unimproved`
   ) %>%
   rename(
     mortality = `Under-five mortality rate`
@@ -280,8 +249,6 @@ joined %>%
 # Save data ====================================================================
 
 joined %>%
-  write_rds(
-    here(
-      "data/final/mortality_rate.rds"
-    )
+  write_meta(
+    path_data = "data/final/mortality_rate"
   )

@@ -24,7 +24,7 @@ trials_to_use <- c(
   "Dupas et al., 2021 (Coupons + Free Delivery vs control)",
   "Quick et al., 1999 (Chlor + safe storage + community education vs control)",
   "Conroy et al., 1999 (SODIS vs control)",
-  "Mengistie et al. 2013 (Chlor vs control)",
+  "Mengistie et al., 2013 (Chlor vs control)",
   "Morris et al., 2018 (Filtration vs control)")
 
 # Trials that will also be used for additional sensitivity analyses 

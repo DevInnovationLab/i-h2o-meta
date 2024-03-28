@@ -12,6 +12,11 @@ df_diarrhea <-
     here(
       "data/final/diarrhea_studies.rds"
     )
+  ) %>%
+  dplyr::filter( 
+    !is.na(ln_RR),
+    !is.na(se_imp), 
+    !is.infinite(se_imp)
   )
 
 df_diarrhea_chlor = 
@@ -39,10 +44,8 @@ bias_chlorine_fit = metabias(chlorine_fit)
 # Mortality reporting vs. diarrhea prevalence, z-values ------------------------
 
 mr_rep_df <- 
-  read_xlsx(
-    here("data/raw/diarrhea_studies.xlsx"), 
-    sheet = 1, 
-    skip = 3
+  read_csv(
+    here("data/raw/diarrhea_studies.csv")
   ) %>% 
   mutate(
     z_I = ifelse(`upper 95% confidence interval` <= 1, 1, 0)

@@ -1,12 +1,15 @@
+# Calculate and plot cost per DALY averted as a function of OR 
+# This is used in Supplement Section 7
+
 set.seed(1990)
 
-load(here("data/transformed/ma_datasets.Rdata"))
+# load(here("data/transformed/ma_datasets.Rdata"))
 # Main Bayesian model is used for these calculations
 source(here("code/cea/cea-setup.R"))
 
 
 
-# Calculate and plot cost per DALY averted as a function of OR -----
+
 
 # Calculate USD/DALY saved cost for a given OR, 
 # for each of the three methods we use
@@ -17,26 +20,12 @@ calculate_daly_cost <- function(x) {
   )
 }
 
-# Calculation
+# Calculation itself
 x <- seq(.7, .99, .001)
 y <- sapply(x, calculate_daly_cost) %>% t()
 df_cost <- as.data.frame(y) %>% mutate(effect = x)
 
-# Find value of OR at which we do not exceed particular cost -----
-cost_cutoff <- 200 #200 USD per DALY
-or_required_for_200daly <- apply(y, 2, function(z) 
-  max(x[which(z < cost_cutoff)]))
-
-# What kind of weight would you have to have on the "linear" model
-or_m1 <- (oeb(bg_main)[["mean"]])
-or_m2 <- (1 - linear_model_reduction)
-or_avg <- (or_required_for_200daly)
-weights_required_for_200daly <- (or_avg - or_m2)/(or_m1 - or_m2)
-
-or_required_for_200daly %>% round(3) %>% print()
-weights_required_for_200daly %>% round(2) %>% print()
-
-# Plot this -----
+# Plot this 
 df_cost %>% 
   # mutate(relative_prec = (1/(sd^2))/bg_prec) %>% 
   # mutate(weight = (1/(sd^2))/(bg_prec + (1/(sd^2)))) %>% 
@@ -51,10 +40,34 @@ df_cost %>%
   theme(legend.position = "bottom") +
   scale_color_discrete(name = "Cost-effectiveness of ...")
 
+ggsave(
+  "output/figures/cea_or_relationship.pdf",
+  width = 14,
+  height = 10,
+  units = "cm"
+)
 
+ggsave(
+  "output/figures/cea_or_relationship.png",
+  width = 14,
+  height = 10,
+  units = "cm"
+)
 
+# Find value of OR at which we do not exceed particular cost
+cost_cutoff <- 200 #200 USD per DALY is our default
+or_required_for_daly <- apply(y, 2, function(z) 
+  max(x[which(z < cost_cutoff)]))
 
+# What kind of weight would you have to have on the "linear" model
+or_m1 <- (oeb(bg_main)[["mean"]])
+or_m2 <- (1 - linear_model_reduction)
+or_avg <- (or_required_for_daly)
+weights_required_for_daly <- (or_avg - or_m2)/(or_m1 - or_m2)
 
+or_required_for_daly %>% round(3) %>% print()
+
+weights_required_for_daly %>% round(2) %>% print()
 
 
 
@@ -70,6 +83,7 @@ hypermeans <- lapply(bg_priors, function(x) treatment_effect(x, s=T)[[1]])
 hypersds <- lapply(bg_priors, function(x) treatment_effect(x, s=T)[[2]])
 ppds <- lapply(bg_priors, function(x) effect_draw(x, s=T))
 
+# This plot is not used in the paper currently
 rbind(
   bind_rows(hypermeans, .id = "prior") %>% mutate(stat = "b) Posterior: mean effect in 15 studies"),
   bind_rows(hypersds, .id = "prior") %>% mutate(stat = "c) Posterior: Heterogeneity (hyper-SD) in 15 studies"),
@@ -85,7 +99,7 @@ rbind(
                lci = log(1-linear_model_reduction) - 1.96*sds_prior, 
                mean = log(1-linear_model_reduction), 
                uci = log(1-linear_model_reduction) + 1.96*sds_prior, 
-               median=NA, stat = "a) Prior")
+               median=NA, stat = "a) Prior on effect's SD")
   ) %>% 
   ggplot(aes(x = mean, xmin = lci, xmax = uci, y = prior)) +
   geom_point() + geom_errorbarh() + facet_wrap(~stat) +
@@ -111,8 +125,7 @@ mean_effect_sizes
 
 precision_main_model <- 1/var(treatment_effect(bg_main)[[1]])
 
-# What weight on prior does this imply?
-sapply(or_required_for_200daly, function(or) {
+precision_result <- sapply(or_required_for_daly, function(or) {
   p <- mean_effect_sizes %>% 
     dplyr::filter(mean <= or) %>% 
     pull(prior) %>% as.numeric() %>% 
@@ -133,3 +146,8 @@ sapply(or_required_for_200daly, function(or) {
     precision_alt_model/precision_main_model
   )
 })
+
+precision_result
+
+# What weight on prior does this imply?
+precision_result[7,]

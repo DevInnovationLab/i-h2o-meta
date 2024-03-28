@@ -43,10 +43,9 @@ impute_se = function(ci_data, bound) {
 # Import data ------------------------------------------------------------------
 
 df_studies <- 
-  read_xlsx(
-    "data/raw/diarrhea_studies.xlsx",
-    sheet = "Sheet 1 - diarrhea_studies", 
-    skip = 3
+  read_csv(
+    here("data/raw/diarrhea_studies.csv"),
+    locale = locale(encoding = "latin1")
   )
 
 # Cleaning up ------------------------------------------------------------------
@@ -57,16 +56,21 @@ df_studies <-
   mutate(
     upper_95_percent_confidence_interval = 
       as.numeric(upper_95_percent_confidence_interval),
-    across(
-      compliance_rate,
-      ~ ifelse(
-        . %in% c("not reported", "Not reported", "NA"), NA, .
-        ) %>%
-        as.numeric
-    ),
+    compliance_rate =
+      ifelse(
+        compliance_rate %in% c("not reported", "Not reported", "NA"), 
+        NA, 
+        compliance_rate
+      ) %>%
+      str_remove_all("%") %>%
+      as.numeric,
     included = ifelse(is.na(included), "Excluded", "Included"),
     included_dummy = ifelse(included == "Excluded", 0, 1),
-    setting = ifelse(setting == "rural, urban, rural", "mixed", setting)
+    setting = ifelse(
+      setting == "rural, urban, rural", 
+      "mixed", 
+      str_to_lower(setting)
+    )
   )
 
 # Grouping interventions -------------------------------------------------------
@@ -91,26 +95,17 @@ df_studies <-
     se_imp_lower = impute_se(., bound = "lower"),
     se_imp = (se_imp_upper + se_imp_lower)/2, 
     ln_RR = log(effect_estimate_on_diarrhea),
-    chlor = str_detect(intervention, "chlor")
+    chlor = str_detect(intervention, "chlor"),
+    rural = setting == "rural",
+    intervention_group = ifelse(is.na(intervention_group), "Spring protection", intervention_group),
+    unimproved = baseline_water_water_in_control_group == "unimproved",
+    chlorination = intervention_group  == "Chlorination",
+    filtration = intervention_group == "Filtration",
+    community = intervention_group == "Community improved water supply"
   ) %>%
   group_by(shorthand_ref) %>%
-  mutate(tmp_id = 1:n()) %>%
-  ungroup() %>%
-  # Remove study with point estimate outside its own CI
-  mutate(shorthand_ref = paste0(shorthand_ref, "-", tmp_id)) %>%
-  dplyr::filter(
-    !str_detect(
-      reference,
-      ". H. Humphrey, M. N. N. Mbuya, R. Ntozini, L. H. Moulton," 
-    )
-  ) %>%
-  select(-tmp_id) %>%
-  dplyr::filter( 
-    !is.na(ln_RR),
-    !is.na(se_imp), 
-    !is.infinite(se_imp)
-  ) %>% 
-  mutate(study_number = 1:n())
+  mutate(shorthand_ref = paste0(shorthand_ref, "-", rank(shorthand_ref))) %>%
+  ungroup() 
 
 # Add income group -------------------------------------------------------------
 
@@ -138,9 +133,28 @@ df_studies <-
   ) %>%
   left_join(income)
 
+# Are studies present in Wolf et al (2018)? -----------------------------------
+
+wolf <-
+  read_xlsx(
+    here("data/raw/tmi13051-sup-0003-appendixs3.xlsx"),
+    sheet = "water_studies", 
+    skip = 2
+  ) %>%
+  mutate(
+    reference =
+      reference %>%
+      str_replace_all("–", "-") %>%
+      str_replace_all("’", "'")
+  )
+
+df_studies <-
+  df_studies %>%
+  mutate(in_wolf_et_al = reference %in% wolf$reference)
+
 # Save data --------------------------------------------------------------------
 
 df_studies %>%
-  write_rds(
-    "data/final/diarrhea_studies.rds"
+  write_meta(
+    path_data = "data/final/diarrhea_studies"
   )

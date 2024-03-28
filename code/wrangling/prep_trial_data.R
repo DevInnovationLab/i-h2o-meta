@@ -46,6 +46,20 @@ df_ind_cluster <-
 
 # Save data --------------------------------------------------------------------
 
+map(
+  c(
+    "df_all_ma",
+    "df_main_ma",
+    "df_cluster",
+    "df_ind_cluster"
+  ),
+  ~ write_meta(
+    get(.),
+    meta_only = TRUE,
+    path_data = paste0("data/transformed/", .)
+  )
+)
+
 save(
   df_all_ma,
   df_main_ma,

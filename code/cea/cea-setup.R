@@ -6,11 +6,14 @@ load(here("data/final/ma_datasets.Rdata"))
 
 # Main Bayesian model is used for these calculations
 # as well as m-a-weighted compliance
-source(here("code/ma_models/load_bayes_ma.R"))
+load(here("output/stan/bayesian-models-for-exhibits.Rdata"))
 
-# default_takeup <- 0.59 #in the old meta-analysis, Jul 2023 update should have ~0.60:
-default_takeup <- summarise_prevalence_compliance$compliance1 #see load_bayes_ma.R
-default_or_ppd <- effect_draw(bg_main, draws = 1e06, transform=exp)
+# default_takeup <- 0.59 #in the old meta-analysis, updated since
+default_takeup_trt  <- summarise_prevalence_compliance$compliance1 #see load_bayes_ma.R
+default_takeup_ctrl <- summarise_prevalence_compliance$tkup_ctrl1 
+default_takeup <- default_takeup_trt - default_takeup_ctrl
+
+default_or_ppd <- mean(bg_main_or_ppd)
 
 # GDP per capita
 # https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD?locations=KE-IN
@@ -28,12 +31,14 @@ gdp_pc_nominal <- c("coupons" = 2217, #calculated by Andreas P-Z
 
 # 27 Sep 2023 we decided to go with nominal for this version of the paper
 default_gdp_pc <- gdp_pc_nominal
+gdp_multiplier <- 1
 
 # Helper function that calculates cost per DALY -----
 cea_v2 <- function(x, #either a baggr object, draws of ORs or RRs (see code)
                    p1, #<5y mortality rate in untreated
                    tkup, #takeup rate for the intervention 
                    cost, #cost of provision PER YEAR per household with <5 yo child
+                   tkup_ctrl = 0, #takeup in control arm
                    u5_per_hh = 1,
                    years = 5,
                    result = "single",
@@ -59,9 +64,14 @@ cea_v2 <- function(x, #either a baggr object, draws of ORs or RRs (see code)
   }
   
   # What proportion of population will avoid death when trt introduced?
-  takeup_rate <- tkup / default_takeup
+  # takeup_rate <- tkup / default_takeup
+  # Some people in control arm may use intervention, hence this adjustment
+  # (this does not work linearly, but for small tkup_ctrl it's close, so okay
+  #  to keep it simple like this)
+  effective_takeup_rate <- (tkup - tkup_ctrl)/default_takeup
+  
   # Reduction scales proportionally to relative take-up
-  reduction <- takeup_rate*p1*(1-rr)
+  reduction <- effective_takeup_rate*p1*(1-rr)
   # What is cost of the program, total, per household?
   total_cost <- years*cost
   cost_per_u5 <- total_cost / u5_per_hh
@@ -70,13 +80,13 @@ cea_v2 <- function(x, #either a baggr object, draws of ORs or RRs (see code)
   daly_reduction <- daly_lost*reduction
   
   # Assume that the value of life of 3xGDP
-  net_benefits <- mean(daly_reduction) * gdp_pc * 3 - cost_per_u5
+  net_benefits <- mean(daly_reduction) * gdp_pc * gdp_multiplier - cost_per_u5
   tab <- list(
     or = round(mean(exp(x)), 3),
     rr = round(mean(rr), 2),
     p1 = round(100*p1, 1),
     t_ma = default_takeup %>% round(2),
-    tkup = tkup,
+    effective_tkup = (tkup - tkup_ctrl) %>% round(2),
     reduction = round(mean(reduction), 4),
     daly_reduction = round(mean(daly_reduction), 2),
     cost = round(cost_per_u5, 1),
@@ -95,12 +105,19 @@ cea_v2 <- function(x, #either a baggr object, draws of ORs or RRs (see code)
 
 # Default settings for 3 cases: DSW, ILC, coupons
 
+# Cost of DSW
+# dsw_cost <- 9.1 #old assumption
+# instead: data here:
+# https://docs.google.com/spreadsheets/d/1yjVpBgZZhp5IANmGBD7yQ69203yKlR10pKEoDugdLMk/edit#gid=965674898
+dsw_cost <- 161.64 / 14.4
+
 # DSW
 cea_dsw <- function(or) cea_v2(result = "table", 
                                x=or, 
                                p1=.0692, 
-                               tkup=0.51, 
-                               cost=9.1, 
+                               tkup=0.438,
+                               tkup_ctrl = 0.083,
+                               cost=dsw_cost, 
                                u5_per_hh=1,
                                gdp_pc=default_gdp_pc[["dsw"]])
 
@@ -117,7 +134,8 @@ cea_dsw <- function(or) cea_v2(result = "table",
 cea_ilc <- function(or) cea_v2(result = "table", 
                                x = or, 
                                p1 = 0.039, 
-                               tkup = 0.8, #Pickering et al 
+                               tkup = 0.75, #Pickering et al 
+                               tkup_ctrl = 0.06,
                                cost = 59.57/5, 
                                u5_per_hh=1, #The calculation works differently, so we set it to 1
                                gdp_pc=default_gdp_pc[["ilc"]])
@@ -145,7 +163,8 @@ cost_vouchers <- 0.3 * 12 * 0.37 * 1.5 * 2 #/1.58 done inside the function (u5_p
 cea_cou <- function(or) cea_v2(result = "table", 
                                x = or, 
                                p1 = u5_mr$avg_mortality_rate, 
-                               tkup = 0.32, 
+                               tkup = 0.3, 
+                               tkup_ctrl = 0.04,
                                cost = cost_vouchers,
                                u5_per_hh=u5_per_hh_coupons[["x"]], 
                                gdp_pc=default_gdp_pc[["coupons"]])

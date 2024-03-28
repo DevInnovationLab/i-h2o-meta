@@ -5,22 +5,21 @@
 # - data/raw/diarrhea_studies.xlsx
 # - data/raw/weighted_mr/CLASS.xlsx
 # Outputs: data/final/diarrhea_studies.rds
-## Requires access to proprietary data
-# source("code/wrangling/clean_studies_list.R")
+source("code/wrangling/clean_studies_list.R")
 
 ## Processes data from studies with individual-level data ----------------------
 ## (requires access to PII)
 
 # Inputs: files in data/raw/mortality_counts
 # Outputs: data/final/individual_data_anonymised.rds
-# source("code/wrangling/prep_individual_data.R")
+source("code/wrangling/prep_individual_data.R")
 
 # Inputs:
 # - data/raw/summary_data.csv
 # - data/final/individual_data_anonymised.rds
 # - data/raw/weighted_mr/CLASS.xlsx
 # Outputs: data/transformed/trials.Rda
-# source("code/wrangling/prep_trial_data.R")
+source("code/wrangling/prep_trial_data.R")
 
 ## Study-level modeling of odds ratios -----------------------------------------
 ## (with corrections for clustering where needed)
@@ -50,16 +49,14 @@ source("code/wrangling/prep_adjusted_data.R")
 # Outputs:
 # - data/transformed/weighted_u5_mr.csv
 # - data/final/mortality_rate.rds
-## Requires access to proprietary data
-# source("code/cea/weighted-mr.R")
+source("code/cea/weighted-mr.R")
 
 # Inputs:
 # - data/raw/u5-per-hh/idhs_00001.xml
 # - data/raw/u5-per-hh/idhs_00001.dat.gz (needs to be unpacked before running the code)
 # - data/raw/u5-per-hh/un-country-codes.csv
 # Outputs: data/transformed/u5-per-hh.csv
-## Requires access to proprietary data
-# source("code/cea/u5-per-hh.R") # Sometimes breaks when running from the main script, in which case opening the R file directly should work
+source("code/cea/u5-per-hh.R") # Sometimes breaks when running from the main script, in which case opening the R file directly should work
 
 # Meta analysis models =========================================================
 
@@ -73,11 +70,12 @@ source("code/wrangling/prep_adjusted_data.R")
 source("code/ma_models/fit_ma_bayes.R")
 
 ## Prepare Bayesian models for plots and tables --------------------------------
-# (This code is called directly in the output scripts)
 # Inputs: 
 # - output/stan/bayesian-ma-models.Rdata
 # - output/stan/bayesian-mr-models.Rdata
-# source("code/ma_models/load_bayes_ma.R")
+# Output:
+# - output/stan/bayesian-models-for-exhibits.Rdata
+source("code/ma_models/load_bayes_ma.R")
 
 ## Fit frequentist models ------------------------------------------------------
 # (This code is called directly in the output scripts)
@@ -89,13 +87,13 @@ source("code/ma_models/fit_ma_bayes.R")
 ## Output all paper figures ----------------------------------------------------
 
 # Inputs:
+# - data/final/ma_datasets.Rdata
 # - output/stan/bayesian-models-for-exhibits.Rdata
-# - output/stan/freq-models-for-exhibits.Rdata
 # - data/raw/IHME_GLOBAL_DIARRHEA_2000_2019_PREV_A1_S3_ADMIN_1_Y2020M08D31.CSV
 # - data/final/diarrhea_studies.rds
 # Outputs:
-# - output/figures/freq-forest.png
-# - output/figures/bayes-forest.png
+# - output/figures/freq-forest
+# - output/figures/bayes-forest
 # - output/figures/ma-week-plot
 # - output/figures/funnel
 # - output/figures/bubble-plot-year
@@ -114,6 +112,7 @@ source("code/generate_outputs/generate_figures.R")
 # - output/tables/freq-bayes-summary-mortality.csv
 # - output/tables/table-loo-study.csv
 # - output/tables/additional-sa-results.csv
+# - output/tables/mortality_all_summary.csv
 source("code/generate_outputs/generate_tables.R")
 
 ## Output cost-effectiveness analysis results ----------------------------------
@@ -130,3 +129,18 @@ source("code/generate_outputs/generate_tables.R")
 # - output/tables/table-cea-summary.csv
 # - output/tables/cea-global-benefits.csv
 source("code/generate_outputs/generate_cea_results.R")
+
+# Additional analysis for Section 7 of the supplement
+# (generates both a plot and some numbers cited in the text)
+# Inputs:
+# - code/cea/cea-setup.R
+# Outputs:
+# - output/figures/cea_or_relationship.pdf
+source("code/cea/cea-priors.R")
+
+## Numbers in text -------------------------------------------------------------
+
+rmarkdown::render(
+  here::here('code/generate_outputs/generate_text.Rmd'), 
+  output_file = here::here('output/numbers-in-text.html')
+)
