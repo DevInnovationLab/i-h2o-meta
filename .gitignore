@@ -20,4 +20,4 @@ old/
 **/**/data/raw/mortality_counts/
 **/**/data/raw/IHME_GLOBAL_DIARRHEA_2000_2019_PREV_A1_S3_ADMIN_1_Y2020M08D31.CSV
 **/**/idhs_00001.*
-**/**/data/raw/weighted_mr/
+**/**/data/raw/weighted_mr/all_data.csv

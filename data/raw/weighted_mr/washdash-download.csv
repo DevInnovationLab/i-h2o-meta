@@ -1,0 +1,992 @@
+ISO3,Country,Residence Type,Service Type,Year,Coverage,Population,Service level
+AFG,Afghanistan,total,Drinking water,2017,67.06462,23828117.03559,At least basic
+AFG,Afghanistan,total,Drinking water,2017,3.17404,1127740.68685,Limited service
+AFG,Afghanistan,total,Drinking water,2017,10.87738,3864742.13848,Surface water
+AFG,Afghanistan,total,Drinking water,2017,18.88395,6709484.13908,Unimproved
+AGO,Angola,total,Drinking water,2017,55.8429,16632359.12238,At least basic
+AGO,Angola,total,Drinking water,2017,9.97566,2971171.4084,Limited service
+AGO,Angola,total,Drinking water,2017,15.38629,4582682.06561,Surface water
+AGO,Angola,total,Drinking water,2017,18.79514,5597981.4036,Unimproved
+AIA,Anguilla,total,Drinking water,2017,97.48227,14533.63227,At least basic
+AIA,Anguilla,total,Drinking water,2017,0,0,Limited service
+AIA,Anguilla,total,Drinking water,2017,0,0,Surface water
+AIA,Anguilla,total,Drinking water,2017,2.51773,375.36773,Unimproved
+ALB,Albania,total,Drinking water,2017,21.01608,615810.38046,Basic service
+ALB,Albania,total,Drinking water,2017,5.1252,150178.08329,Limited service
+ALB,Albania,total,Drinking water,2017,70.02315,2051809.23355,Safely managed service
+ALB,Albania,total,Drinking water,2017,0,0,Surface water
+ALB,Albania,total,Drinking water,2017,3.83557,112389.30269,Unimproved
+AND,Andorra,total,Drinking water,2017,9.36,7203.92373,Basic service
+AND,Andorra,total,Drinking water,2017,0,0,Limited service
+AND,Andorra,total,Drinking water,2017,90.64,69761.07341,Safely managed service
+AND,Andorra,total,Drinking water,2017,0,0,Surface water
+AND,Andorra,total,Drinking water,2017,0,0.00286,Unimproved
+ARE,United Arab Emirates,total,Drinking water,2017,98.04551,9216419.78238,At least basic
+ARE,United Arab Emirates,total,Drinking water,2017,1.90775,179331.18657,Limited service
+ARE,United Arab Emirates,total,Drinking water,2017,0,0,Surface water
+ARE,United Arab Emirates,total,Drinking water,2017,0.04674,4394.03105,Unimproved
+ARM,Armenia,total,Drinking water,2017,13.43702,393765.20199,Basic service
+ARM,Armenia,total,Drinking water,2017,0,0,Limited service
+ARM,Armenia,total,Drinking water,2017,86.47635,2534146.34074,Safely managed service
+ARM,Armenia,total,Drinking water,2017,0,0,Surface water
+ARM,Armenia,total,Drinking water,2017,0.08662,2538.45727,Unimproved
+ASM,American Samoa,total,Drinking water,2017,87.19869,48518.2223,Basic service
+ASM,American Samoa,total,Drinking water,2017,0,0,Limited service
+ASM,American Samoa,total,Drinking water,2017,12.57508,6996.90199,Safely managed service
+ASM,American Samoa,total,Drinking water,2017,0,0,Surface water
+ASM,American Samoa,total,Drinking water,2017,0.22623,125.87571,Unimproved
+ATG,Antigua and Barbuda,total,Drinking water,2017,96.73919,98685.5787,At least basic
+ATG,Antigua and Barbuda,total,Drinking water,2017,0,0,Limited service
+ATG,Antigua and Barbuda,total,Drinking water,2017,0.09447,96.36677,Surface water
+ATG,Antigua and Barbuda,total,Drinking water,2017,3.16635,3230.05452,Unimproved
+AUS,Australia,total,Drinking water,2017,99.96994,24443209.08503,At least basic
+AUS,Australia,total,Drinking water,2017,0,0,Limited service
+AUS,Australia,total,Drinking water,2017,0,0,Surface water
+AUS,Australia,total,Drinking water,2017,0.03006,7350.91497,Unimproved
+AUT,Austria,total,Drinking water,2017,1.0938,95548.2999,Basic service
+AUT,Austria,total,Drinking water,2017,0,0,Limited service
+AUT,Austria,total,Drinking water,2017,98.9062,8639904.7001,Safely managed service
+AUT,Austria,total,Drinking water,2017,0,0,Surface water
+AUT,Austria,total,Drinking water,2017,0,0,Unimproved
+AZE,Azerbaijan,total,Drinking water,2017,17.82141,1751414.7805,Basic service
+AZE,Azerbaijan,total,Drinking water,2017,2.74442,269710.78386,Limited service
+AZE,Azerbaijan,total,Drinking water,2017,73.56433,7229600.14578,Safely managed service
+AZE,Azerbaijan,total,Drinking water,2017,0.97195,95519.11031,Surface water
+AZE,Azerbaijan,total,Drinking water,2017,4.89789,481344.17956,Unimproved
+BDI,Burundi,total,Drinking water,2017,60.83055,6608779.86962,At least basic
+BDI,Burundi,total,Drinking water,2017,19.51628,2120296.63042,Limited service
+BDI,Burundi,total,Drinking water,2017,4.77332,518585.23254,Surface water
+BDI,Burundi,total,Drinking water,2017,14.87985,1616583.26742,Unimproved
+BEL,Belgium,total,Drinking water,2017,0.47681,54496.71456,Basic service
+BEL,Belgium,total,Drinking water,2017,0,0,Limited service
+BEL,Belgium,total,Drinking water,2017,99.52319,11374839.66691,Safely managed service
+BEL,Belgium,total,Drinking water,2017,0,0,Surface water
+BEL,Belgium,total,Drinking water,2017,0,0,Unimproved
+BEN,Benin,total,Drinking water,2017,66.41473,7422305.14644,At least basic
+BEN,Benin,total,Drinking water,2017,9.999,1117457.17533,Limited service
+BEN,Benin,total,Drinking water,2017,3.78229,422697.35522,Surface water
+BEN,Benin,total,Drinking water,2017,19.80398,2213232.32302,Unimproved
+BFA,Burkina Faso,total,Drinking water,2017,47.88813,9191351.21268,At least basic
+BFA,Burkina Faso,total,Drinking water,2017,27.75663,5327436.72568,Limited service
+BFA,Burkina Faso,total,Drinking water,2017,1.28714,247045.20815,Surface water
+BFA,Burkina Faso,total,Drinking water,2017,23.0681,4427548.85349,Unimproved
+BGD,Bangladesh,total,Drinking water,2017,41.57478,68461082.4409,Basic service
+BGD,Bangladesh,total,Drinking water,2017,1.54385,2542246.01298,Limited service
+BGD,Bangladesh,total,Drinking water,2017,55.44123,91294925.57174,Safely managed service
+BGD,Bangladesh,total,Drinking water,2017,0.93236,1535307.6122,Surface water
+BGD,Bangladesh,total,Drinking water,2017,0.50779,836182.36219,Unimproved
+BGR,Bulgaria,total,Drinking water,2017,2.16241,153197.30388,Basic service
+BGR,Bulgaria,total,Drinking water,2017,0,0,Limited service
+BGR,Bulgaria,total,Drinking water,2017,96.94594,6868203.61047,Safely managed service
+BGR,Bulgaria,total,Drinking water,2017,0.89166,63170.08565,Unimproved
+BHR,Bahrain,total,Drinking water,2017,1.01674,15175.66684,Basic service
+BHR,Bahrain,total,Drinking water,2017,0,0,Limited service
+BHR,Bahrain,total,Drinking water,2017,98.98326,1477408.33316,Safely managed service
+BHR,Bahrain,total,Drinking water,2017,0,0,Surface water
+BHR,Bahrain,total,Drinking water,2017,0,0,Unimproved
+BHS,Bahamas,total,Drinking water,2017,98.88696,390960.47589,At least basic
+BHS,Bahamas,total,Drinking water,2017,0,0,Limited service
+BHS,Bahamas,total,Drinking water,2017,0,0,Surface water
+BHS,Bahamas,total,Drinking water,2017,1.11304,4400.52411,Unimproved
+BIH,Bosnia and Herzegovina,total,Drinking water,2017,7.30046,256028.41482,Basic service
+BIH,Bosnia and Herzegovina,total,Drinking water,2017,3.79666,133149.60381,Limited service
+BIH,Bosnia and Herzegovina,total,Drinking water,2017,88.84189,3115700.35728,Safely managed service
+BIH,Bosnia and Herzegovina,total,Drinking water,2017,0,0,Surface water
+BIH,Bosnia and Herzegovina,total,Drinking water,2017,0.06098,2138.62409,Unimproved
+BLR,Belarus,total,Drinking water,2017,1.96258,185823.79188,Basic service
+BLR,Belarus,total,Drinking water,2017,3.33006,315301.41649,Limited service
+BLR,Belarus,total,Drinking water,2017,94.52139,8949604.71603,Safely managed service
+BLR,Belarus,total,Drinking water,2017,0,0,Surface water
+BLR,Belarus,total,Drinking water,2017,0.18597,17608.07561,Unimproved
+BLZ,Belize,total,Drinking water,2017,97.99258,367159.57787,At least basic
+BLZ,Belize,total,Drinking water,2017,1.24272,4656.21946,Limited service
+BLZ,Belize,total,Drinking water,2017,0,0,Surface water
+BLZ,Belize,total,Drinking water,2017,0.7647,2865.20267,Unimproved
+BMU,Bermuda,total,Drinking water,2017,99.90314,61289.57737,At least basic
+BMU,Bermuda,total,Drinking water,2017,0,0,Limited service
+BMU,Bermuda,total,Drinking water,2017,0,0,Surface water
+BMU,Bermuda,total,Drinking water,2017,0.09686,59.42263,Unimproved
+BOL,Bolivia (Plurinational State of),total,Drinking water,2017,92.84874,10261270.81708,At least basic
+BOL,Bolivia (Plurinational State of),total,Drinking water,2017,0.08235,9100.96079,Limited service
+BOL,Bolivia (Plurinational State of),total,Drinking water,2017,5.47328,604884.84734,Surface water
+BOL,Bolivia (Plurinational State of),total,Drinking water,2017,1.59564,176343.3748,Unimproved
+BRA,Brazil,total,Drinking water,2017,98.19339,205507270.45777,At least basic
+BRA,Brazil,total,Drinking water,2017,0.2523,528040.16606,Limited service
+BRA,Brazil,total,Drinking water,2017,1.55431,3252983.23554,Unimproved
+BRB,Barbados,total,Drinking water,2017,98.49445,281417.35068,At least basic
+BRB,Barbados,total,Drinking water,2017,0.26755,764.43045,Limited service
+BRB,Barbados,total,Drinking water,2017,0,0,Surface water
+BRB,Barbados,total,Drinking water,2017,1.23801,3537.21887,Unimproved
+BRN,Brunei Darussalam,total,Drinking water,2017,99.90001,428268.34197,At least basic
+BRN,Brunei Darussalam,total,Drinking water,2017,0,0,Limited service
+BRN,Brunei Darussalam,total,Drinking water,2017,0,0,Surface water
+BRN,Brunei Darussalam,total,Drinking water,2017,0.09999,428.65803,Unimproved
+BTN,Bhutan,total,Drinking water,2017,61.07027,493209.62584,Basic service
+BTN,Bhutan,total,Drinking water,2017,2.50105,20198.76782,Limited service
+BTN,Bhutan,total,Drinking water,2017,36.16311,292056.90132,Safely managed service
+BTN,Bhutan,total,Drinking water,2017,0.0246,198.69435,Surface water
+BTN,Bhutan,total,Drinking water,2017,0.24096,1946.01067,Unimproved
+BWA,Botswana,total,Drinking water,2017,90.33771,2070234.14535,At least basic
+BWA,Botswana,total,Drinking water,2017,6.58047,150802.11815,Limited service
+BWA,Botswana,total,Drinking water,2017,1.49901,34352.21304,Surface water
+BWA,Botswana,total,Drinking water,2017,1.5828,36272.52346,Unimproved
+CAN,Canada,total,Drinking water,2017,0.57539,210731.99763,Basic service
+CAN,Canada,total,Drinking water,2017,0,0,Limited service
+CAN,Canada,total,Drinking water,2017,98.86085,36206996.90849,Safely managed service
+CAN,Canada,total,Drinking water,2017,0,0,Surface water
+CAN,Canada,total,Drinking water,2017,0.56376,206471.09388,Unimproved
+CHE,Switzerland,total,Drinking water,2017,4.54459,385200.07616,Basic service
+CHE,Switzerland,total,Drinking water,2017,0,0,Limited service
+CHE,Switzerland,total,Drinking water,2017,95.45541,8090805.16798,Safely managed service
+CHE,Switzerland,total,Drinking water,2017,0,0,Surface water
+CHE,Switzerland,total,Drinking water,2017,0,0,Unimproved
+CHI,Channel Islands,total,Drinking water,2017,2.175,3595.5795,Basic service
+CHI,Channel Islands,total,Drinking water,2017,0,0,Limited service
+CHI,Channel Islands,total,Drinking water,2017,91.975,152047.5515,Safely managed service
+CHI,Channel Islands,total,Drinking water,2017,0,0,Surface water
+CHI,Channel Islands,total,Drinking water,2017,5.85,9670.869,Unimproved
+CHL,Chile,total,Drinking water,2017,1.19362,215505.08625,Basic service
+CHL,Chile,total,Drinking water,2017,0,0,Limited service
+CHL,Chile,total,Drinking water,2017,98.63917,17809031.82277,Safely managed service
+CHL,Chile,total,Drinking water,2017,0,0,Surface water
+CHL,Chile,total,Drinking water,2017,0.16721,30189.09098,Unimproved
+CHN,China,total,Drinking water,2017,92.84614,1308682353.57824,At least basic
+CHN,China,total,Drinking water,2017,0.83318,11743766.11689,Limited service
+CHN,China,total,Drinking water,2017,0.43096,6074494.73431,Surface water
+CHN,China,total,Drinking water,2017,5.88973,83016697.57056,Unimproved
+CIV,Côte d'Ivoire,total,Drinking water,2017,36.31984,8823814.99076,Basic service
+CIV,Côte d'Ivoire,total,Drinking water,2017,6.30697,1532263.3681,Limited service
+CIV,Côte d'Ivoire,total,Drinking water,2017,36.5491,8879513.37448,Safely managed service
+CIV,Côte d'Ivoire,total,Drinking water,2017,5.74032,1394596.11859,Surface water
+CIV,Côte d'Ivoire,total,Drinking water,2017,15.08376,3664562.14808,Unimproved
+CMR,Cameroon,total,Drinking water,2017,60.38486,14524809.71937,At least basic
+CMR,Cameroon,total,Drinking water,2017,16.15112,3884945.97008,Limited service
+CMR,Cameroon,total,Drinking water,2017,7.33276,1763801.57143,Surface water
+CMR,Cameroon,total,Drinking water,2017,16.13126,3880168.73912,Unimproved
+COD,Democratic Republic of the Congo,total,Drinking water,2017,43.24332,35174111.22832,At least basic
+COD,Democratic Republic of the Congo,total,Drinking water,2017,11.94991,9720053.54658,Limited service
+COD,Democratic Republic of the Congo,total,Drinking water,2017,9.2085,7490192.00787,Surface water
+COD,Democratic Republic of the Congo,total,Drinking water,2017,35.59827,28955627.21723,Unimproved
+COG,Congo,total,Drinking water,2017,27.86295,1465800.03169,Basic service
+COG,Congo,total,Drinking water,2017,10.46463,550518.06168,Limited service
+COG,Congo,total,Drinking water,2017,45.35481,2386003.32875,Safely managed service
+COG,Congo,total,Drinking water,2017,6.45857,339769.45409,Surface water
+COG,Congo,total,Drinking water,2017,9.85903,518659.1238,Unimproved
+COK,Cook Islands,total,Drinking water,2017,99.8796,17359.07454,At least basic
+COK,Cook Islands,total,Drinking water,2017,0,0,Limited service
+COK,Cook Islands,total,Drinking water,2017,0,0,Surface water
+COK,Cook Islands,total,Drinking water,2017,0.1204,20.92546,Unimproved
+COL,Colombia,total,Drinking water,2017,24.06668,11808465.72775,Basic service
+COL,Colombia,total,Drinking water,2017,0.19218,94293.40344,Limited service
+COL,Colombia,total,Drinking water,2017,73.23343,35932428.52898,Safely managed service
+COL,Colombia,total,Drinking water,2017,1.6727,820719.82712,Surface water
+COL,Colombia,total,Drinking water,2017,0.83501,409704.51272,Unimproved
+COM,Comoros,total,Drinking water,2017,80.16752,652493.03992,At least basic
+COM,Comoros,total,Drinking water,2017,10.86964,88469.30161,Limited service
+COM,Comoros,total,Drinking water,2017,0.59442,4838.06031,Surface water
+COM,Comoros,total,Drinking water,2017,8.36842,68111.59816,Unimproved
+CPV,Cabo Verde,total,Drinking water,2017,87.08321,475812.1986,At least basic
+CPV,Cabo Verde,total,Drinking water,2017,9.14525,49968.55922,Limited service
+CPV,Cabo Verde,total,Drinking water,2017,0.12198,666.4799,Surface water
+CPV,Cabo Verde,total,Drinking water,2017,3.64956,19940.76227,Unimproved
+CRI,Costa Rica,total,Drinking water,2017,5.89872,289377.4262,Basic service
+CRI,Costa Rica,total,Drinking water,2017,0.29848,14642.91585,Limited service
+CRI,Costa Rica,total,Drinking water,2017,93.8028,4601748.53588,Safely managed service
+CRI,Costa Rica,total,Drinking water,2017,0,0,Surface water
+CRI,Costa Rica,total,Drinking water,2017,0,0.12207,Unimproved
+CUB,Cuba,total,Drinking water,2017,95.32758,10948025.83567,At least basic
+CUB,Cuba,total,Drinking water,2017,2.0566,236193.41093,Limited service
+CUB,Cuba,total,Drinking water,2017,0.41778,47980.88608,Surface water
+CUB,Cuba,total,Drinking water,2017,2.19803,252435.86732,Unimproved
+CUW,Curaçao,total,Drinking water,2017,99.49775,159732.69584,At least basic
+CUW,Curaçao,total,Drinking water,2017,0,0,Limited service
+CUW,Curaçao,total,Drinking water,2017,0,0,Surface water
+CUW,Curaçao,total,Drinking water,2017,0.50225,806.30416,Unimproved
+CYP,Cyprus,total,Drinking water,2017,0,0,Basic service
+CYP,Cyprus,total,Drinking water,2017,0,0,Limited service
+CYP,Cyprus,total,Drinking water,2017,99.61329,1174989.5129,Safely managed service
+CYP,Cyprus,total,Drinking water,2017,0,0,Surface water
+CYP,Cyprus,total,Drinking water,2017,0.38671,4561.4871,Unimproved
+CZE,Czechia,total,Drinking water,2017,1.99895,212254.23293,Basic service
+CZE,Czechia,total,Drinking water,2017,0,0,Limited service
+CZE,Czechia,total,Drinking water,2017,97.88131,10393334.28331,Safely managed service
+CZE,Czechia,total,Drinking water,2017,0,0,Surface water
+CZE,Czechia,total,Drinking water,2017,0.11974,12714.48377,Unimproved
+DEU,Germany,total,Drinking water,2017,0.2,164228.448,Basic service
+DEU,Germany,total,Drinking water,2017,0,0,Limited service
+DEU,Germany,total,Drinking water,2017,99.8,81949995.552,Safely managed service
+DEU,Germany,total,Drinking water,2017,0,0,Surface water
+DEU,Germany,total,Drinking water,2017,0,0,Unimproved
+DJI,Djibouti,total,Drinking water,2017,75.63231,723789.83963,At least basic
+DJI,Djibouti,total,Drinking water,2017,14.69076,140588.35671,Limited service
+DJI,Djibouti,total,Drinking water,2017,2.39533,22922.98415,Surface water
+DJI,Djibouti,total,Drinking water,2017,7.2816,69683.8195,Unimproved
+DNK,Denmark,total,Drinking water,2017,3.26533,187219.18884,Basic service
+DNK,Denmark,total,Drinking water,2017,0,0,Limited service
+DNK,Denmark,total,Drinking water,2017,96.73467,5546331.75012,Safely managed service
+DNK,Denmark,total,Drinking water,2017,0,0,Surface water
+DNK,Denmark,total,Drinking water,2017,0,0.06104,Unimproved
+DOM,Dominican Republic,total,Drinking water,2017,96.69022,10410634.56505,At least basic
+DOM,Dominican Republic,total,Drinking water,2017,0.34073,36685.94319,Limited service
+DOM,Dominican Republic,total,Drinking water,2017,1.29861,139821.34332,Surface water
+DOM,Dominican Republic,total,Drinking water,2017,1.67044,179856.14845,Unimproved
+DZA,Algeria,total,Drinking water,2017,93.55589,38655552.84144,At least basic
+DZA,Algeria,total,Drinking water,2017,5.13988,2123701.52997,Limited service
+DZA,Algeria,total,Drinking water,2017,0.19029,78625.74588,Surface water
+DZA,Algeria,total,Drinking water,2017,1.11394,460259.88271,Unimproved
+ECU,Ecuador,total,Drinking water,2017,18.92652,3146507.57143,Basic service
+ECU,Ecuador,total,Drinking water,2017,0.11242,18689.36793,Limited service
+ECU,Ecuador,total,Drinking water,2017,75.06801,12479949.71696,Safely managed service
+ECU,Ecuador,total,Drinking water,2017,3.08123,512249.73152,Surface water
+ECU,Ecuador,total,Drinking water,2017,2.81182,467460.61216,Unimproved
+EGY,Egypt,total,Drinking water,2017,99.10573,96680763.87461,At least basic
+EGY,Egypt,total,Drinking water,2017,0.23675,230954.89652,Limited service
+EGY,Egypt,total,Drinking water,2017,0.01699,16575.20821,Surface water
+EGY,Egypt,total,Drinking water,2017,0.64053,624858.02066,Unimproved
+ESP,Spain,total,Drinking water,2017,1.48479,688263.89573,Basic service
+ESP,Spain,total,Drinking water,2017,0,0,Limited service
+ESP,Spain,total,Drinking water,2017,98.44149,45631882.91542,Safely managed service
+ESP,Spain,total,Drinking water,2017,0,0,Surface water
+ESP,Spain,total,Drinking water,2017,0.07372,34173.18885,Unimproved
+EST,Estonia,total,Drinking water,2017,6.37983,83552.34253,Basic service
+EST,Estonia,total,Drinking water,2017,0,0,Limited service
+EST,Estonia,total,Drinking water,2017,93.33299,1222318.74581,Safely managed service
+EST,Estonia,total,Drinking water,2017,0,0,Surface water
+EST,Estonia,total,Drinking water,2017,0.28717,3760.91166,Unimproved
+ETH,Ethiopia,total,Drinking water,2017,29.61518,31083333.69988,Basic service
+ETH,Ethiopia,total,Drinking water,2017,27.8402,29220358.97447,Limited service
+ETH,Ethiopia,total,Drinking water,2017,11.44477,12012140.92599,Safely managed service
+ETH,Ethiopia,total,Drinking water,2017,8.60106,9027448.4821,Surface water
+ETH,Ethiopia,total,Drinking water,2017,22.49879,23614157.91756,Unimproved
+FIN,Finland,total,Drinking water,2017,0.36688,20263.3577,Basic service
+FIN,Finland,total,Drinking water,2017,0,0,Limited service
+FIN,Finland,total,Drinking water,2017,99.63313,5502967.76437,Safely managed service
+FIN,Finland,total,Drinking water,2017,0,0,Surface water
+FIN,Finland,total,Drinking water,2017,0,0,Unimproved
+FJI,Fiji,total,Drinking water,2017,93.79092,849278.64992,At least basic
+FJI,Fiji,total,Drinking water,2017,0,0,Limited service
+FJI,Fiji,total,Drinking water,2017,2.0174,18267.59994,Surface water
+FJI,Fiji,total,Drinking water,2017,4.19168,37955.75014,Unimproved
+FLK,Falkland Islands (Malvinas),total,Drinking water,2017,95.02474,2765.22007,At least basic
+FLK,Falkland Islands (Malvinas),total,Drinking water,2017,0,0,Limited service
+FLK,Falkland Islands (Malvinas),total,Drinking water,2017,0,0,Surface water
+FLK,Falkland Islands (Malvinas),total,Drinking water,2017,4.97526,144.77993,Unimproved
+FRA,France,total,Drinking water,2017,2.14624,1394618.01926,Basic service
+FRA,France,total,Drinking water,2017,0,0,Limited service
+FRA,France,total,Drinking water,2017,97.85376,63584930.9573,Safely managed service
+FRA,France,total,Drinking water,2017,0,0,Surface water
+FRA,France,total,Drinking water,2017,0,0,Unimproved
+FRO,Faroe Islands,total,Drinking water,2017,100,49290,At least basic
+FRO,Faroe Islands,total,Drinking water,2017,0,0,Limited service
+FRO,Faroe Islands,total,Drinking water,2017,0,0,Surface water
+FRO,Faroe Islands,total,Drinking water,2017,0,0,Unimproved
+FSM,Micronesia (Federated States of),total,Drinking water,2017,78.56648,82922.20461,At least basic
+FSM,Micronesia (Federated States of),total,Drinking water,2017,0,0,Limited service
+FSM,Micronesia (Federated States of),total,Drinking water,2017,21.43352,22621.79539,Unimproved
+GAB,Gabon,total,Drinking water,2017,85.771,1736980.3303,At least basic
+GAB,Gabon,total,Drinking water,2017,8.01969,162409.74031,Limited service
+GAB,Gabon,total,Drinking water,2017,3.28934,66613.63708,Surface water
+GAB,Gabon,total,Drinking water,2017,2.91997,59133.2923,Unimproved
+GBR,United Kingdom of Great Britain and Northern Ireland,total,Drinking water,2017,0.01122,7427.04454,Basic service
+GBR,United Kingdom of Great Britain and Northern Ireland,total,Drinking water,2017,0,0,Limited service
+GBR,United Kingdom of Great Britain and Northern Ireland,total,Drinking water,2017,99.98878,66174157.93203,Safely managed service
+GBR,United Kingdom of Great Britain and Northern Ireland,total,Drinking water,2017,0,0,Surface water
+GBR,United Kingdom of Great Britain and Northern Ireland,total,Drinking water,2017,0,0,Unimproved
+GEO,Georgia,total,Drinking water,2017,18.39976,719809.84128,Basic service
+GEO,Georgia,total,Drinking water,2017,0,0,Limited service
+GEO,Georgia,total,Drinking water,2017,79.99468,3129440.64687,Safely managed service
+GEO,Georgia,total,Drinking water,2017,0.02608,1020.31528,Surface water
+GEO,Georgia,total,Drinking water,2017,1.57948,61790.19656,Unimproved
+GHA,Ghana,total,Drinking water,2017,45.04178,12987178.40043,Basic service
+GHA,Ghana,total,Drinking water,2017,8.47539,2443763.05637,Limited service
+GHA,Ghana,total,Drinking water,2017,36.41161,10498788.97216,Safely managed service
+GHA,Ghana,total,Drinking water,2017,6.08969,1755879.54328,Surface water
+GHA,Ghana,total,Drinking water,2017,3.98152,1148018.02776,Unimproved
+GIB,Gibraltar,total,Drinking water,2017,0,0,Basic service
+GIB,Gibraltar,total,Drinking water,2017,0,0,Limited service
+GIB,Gibraltar,total,Drinking water,2017,100,34571,Safely managed service
+GIB,Gibraltar,total,Drinking water,2017,0,0,Surface water
+GIB,Gibraltar,total,Drinking water,2017,0,0,Unimproved
+GIN,Guinea,total,Drinking water,2017,61.89872,7871769.5555,At least basic
+GIN,Guinea,total,Drinking water,2017,17.97293,2285649.58495,Limited service
+GIN,Guinea,total,Drinking water,2017,11.32471,1440183.17644,Surface water
+GIN,Guinea,total,Drinking water,2017,8.80363,1119573.68311,Unimproved
+GLP,Guadeloupe,total,Drinking water,2017,2.28765,10284.55891,Basic service
+GLP,Guadeloupe,total,Drinking water,2017,0,0,Limited service
+GLP,Guadeloupe,total,Drinking water,2017,97.39775,437869.1122,Safely managed service
+GLP,Guadeloupe,total,Drinking water,2017,0,0,Surface water
+GLP,Guadeloupe,total,Drinking water,2017,0.3146,1414.32889,Unimproved
+GMB,Gambia,total,Drinking water,2017,77.99157,1638265.89542,At least basic
+GMB,Gambia,total,Drinking water,2017,9.0862,190861.85149,Limited service
+GMB,Gambia,total,Drinking water,2017,0.00248,52.01719,Surface water
+GMB,Gambia,total,Drinking water,2017,12.91975,271388.23591,Unimproved
+GNB,Guinea-Bissau,total,Drinking water,2017,66.63441,1240255.02418,At least basic
+GNB,Guinea-Bissau,total,Drinking water,2017,6.89248,128288.48949,Limited service
+GNB,Guinea-Bissau,total,Drinking water,2017,0.48043,8942.09529,Surface water
+GNB,Guinea-Bissau,total,Drinking water,2017,25.99268,483797.39104,Unimproved
+GNQ,Equatorial Guinea,total,Drinking water,2017,64.66582,819761.45917,At least basic
+GNQ,Equatorial Guinea,total,Drinking water,2017,2.958,37498.23185,Limited service
+GNQ,Equatorial Guinea,total,Drinking water,2017,6.33848,80352.18326,Surface water
+GNQ,Equatorial Guinea,total,Drinking water,2017,26.03771,330077.12571,Unimproved
+GRC,Greece,total,Drinking water,2017,0,0,Basic service
+GRC,Greece,total,Drinking water,2017,0,0,Limited service
+GRC,Greece,total,Drinking water,2017,100,11159773,Safely managed service
+GRC,Greece,total,Drinking water,2017,0,0,Surface water
+GRC,Greece,total,Drinking water,2017,0,0,Unimproved
+GRD,Grenada,total,Drinking water,2017,8.51338,9179.55424,Basic service
+GRD,Grenada,total,Drinking water,2017,1.16148,1252.36752,Limited service
+GRD,Grenada,total,Drinking water,2017,87.11527,93932.0381,Safely managed service
+GRD,Grenada,total,Drinking water,2017,3.20987,3461.04014,Surface water
+GRD,Grenada,total,Drinking water,2017,0,0,Unimproved
+GRL,Greenland,total,Drinking water,2017,3.25231,1836.90688,Basic service
+GRL,Greenland,total,Drinking water,2017,0,0,Limited service
+GRL,Greenland,total,Drinking water,2017,96.74768,54643.09169,Safely managed service
+GRL,Greenland,total,Drinking water,2017,0,0,Surface water
+GRL,Greenland,total,Drinking water,2017,0,0.00143,Unimproved
+GTM,Guatemala,total,Drinking water,2017,38.1998,6460924.54057,Basic service
+GTM,Guatemala,total,Drinking water,2017,1.05517,178466.99865,Limited service
+GTM,Guatemala,total,Drinking water,2017,55.99078,9470003.10017,Safely managed service
+GTM,Guatemala,total,Drinking water,2017,1.61768,273607.02343,Surface water
+GTM,Guatemala,total,Drinking water,2017,3.13656,530502.33717,Unimproved
+GUF,French Guiana,total,Drinking water,2017,3.3259,9403.34054,Basic service
+GUF,French Guiana,total,Drinking water,2017,0,0,Limited service
+GUF,French Guiana,total,Drinking water,2017,90.78605,256680.30963,Safely managed service
+GUF,French Guiana,total,Drinking water,2017,0,0,Surface water
+GUF,French Guiana,total,Drinking water,2017,5.88805,16647.34983,Unimproved
+GUM,Guam,total,Drinking water,2017,0.15403,252.95621,Basic service
+GUM,Guam,total,Drinking water,2017,0,0,Limited service
+GUM,Guam,total,Drinking water,2017,99.54117,163475.4738,Safely managed service
+GUM,Guam,total,Drinking water,2017,0,0,Surface water
+GUM,Guam,total,Drinking water,2017,0.3048,500.56999,Unimproved
+GUY,Guyana,total,Drinking water,2017,95.53975,743164.5259,At least basic
+GUY,Guyana,total,Drinking water,2017,1.20933,9406.85842,Limited service
+GUY,Guyana,total,Drinking water,2017,2.10398,16366.01073,Surface water
+GUY,Guyana,total,Drinking water,2017,1.14694,8921.60495,Unimproved
+HKG,"China, Hong Kong Special Administrative Region",total,Drinking water,2017,0,0,Basic service
+HKG,"China, Hong Kong Special Administrative Region",total,Drinking water,2017,0,0,Limited service
+HKG,"China, Hong Kong Special Administrative Region",total,Drinking water,2017,100,7364883,Safely managed service
+HKG,"China, Hong Kong Special Administrative Region",total,Drinking water,2017,0,0,Surface water
+HKG,"China, Hong Kong Special Administrative Region",total,Drinking water,2017,0,0,Unimproved
+HND,Honduras,total,Drinking water,2017,94.82711,8785795.22362,At least basic
+HND,Honduras,total,Drinking water,2017,0.43376,40188.4352,Limited service
+HND,Honduras,total,Drinking water,2017,0,0,Surface water
+HND,Honduras,total,Drinking water,2017,4.73913,439083.34118,Unimproved
+HRV,Croatia,total,Drinking water,2017,9.62726,403319.7083,Basic service
+HRV,Croatia,total,Drinking water,2017,0,0,Limited service
+HRV,Croatia,total,Drinking water,2017,89.95941,3768717.29463,Safely managed service
+HRV,Croatia,total,Drinking water,2017,0.41333,17315.99707,Unimproved
+HTI,Haiti,total,Drinking water,2017,65.46683,7189062.07402,At least basic
+HTI,Haiti,total,Drinking water,2017,9.54128,1047749.68682,Limited service
+HTI,Haiti,total,Drinking water,2017,0,0,Surface water
+HTI,Haiti,total,Drinking water,2017,24.9919,2744417.23915,Unimproved
+HUN,Hungary,total,Drinking water,2017,10.42724,1013689.85222,Basic service
+HUN,Hungary,total,Drinking water,2017,0,0,Limited service
+HUN,Hungary,total,Drinking water,2017,89.57276,8707868.90364,Safely managed service
+HUN,Hungary,total,Drinking water,2017,0,0,Surface water
+HUN,Hungary,total,Drinking water,2017,0,0.24414,Unimproved
+IDN,Indonesia,total,Drinking water,2017,89.34401,235860487.25549,At least basic
+IDN,Indonesia,total,Drinking water,2017,1.414,3732843.09756,Limited service
+IDN,Indonesia,total,Drinking water,2017,1.50134,3963420.34261,Surface water
+IDN,Indonesia,total,Drinking water,2017,7.74064,20434625.30435,Unimproved
+IMN,Isle of Man,total,Drinking water,2017,1.86744,1574.00498,Basic service
+IMN,Isle of Man,total,Drinking water,2017,0,0,Limited service
+IMN,Isle of Man,total,Drinking water,2017,97.20756,81933.34027,Safely managed service
+IMN,Isle of Man,total,Drinking water,2017,0,0,Surface water
+IMN,Isle of Man,total,Drinking water,2017,0.925,779.65475,Unimproved
+IND,India,total,Drinking water,2017,92.67464,1241080426.6583,At least basic
+IND,India,total,Drinking water,2017,0.76449,10237884.15476,Limited service
+IND,India,total,Drinking water,2017,0.75357,10091704.65942,Surface water
+IND,India,total,Drinking water,2017,5.8073,77770144.52752,Unimproved
+IRL,Ireland,total,Drinking water,2017,0.07172,3415.07623,Basic service
+IRL,Ireland,total,Drinking water,2017,0,0,Limited service
+IRL,Ireland,total,Drinking water,2017,97.32282,4634179.07489,Safely managed service
+IRL,Ireland,total,Drinking water,2017,0,0,Surface water
+IRL,Ireland,total,Drinking water,2017,2.60546,124062.84889,Unimproved
+IRN,Iran (Islamic Republic of),total,Drinking water,2017,3.44925,2799508.93708,Basic service
+IRN,Iran (Islamic Republic of),total,Drinking water,2017,1.91662,1555580.17432,Limited service
+IRN,Iran (Islamic Republic of),total,Drinking water,2017,91.79529,74503622.91519,Safely managed service
+IRN,Iran (Islamic Republic of),total,Drinking water,2017,0.10227,83004.36366,Surface water
+IRN,Iran (Islamic Republic of),total,Drinking water,2017,2.73657,2221075.60975,Unimproved
+IRQ,Iraq,total,Drinking water,2017,37.70015,14429588.30808,Basic service
+IRQ,Iraq,total,Drinking water,2017,1.40282,536924.14941,Limited service
+IRQ,Iraq,total,Drinking water,2017,58.83333,22518229.83576,Safely managed service
+IRQ,Iraq,total,Drinking water,2017,1.323,506373.68229,Surface water
+IRQ,Iraq,total,Drinking water,2017,0.7407,283500.02446,Unimproved
+ISL,Iceland,total,Drinking water,2017,0,0,Basic service
+ISL,Iceland,total,Drinking water,2017,0,0,Limited service
+ISL,Iceland,total,Drinking water,2017,100,335024.99809,Safely managed service
+ISL,Iceland,total,Drinking water,2017,0,0,Surface water
+ISL,Iceland,total,Drinking water,2017,0,0.00191,Unimproved
+ISR,Israel,total,Drinking water,2017,0.6182,51443.76456,Basic service
+ISR,Israel,total,Drinking water,2017,0,0,Limited service
+ISR,Israel,total,Drinking water,2017,99.3818,8270126.85751,Safely managed service
+ISR,Israel,total,Drinking water,2017,0,0,Surface water
+ISR,Israel,total,Drinking water,2017,0,0,Unimproved
+ITA,Italy,total,Drinking water,2017,4.40312,2613687.23008,Basic service
+ITA,Italy,total,Drinking water,2017,0,0,Limited service
+ITA,Italy,total,Drinking water,2017,95.03961,56415420.1609,Safely managed service
+ITA,Italy,total,Drinking water,2017,0,0,Surface water
+ITA,Italy,total,Drinking water,2017,0.55727,330792.60901,Unimproved
+JAM,Jamaica,total,Drinking water,2017,90.64844,2620010.84445,At least basic
+JAM,Jamaica,total,Drinking water,2017,5.38635,155681.50194,Limited service
+JAM,Jamaica,total,Drinking water,2017,1.66153,48023.27695,Surface water
+JAM,Jamaica,total,Drinking water,2017,2.30368,66583.37666,Unimproved
+JOR,Jordan,total,Drinking water,2017,5.11888,496651.71578,Basic service
+JOR,Jordan,total,Drinking water,2017,0,0,Limited service
+JOR,Jordan,total,Drinking water,2017,93.81834,9102586.87394,Safely managed service
+JOR,Jordan,total,Drinking water,2017,0.16455,15964.74984,Surface water
+JOR,Jordan,total,Drinking water,2017,0.89823,87149.66044,Unimproved
+JPN,Japan,total,Drinking water,2017,0.5565,709452.07701,Basic service
+JPN,Japan,total,Drinking water,2017,0,0,Limited service
+JPN,Japan,total,Drinking water,2017,98.45371,125513173.40121,Safely managed service
+JPN,Japan,total,Drinking water,2017,0,0,Surface water
+JPN,Japan,total,Drinking water,2017,0.98979,1261830.52178,Unimproved
+KAZ,Kazakhstan,total,Drinking water,2017,6.11526,1113251.61892,Basic service
+KAZ,Kazakhstan,total,Drinking water,2017,1.72812,314595.42866,Limited service
+KAZ,Kazakhstan,total,Drinking water,2017,89.51225,16295256.02063,Safely managed service
+KAZ,Kazakhstan,total,Drinking water,2017,0.07826,14247.24442,Surface water
+KAZ,Kazakhstan,total,Drinking water,2017,2.56611,467147.68737,Unimproved
+KEN,Kenya,total,Drinking water,2017,58.91633,29281337.5681,At least basic
+KEN,Kenya,total,Drinking water,2017,9.06339,4504494.10781,Limited service
+KEN,Kenya,total,Drinking water,2017,20.10235,9990842.84797,Surface water
+KEN,Kenya,total,Drinking water,2017,11.91792,5923189.47613,Unimproved
+KGZ,Kyrgyzstan,total,Drinking water,2017,19.23258,1162632.13896,Basic service
+KGZ,Kyrgyzstan,total,Drinking water,2017,1.80837,109317.91231,Limited service
+KGZ,Kyrgyzstan,total,Drinking water,2017,68.22332,4124179.5147,Safely managed service
+KGZ,Kyrgyzstan,total,Drinking water,2017,8.86293,535774.74864,Surface water
+KGZ,Kyrgyzstan,total,Drinking water,2017,1.8728,113212.68539,Unimproved
+KHM,Cambodia,total,Drinking water,2017,52.66511,8429246.99968,Basic service
+KHM,Cambodia,total,Drinking water,2017,0.43569,69734.15851,Limited service
+KHM,Cambodia,total,Drinking water,2017,25.84555,4136676.48694,Safely managed service
+KHM,Cambodia,total,Drinking water,2017,10.86448,1738900.61762,Surface water
+KHM,Cambodia,total,Drinking water,2017,10.18917,1630814.73724,Unimproved
+KIR,Kiribati,total,Drinking water,2017,71.61598,83359.56505,At least basic
+KIR,Kiribati,total,Drinking water,2017,0.88689,1032.3166,Limited service
+KIR,Kiribati,total,Drinking water,2017,0,0,Surface water
+KIR,Kiribati,total,Drinking water,2017,27.49714,32006.11836,Unimproved
+KOR,Republic of Korea,total,Drinking water,2017,1.57379,802354.92884,Basic service
+KOR,Republic of Korea,total,Drinking water,2017,0,0,Limited service
+KOR,Republic of Korea,total,Drinking water,2017,98.21386,50071598.89241,Safely managed service
+KOR,Republic of Korea,total,Drinking water,2017,0,0,Surface water
+KOR,Republic of Korea,total,Drinking water,2017,0.21235,108258.17875,Unimproved
+KWT,Kuwait,total,Drinking water,2017,0,0,Basic service
+KWT,Kuwait,total,Drinking water,2017,0,0,Limited service
+KWT,Kuwait,total,Drinking water,2017,100,4136527.8,Safely managed service
+KWT,Kuwait,total,Drinking water,2017,0,0,Surface water
+KWT,Kuwait,total,Drinking water,2017,0,0,Unimproved
+LAO,Lao People's Democratic Republic,total,Drinking water,2017,65.98003,4525016.09538,Basic service
+LAO,Lao People's Democratic Republic,total,Drinking water,2017,0.81652,55998.06679,Limited service
+LAO,Lao People's Democratic Republic,total,Drinking water,2017,16.08187,1102920.09064,Safely managed service
+LAO,Lao People's Democratic Republic,total,Drinking water,2017,2.89341,198434.57382,Surface water
+LAO,Lao People's Democratic Republic,total,Drinking water,2017,14.22818,975791.17337,Unimproved
+LBN,Lebanon,total,Drinking water,2017,44.9,2730978.293,Basic service
+LBN,Lebanon,total,Drinking water,2017,7.4,450094.418,Limited service
+LBN,Lebanon,total,Drinking water,2017,47.7,2901284.289,Safely managed service
+LBN,Lebanon,total,Drinking water,2017,0,0,Surface water
+LBN,Lebanon,total,Drinking water,2017,0,0,Unimproved
+LBR,Liberia,total,Drinking water,2017,72.94803,3451832.25338,At least basic
+LBR,Liberia,total,Drinking water,2017,8.07836,382260.20544,Limited service
+LBR,Liberia,total,Drinking water,2017,13.23912,626462.72641,Surface water
+LBR,Liberia,total,Drinking water,2017,5.73449,271350.81477,Unimproved
+LBY,Libya,total,Drinking water,2017,98.52895,6280842.04358,At least basic
+LBY,Libya,total,Drinking water,2017,0,0,Limited service
+LBY,Libya,total,Drinking water,2017,0,0,Surface water
+LBY,Libya,total,Drinking water,2017,1.47105,93773.95642,Unimproved
+LCA,Saint Lucia,total,Drinking water,2017,98.162,175556.84981,At least basic
+LCA,Saint Lucia,total,Drinking water,2017,1.838,3287.154,Limited service
+LCA,Saint Lucia,total,Drinking water,2017,0,0,Surface water
+LCA,Saint Lucia,total,Drinking water,2017,0,0,Unimproved
+LIE,Liechtenstein,total,Drinking water,2017,0,0,Basic service
+LIE,Liechtenstein,total,Drinking water,2017,0,0,Limited service
+LIE,Liechtenstein,total,Drinking water,2017,100,37922,Safely managed service
+LIE,Liechtenstein,total,Drinking water,2017,0,0,Surface water
+LIE,Liechtenstein,total,Drinking water,2017,0,0,Unimproved
+LKA,Sri Lanka,total,Drinking water,2017,89.41629,18667366.04838,At least basic
+LKA,Sri Lanka,total,Drinking water,2017,3.20965,670076.1139,Limited service
+LKA,Sri Lanka,total,Drinking water,2017,1.64118,342628.20235,Surface water
+LKA,Sri Lanka,total,Drinking water,2017,5.73288,1196847.63536,Unimproved
+LSO,Lesotho,total,Drinking water,2017,68.64994,1533185.82955,At least basic
+LSO,Lesotho,total,Drinking water,2017,9.57495,213841.13695,Limited service
+LSO,Lesotho,total,Drinking water,2017,7.32263,163539.23835,Surface water
+LSO,Lesotho,total,Drinking water,2017,14.45248,322772.79514,Unimproved
+LTU,Lithuania,total,Drinking water,2017,5.4992,158943.30209,Basic service
+LTU,Lithuania,total,Drinking water,2017,0,0,Limited service
+LTU,Lithuania,total,Drinking water,2017,92.04287,2660312.16605,Safely managed service
+LTU,Lithuania,total,Drinking water,2017,0,0,Surface water
+LTU,Lithuania,total,Drinking water,2017,2.45793,71041.53186,Unimproved
+LUX,Luxembourg,total,Drinking water,2017,0.16493,962.27466,Basic service
+LUX,Luxembourg,total,Drinking water,2017,0,0,Limited service
+LUX,Luxembourg,total,Drinking water,2017,99.72468,581848.60964,Safely managed service
+LUX,Luxembourg,total,Drinking water,2017,0,0,Surface water
+LUX,Luxembourg,total,Drinking water,2017,0.1104,644.1157,Unimproved
+LVA,Latvia,total,Drinking water,2017,3.43532,66977.48203,Basic service
+LVA,Latvia,total,Drinking water,2017,0.67961,13250.21357,Limited service
+LVA,Latvia,total,Drinking water,2017,95.19086,1855907.60782,Safely managed service
+LVA,Latvia,total,Drinking water,2017,0,0,Surface water
+LVA,Latvia,total,Drinking water,2017,0.6942,13534.69657,Unimproved
+MAC,"China, Macao Special Administrative Region",total,Drinking water,2017,0,0,Basic service
+MAC,"China, Macao Special Administrative Region",total,Drinking water,2017,0,0,Limited service
+MAC,"China, Macao Special Administrative Region",total,Drinking water,2017,100,622567,Safely managed service
+MAC,"China, Macao Special Administrative Region",total,Drinking water,2017,0,0,Surface water
+MAC,"China, Macao Special Administrative Region",total,Drinking water,2017,0,0,Unimproved
+MAR,Morocco,total,Drinking water,2017,16.51207,5901345.48002,Basic service
+MAR,Morocco,total,Drinking water,2017,4.19166,1498080.50392,Limited service
+MAR,Morocco,total,Drinking water,2017,70.26644,25112930.47603,Safely managed service
+MAR,Morocco,total,Drinking water,2017,2.92684,1046039.22678,Surface water
+MAR,Morocco,total,Drinking water,2017,6.10299,2181184.31325,Unimproved
+MCO,Monaco,total,Drinking water,2017,0,0,Basic service
+MCO,Monaco,total,Drinking water,2017,0,0,Limited service
+MCO,Monaco,total,Drinking water,2017,100,38695,Safely managed service
+MCO,Monaco,total,Drinking water,2017,0,0,Surface water
+MCO,Monaco,total,Drinking water,2017,0,0,Unimproved
+MDA,Republic of Moldova,total,Drinking water,2017,16.17774,655394.56641,Basic service
+MDA,Republic of Moldova,total,Drinking water,2017,1.49377,60515.73846,Limited service
+MDA,Republic of Moldova,total,Drinking water,2017,72.87791,2952438.72054,Safely managed service
+MDA,Republic of Moldova,total,Drinking water,2017,0,0,Surface water
+MDA,Republic of Moldova,total,Drinking water,2017,9.45058,382862.9746,Unimproved
+MDG,Madagascar,total,Drinking water,2017,54.40398,13911584.47714,At least basic
+MDG,Madagascar,total,Drinking water,2017,1.04699,267723.63218,Limited service
+MDG,Madagascar,total,Drinking water,2017,12.70545,3248896.63177,Surface water
+MDG,Madagascar,total,Drinking water,2017,31.84358,8142689.25891,Unimproved
+MDV,Maldives,total,Drinking water,2017,99.2562,433084.58177,At least basic
+MDV,Maldives,total,Drinking water,2017,0.07565,330.0736,Limited service
+MDV,Maldives,total,Drinking water,2017,0,0,Surface water
+MDV,Maldives,total,Drinking water,2017,0.66815,2915.34463,Unimproved
+MEX,Mexico,total,Drinking water,2017,56.44791,72909966.233,Basic service
+MEX,Mexico,total,Drinking water,2017,0,0,Limited service
+MEX,Mexico,total,Drinking water,2017,42.87031,55372694.9779,Safely managed service
+MEX,Mexico,total,Drinking water,2017,0,0,Surface water
+MEX,Mexico,total,Drinking water,2017,0.68178,880610.7891,Unimproved
+MHL,Marshall Islands,total,Drinking water,2017,88.48644,47010.18985,At least basic
+MHL,Marshall Islands,total,Drinking water,2017,11.27413,5989.60731,Limited service
+MHL,Marshall Islands,total,Drinking water,2017,0,0,Surface water
+MHL,Marshall Islands,total,Drinking water,2017,0.23943,127.20283,Unimproved
+MKD,North Macedonia,total,Drinking water,2017,12.13351,252760.37641,Basic service
+MKD,North Macedonia,total,Drinking water,2017,6.25695,130342.36703,Limited service
+MKD,North Macedonia,total,Drinking water,2017,81.00795,1687525.22788,Safely managed service
+MKD,North Macedonia,total,Drinking water,2017,0,0,Surface water
+MKD,North Macedonia,total,Drinking water,2017,0.60158,12531.92868,Unimproved
+MLI,Mali,total,Drinking water,2017,78.26083,14511107.36805,At least basic
+MLI,Mali,total,Drinking water,2017,4.64067,860472.41749,Limited service
+MLI,Mali,total,Drinking water,2017,1.80451,334592.17441,Surface water
+MLI,Mali,total,Drinking water,2017,15.29399,2835808.04005,Unimproved
+MLT,Malta,total,Drinking water,2017,0,0,Basic service
+MLT,Malta,total,Drinking water,2017,0,0,Limited service
+MLT,Malta,total,Drinking water,2017,100,430835.00954,Safely managed service
+MLT,Malta,total,Drinking water,2017,0,0,Surface water
+MLT,Malta,total,Drinking water,2017,0,0,Unimproved
+MMR,Myanmar,total,Drinking water,2017,81.77405,43643306.88463,At least basic
+MMR,Myanmar,total,Drinking water,2017,0,0,Limited service
+MMR,Myanmar,total,Drinking water,2017,8.83504,4715314.30162,Surface water
+MMR,Myanmar,total,Drinking water,2017,9.39091,5011986.81375,Unimproved
+MNE,Montenegro,total,Drinking water,2017,3.44513,21668.48602,Basic service
+MNE,Montenegro,total,Drinking water,2017,2.71606,17082.93217,Limited service
+MNE,Montenegro,total,Drinking water,2017,93.59692,588687.19235,Safely managed service
+MNE,Montenegro,total,Drinking water,2017,0.11733,737.96196,Surface water
+MNE,Montenegro,total,Drinking water,2017,0.12456,783.4275,Unimproved
+MNG,Mongolia,total,Drinking water,2017,59.59103,1832809.86308,Basic service
+MNG,Mongolia,total,Drinking water,2017,2.11215,64962.38068,Limited service
+MNG,Mongolia,total,Drinking water,2017,23.72208,729607.45924,Safely managed service
+MNG,Mongolia,total,Drinking water,2017,6.74739,207525.76101,Surface water
+MNG,Mongolia,total,Drinking water,2017,7.82735,240741.53599,Unimproved
+MNP,Northern Mariana Islands,total,Drinking water,2017,9.7567,5380.23522,Basic service
+MNP,Northern Mariana Islands,total,Drinking water,2017,0,0,Limited service
+MNP,Northern Mariana Islands,total,Drinking water,2017,90.2433,49763.76478,Safely managed service
+MNP,Northern Mariana Islands,total,Drinking water,2017,0,0,Surface water
+MNP,Northern Mariana Islands,total,Drinking water,2017,0,0,Unimproved
+MOZ,Mozambique,total,Drinking water,2017,55.69398,16523753.17431,At least basic
+MOZ,Mozambique,total,Drinking water,2017,14.97098,4441714.36353,Limited service
+MOZ,Mozambique,total,Drinking water,2017,13.18069,3910555.74656,Surface water
+MOZ,Mozambique,total,Drinking water,2017,16.15436,4792810.7156,Unimproved
+MRT,Mauritania,total,Drinking water,2017,70.69619,3124901.5749,At least basic
+MRT,Mauritania,total,Drinking water,2017,13.7037,605728.88142,Limited service
+MRT,Mauritania,total,Drinking water,2017,0.02295,1014.41733,Surface water
+MRT,Mauritania,total,Drinking water,2017,15.57716,688539.12634,Unimproved
+MTQ,Martinique,total,Drinking water,2017,1.13587,4371.91096,Basic service
+MTQ,Martinique,total,Drinking water,2017,0,0,Limited service
+MTQ,Martinique,total,Drinking water,2017,98.86413,380524.08904,Safely managed service
+MTQ,Martinique,total,Drinking water,2017,0,0,Surface water
+MTQ,Martinique,total,Drinking water,2017,0,0,Unimproved
+MUS,Mauritius,total,Drinking water,2017,99.86633,1263446.90717,At least basic
+MUS,Mauritius,total,Drinking water,2017,0,0,Limited service
+MUS,Mauritius,total,Drinking water,2017,0,0,Surface water
+MUS,Mauritius,total,Drinking water,2017,0.13367,1691.09283,Unimproved
+MWI,Malawi,total,Drinking water,2017,68.83188,12817943.67557,At least basic
+MWI,Malawi,total,Drinking water,2017,19.90552,3706827.03845,Limited service
+MWI,Malawi,total,Drinking water,2017,2.39352,445723.62333,Surface water
+MWI,Malawi,total,Drinking water,2017,8.86908,1651609.66265,Unimproved
+MYS,Malaysia,total,Drinking water,2017,3.36666,1064681.58684,Basic service
+MYS,Malaysia,total,Drinking water,2017,0.35736,113013.09528,Limited service
+MYS,Malaysia,total,Drinking water,2017,93.32928,29514697.40989,Safely managed service
+MYS,Malaysia,total,Drinking water,2017,2.9467,931871.90799,Unimproved
+MYT,Mayotte,total,Drinking water,2017,13.29367,33638.96077,Basic service
+MYT,Mayotte,total,Drinking water,2017,0,0,Limited service
+MYT,Mayotte,total,Drinking water,2017,83.71551,211837.91655,Safely managed service
+MYT,Mayotte,total,Drinking water,2017,2.88017,7288.12682,Surface water
+MYT,Mayotte,total,Drinking water,2017,0.11065,279.99585,Unimproved
+NAM,Namibia,total,Drinking water,2017,82.5411,2091421.41074,At least basic
+NAM,Namibia,total,Drinking water,2017,7.13095,180683.59269,Limited service
+NAM,Namibia,total,Drinking water,2017,6.33709,160568.8814,Surface water
+NAM,Namibia,total,Drinking water,2017,3.99086,101120.11516,Unimproved
+NCL,New Caledonia,total,Drinking water,2017,2.66775,7369.7801,Basic service
+NCL,New Caledonia,total,Drinking water,2017,0,0,Limited service
+NCL,New Caledonia,total,Drinking water,2017,96.66085,267030.43717,Safely managed service
+NCL,New Caledonia,total,Drinking water,2017,0,0,Surface water
+NCL,New Caledonia,total,Drinking water,2017,0.6714,1854.78273,Unimproved
+NER,Niger,total,Drinking water,2017,50.27307,10797321.13396,At least basic
+NER,Niger,total,Drinking water,2017,14.87839,3195483.66149,Limited service
+NER,Niger,total,Drinking water,2017,3.77556,810890.11927,Surface water
+NER,Niger,total,Drinking water,2017,31.07298,6673653.08529,Unimproved
+NGA,Nigeria,total,Drinking water,2017,51.24407,97817919.85884,Basic service
+NGA,Nigeria,total,Drinking water,2017,6.56763,12536706.13124,Limited service
+NGA,Nigeria,total,Drinking water,2017,20.13256,38430303.82784,Safely managed service
+NGA,Nigeria,total,Drinking water,2017,7.45823,14236737.88629,Surface water
+NGA,Nigeria,total,Drinking water,2017,14.59751,27864652.29579,Unimproved
+NIC,Nicaragua,total,Drinking water,2017,29.92425,1860564.63756,Basic service
+NIC,Nicaragua,total,Drinking water,2017,1.53108,95196.24888,Limited service
+NIC,Nicaragua,total,Drinking water,2017,51.60051,3208303.57029,Safely managed service
+NIC,Nicaragua,total,Drinking water,2017,3.30318,205377.90436,Surface water
+NIC,Nicaragua,total,Drinking water,2017,13.64097,848138.63891,Unimproved
+NIU,Niue,total,Drinking water,2017,0.98199,15.88856,Basic service
+NIU,Niue,total,Drinking water,2017,0,0,Limited service
+NIU,Niue,total,Drinking water,2017,97.21675,1572.96709,Safely managed service
+NIU,Niue,total,Drinking water,2017,0,0,Surface water
+NIU,Niue,total,Drinking water,2017,1.80126,29.14435,Unimproved
+NLD,Netherlands,total,Drinking water,2017,0.04899,8345.30741,Basic service
+NLD,Netherlands,total,Drinking water,2017,0,0,Limited service
+NLD,Netherlands,total,Drinking water,2017,99.95101,17027592.57052,Safely managed service
+NLD,Netherlands,total,Drinking water,2017,0,0,Surface water
+NLD,Netherlands,total,Drinking water,2017,0,0.12207,Unimproved
+NOR,Norway,total,Drinking water,2017,1.65703,87911.74835,Basic service
+NOR,Norway,total,Drinking water,2017,0,0,Limited service
+NOR,Norway,total,Drinking water,2017,98.34298,5217471.4958,Safely managed service
+NOR,Norway,total,Drinking water,2017,0,0,Surface water
+NOR,Norway,total,Drinking water,2017,0,0,Unimproved
+NPL,Nepal,total,Drinking water,2017,61.5689,18042763.92766,Basic service
+NPL,Nepal,total,Drinking water,2017,2.65792,778903.15337,Limited service
+NPL,Nepal,total,Drinking water,2017,27.24335,7983664.01863,Safely managed service
+NPL,Nepal,total,Drinking water,2017,1.96242,575088.10819,Surface water
+NPL,Nepal,total,Drinking water,2017,6.56741,1924578.79216,Unimproved
+NRU,Nauru,total,Drinking water,2017,99.48493,11300.4937,At least basic
+NRU,Nauru,total,Drinking water,2017,0,0,Limited service
+NRU,Nauru,total,Drinking water,2017,0,0,Surface water
+NRU,Nauru,total,Drinking water,2017,0.51507,58.5063,Unimproved
+NZL,New Zealand,total,Drinking water,2017,0,0,Basic service
+NZL,New Zealand,total,Drinking water,2017,0,0,Limited service
+NZL,New Zealand,total,Drinking water,2017,100,4705818,Safely managed service
+NZL,New Zealand,total,Drinking water,2017,0,0,Surface water
+NZL,New Zealand,total,Drinking water,2017,0,0,Unimproved
+OMN,Oman,total,Drinking water,2017,1.66304,77102.89219,Basic service
+OMN,Oman,total,Drinking water,2017,8.06192,373771.7457,Limited service
+OMN,Oman,total,Drinking water,2017,90.27504,4185387.30108,Safely managed service
+OMN,Oman,total,Drinking water,2017,0,0,Surface water
+OMN,Oman,total,Drinking water,2017,0,0.06104,Unimproved
+PAK,Pakistan,total,Drinking water,2017,56.1511,110626632.49454,Basic service
+PAK,Pakistan,total,Drinking water,2017,0.59953,1181168.12128,Limited service
+PAK,Pakistan,total,Drinking water,2017,35.31435,69574896.01816,Safely managed service
+PAK,Pakistan,total,Drinking water,2017,2.07804,4094074.35811,Surface water
+PAK,Pakistan,total,Drinking water,2017,5.85698,11539181.00792,Unimproved
+PAN,Panama,total,Drinking water,2017,96.38242,3950317.29328,At least basic
+PAN,Panama,total,Drinking water,2017,1.91652,78550.08195,Limited service
+PAN,Panama,total,Drinking water,2017,0.60314,24720.26037,Surface water
+PAN,Panama,total,Drinking water,2017,1.09792,44999.36441,Unimproved
+PER,Peru,total,Drinking water,2017,40.77722,13116189.96475,Basic service
+PER,Peru,total,Drinking water,2017,1.00839,324354.56987,Limited service
+PER,Peru,total,Drinking water,2017,50.35065,16195530.79196,Safely managed service
+PER,Peru,total,Drinking water,2017,2.642,849813.04524,Surface water
+PER,Peru,total,Drinking water,2017,5.22173,1679595.62818,Unimproved
+PHL,Philippines,total,Drinking water,2017,46.91436,49221650.05498,Basic service
+PHL,Philippines,total,Drinking water,2017,1.85794,1949312.86335,Limited service
+PHL,Philippines,total,Drinking water,2017,46.65402,48948508.54418,Safely managed service
+PHL,Philippines,total,Drinking water,2017,0,0,Surface water
+PHL,Philippines,total,Drinking water,2017,4.57369,4798624.5375,Unimproved
+PLW,Palau,total,Drinking water,2017,100,21728.99952,At least basic
+PLW,Palau,total,Drinking water,2017,0,0,Limited service
+PLW,Palau,total,Drinking water,2017,0,0,Surface water
+PLW,Palau,total,Drinking water,2017,0,0.00048,Unimproved
+PNG,Papua New Guinea,total,Drinking water,2017,41.32705,3409961.79718,At least basic
+PNG,Papua New Guinea,total,Drinking water,2017,1.71371,141401.11402,Limited service
+PNG,Papua New Guinea,total,Drinking water,2017,51.45411,4245562.19154,Surface water
+PNG,Papua New Guinea,total,Drinking water,2017,5.50513,454236.89726,Unimproved
+POL,Poland,total,Drinking water,2017,0.56861,217043.94127,Basic service
+POL,Poland,total,Drinking water,2017,0,0,Limited service
+POL,Poland,total,Drinking water,2017,99.15607,37848577.42427,Safely managed service
+POL,Poland,total,Drinking water,2017,0,0,Surface water
+POL,Poland,total,Drinking water,2017,0.27532,105090.63446,Unimproved
+PRI,Puerto Rico,total,Drinking water,2017,3.03982,111352.51943,Basic service
+PRI,Puerto Rico,total,Drinking water,2017,0,0,Limited service
+PRI,Puerto Rico,total,Drinking water,2017,94.08497,3446455.796,Safely managed service
+PRI,Puerto Rico,total,Drinking water,2017,0,0,Surface water
+PRI,Puerto Rico,total,Drinking water,2017,2.87521,105322.68457,Unimproved
+PRK,Democratic People's Republic of Korea,total,Drinking water,2017,27.88663,7108570.90119,Basic service
+PRK,Democratic People's Republic of Korea,total,Drinking water,2017,0.68326,174170.42948,Limited service
+PRK,Democratic People's Republic of Korea,total,Drinking water,2017,66.62582,16983564.42159,Safely managed service
+PRK,Democratic People's Republic of Korea,total,Drinking water,2017,0.26825,68380.52996,Surface water
+PRK,Democratic People's Republic of Korea,total,Drinking water,2017,4.53603,1156277.71778,Unimproved
+PRT,Portugal,total,Drinking water,2017,4.59575,474718.51677,Basic service
+PRT,Portugal,total,Drinking water,2017,0,0,Limited service
+PRT,Portugal,total,Drinking water,2017,95.31191,9845249.23901,Safely managed service
+PRT,Portugal,total,Drinking water,2017,0,0,Surface water
+PRT,Portugal,total,Drinking water,2017,0.09234,9538.24423,Unimproved
+PRY,Paraguay,total,Drinking water,2017,35.71563,2432697.52902,Basic service
+PRY,Paraguay,total,Drinking water,2017,0.3898,26550.34628,Limited service
+PRY,Paraguay,total,Drinking water,2017,63.89457,4352048.88055,Safely managed service
+PRY,Paraguay,total,Drinking water,2017,0,0,Surface water
+PRY,Paraguay,total,Drinking water,2017,0,0.24414,Unimproved
+PSE,West Bank and Gaza Strip,total,Drinking water,2017,96.8269,4764584.32194,At least basic
+PSE,West Bank and Gaza Strip,total,Drinking water,2017,0.50344,24773.06787,Limited service
+PSE,West Bank and Gaza Strip,total,Drinking water,2017,2.66966,131366.61019,Unimproved
+PYF,French Polynesia,total,Drinking water,2017,100,283007,At least basic
+PYF,French Polynesia,total,Drinking water,2017,0,0,Limited service
+PYF,French Polynesia,total,Drinking water,2017,0,0,Surface water
+PYF,French Polynesia,total,Drinking water,2017,0,0,Unimproved
+QAT,Qatar,total,Drinking water,2017,3.38532,89345.61816,Basic service
+QAT,Qatar,total,Drinking water,2017,0,0,Limited service
+QAT,Qatar,total,Drinking water,2017,96.18279,2538466.68063,Safely managed service
+QAT,Qatar,total,Drinking water,2017,0,0,Surface water
+QAT,Qatar,total,Drinking water,2017,0.4319,11398.70121,Unimproved
+REU,Réunion,total,Drinking water,2017,3.82077,33491.38809,Basic service
+REU,Réunion,total,Drinking water,2017,0,0,Limited service
+REU,Réunion,total,Drinking water,2017,96.17923,843070.61191,Safely managed service
+REU,Réunion,total,Drinking water,2017,0,0,Surface water
+REU,Réunion,total,Drinking water,2017,0,0,Unimproved
+ROU,Romania,total,Drinking water,2017,18.08419,3558843.187,Basic service
+ROU,Romania,total,Drinking water,2017,0,0,Limited service
+ROU,Romania,total,Drinking water,2017,81.91581,16120462.813,Safely managed service
+ROU,Romania,total,Drinking water,2017,0,0,Surface water
+ROU,Romania,total,Drinking water,2017,0,0,Unimproved
+RUS,Russian Federation,total,Drinking water,2017,21.06218,30327374.53076,Basic service
+RUS,Russian Federation,total,Drinking water,2017,0.63228,910416.42454,Limited service
+RUS,Russian Federation,total,Drinking water,2017,76.02773,109472140.05598,Safely managed service
+RUS,Russian Federation,total,Drinking water,2017,2.27781,3279812.98872,Unimproved
+RWA,Rwanda,total,Drinking water,2017,57.71328,7045871.93659,At least basic
+RWA,Rwanda,total,Drinking water,2017,21.75902,2656429.64747,Limited service
+RWA,Rwanda,total,Drinking water,2017,6.4435,786648.15411,Surface water
+RWA,Rwanda,total,Drinking water,2017,14.08421,1719457.26183,Unimproved
+SAU,Saudi Arabia,total,Drinking water,2017,100,32938214,At least basic
+SAU,Saudi Arabia,total,Drinking water,2017,0,0,Limited service
+SAU,Saudi Arabia,total,Drinking water,2017,0,0,Surface water
+SAU,Saudi Arabia,total,Drinking water,2017,0,0,Unimproved
+SDN,Sudan,total,Drinking water,2017,60.26709,24428257.7364,At least basic
+SDN,Sudan,total,Drinking water,2017,26.68975,10818243.25271,Limited service
+SDN,Sudan,total,Drinking water,2017,9.34316,3787095.37888,Surface water
+SDN,Sudan,total,Drinking water,2017,3.7,1499731.63201,Unimproved
+SEN,Senegal,total,Drinking water,2017,80.67785,12787897.28139,At least basic
+SEN,Senegal,total,Drinking water,2017,2.59409,411178.05265,Limited service
+SEN,Senegal,total,Drinking water,2017,0.2808,44508.06249,Surface water
+SEN,Senegal,total,Drinking water,2017,16.44726,2606983.60347,Unimproved
+SGP,Singapore,total,Drinking water,2017,0,0,Basic service
+SGP,Singapore,total,Drinking water,2017,0,0,Limited service
+SGP,Singapore,total,Drinking water,2017,100,5708844,Safely managed service
+SGP,Singapore,total,Drinking water,2017,0,0,Surface water
+SGP,Singapore,total,Drinking water,2017,0,0,Unimproved
+SHN,Saint Helena,total,Drinking water,2017,9.86538,399.44922,Basic service
+SHN,Saint Helena,total,Drinking water,2017,0,0,Limited service
+SHN,Saint Helena,total,Drinking water,2017,89.18462,3611.08509,Safely managed service
+SHN,Saint Helena,total,Drinking water,2017,0,0,Surface water
+SHN,Saint Helena,total,Drinking water,2017,0.95,38.4655,Unimproved
+SLB,Solomon Islands,total,Drinking water,2017,67.77596,414343.57008,At least basic
+SLB,Solomon Islands,total,Drinking water,2017,5.79244,35411.68194,Limited service
+SLB,Solomon Islands,total,Drinking water,2017,11.55497,70640.5077,Surface water
+SLB,Solomon Islands,total,Drinking water,2017,14.87663,90947.24028,Unimproved
+SLE,Sierra Leone,total,Drinking water,2017,50.88786,3845703.48443,Basic service
+SLE,Sierra Leone,total,Drinking water,2017,9.00321,680391.32393,Limited service
+SLE,Sierra Leone,total,Drinking water,2017,9.91913,749609.42914,Safely managed service
+SLE,Sierra Leone,total,Drinking water,2017,13.70042,1035369.52861,Surface water
+SLE,Sierra Leone,total,Drinking water,2017,16.48939,1246138.2339,Unimproved
+SLV,El Salvador,total,Drinking water,2017,97.38837,6211287.39477,At least basic
+SLV,El Salvador,total,Drinking water,2017,0.22123,14109.51562,Limited service
+SLV,El Salvador,total,Drinking water,2017,2.37914,151738.23718,Surface water
+SLV,El Salvador,total,Drinking water,2017,0.01126,717.85243,Unimproved
+SMR,San Marino,total,Drinking water,2017,0,0,Basic service
+SMR,San Marino,total,Drinking water,2017,0,0,Limited service
+SMR,San Marino,total,Drinking water,2017,100,33400,Safely managed service
+SMR,San Marino,total,Drinking water,2017,0,0,Surface water
+SMR,San Marino,total,Drinking water,2017,0,0,Unimproved
+SOM,Somalia,total,Drinking water,2017,52.43619,7730417.23343,At least basic
+SOM,Somalia,total,Drinking water,2017,31.40468,4629841.86714,Limited service
+SOM,Somalia,total,Drinking water,2017,2.6424,389555.96606,Surface water
+SOM,Somalia,total,Drinking water,2017,13.51674,1992707.93338,Unimproved
+SPM,Saint Pierre and Miquelon,total,Drinking water,2017,8.2717,522.77144,Basic service
+SPM,Saint Pierre and Miquelon,total,Drinking water,2017,0,0,Limited service
+SPM,Saint Pierre and Miquelon,total,Drinking water,2017,83.1283,5253.70856,Safely managed service
+SPM,Saint Pierre and Miquelon,total,Drinking water,2017,0,0,Surface water
+SPM,Saint Pierre and Miquelon,total,Drinking water,2017,8.6,543.52,Unimproved
+SRB,Serbia,total,Drinking water,2017,10.79257,948728.98269,Basic service
+SRB,Serbia,total,Drinking water,2017,13.69736,1204076.46589,Limited service
+SRB,Serbia,total,Drinking water,2017,74.72954,6569155.93592,Safely managed service
+SRB,Serbia,total,Drinking water,2017,0.01665,1463.62162,Surface water
+SRB,Serbia,total,Drinking water,2017,0.76387,67148.99387,Unimproved
+SSD,South Sudan,total,Drinking water,2017,40.67601,5115298.95461,At least basic
+SSD,South Sudan,total,Drinking water,2017,33.66142,4233163.70688,Limited service
+SSD,South Sudan,total,Drinking water,2017,9.07818,1141645.42917,Surface water
+SSD,South Sudan,total,Drinking water,2017,16.58439,2085605.90934,Unimproved
+STP,Sao Tome and Principe,total,Drinking water,2017,84.29016,172227.55508,At least basic
+STP,Sao Tome and Principe,total,Drinking water,2017,12.46735,25474.16347,Limited service
+STP,Sao Tome and Principe,total,Drinking water,2017,2.57321,5257.77135,Surface water
+STP,Sao Tome and Principe,total,Drinking water,2017,0.66928,1367.51011,Unimproved
+SUR,Suriname,total,Drinking water,2017,95.42474,537624.92164,At least basic
+SUR,Suriname,total,Drinking water,2017,1.20692,6799.83539,Limited service
+SUR,Suriname,total,Drinking water,2017,3.36833,18977.24297,Unimproved
+SVK,Slovakia,total,Drinking water,2017,0,0,Basic service
+SVK,Slovakia,total,Drinking water,2017,0.21227,11563.52822,Limited service
+SVK,Slovakia,total,Drinking water,2017,99.78773,5436098.47178,Safely managed service
+SVK,Slovakia,total,Drinking water,2017,0,0,Surface water
+SVK,Slovakia,total,Drinking water,2017,0,0,Unimproved
+SVN,Slovenia,total,Drinking water,2017,1.48205,30826.34749,Basic service
+SVN,Slovenia,total,Drinking water,2017,0,0,Limited service
+SVN,Slovenia,total,Drinking water,2017,98.05297,2039478.39415,Safely managed service
+SVN,Slovenia,total,Drinking water,2017,0,0,Surface water
+SVN,Slovenia,total,Drinking water,2017,0.46497,9671.35836,Unimproved
+SWE,Sweden,total,Drinking water,2017,0.06,5946.42075,Basic service
+SWE,Sweden,total,Drinking water,2017,0,0,Limited service
+SWE,Sweden,total,Drinking water,2017,99.94,9904754.82339,Safely managed service
+SWE,Sweden,total,Drinking water,2017,0,0,Surface water
+SWE,Sweden,total,Drinking water,2017,0,0,Unimproved
+SWZ,Eswatini,total,Drinking water,2017,69.00866,943523.59781,At least basic
+SWZ,Eswatini,total,Drinking water,2017,9.26214,126636.95484,Limited service
+SWZ,Eswatini,total,Drinking water,2017,13.07983,178834.54728,Surface water
+SWZ,Eswatini,total,Drinking water,2017,8.64937,118258.90007,Unimproved
+SXM,Sint Maarten (Dutch part),total,Drinking water,2017,95.07412,38143.73676,At least basic
+SXM,Sint Maarten (Dutch part),total,Drinking water,2017,0,0,Limited service
+SXM,Sint Maarten (Dutch part),total,Drinking water,2017,0,0,Surface water
+SXM,Sint Maarten (Dutch part),total,Drinking water,2017,4.92588,1976.26324,Unimproved
+SYC,Seychelles,total,Drinking water,2017,96.24901,91183.42703,At least basic
+SYC,Seychelles,total,Drinking water,2017,0,0,Limited service
+SYC,Seychelles,total,Drinking water,2017,3.75099,3553.57297,Surface water
+SYC,Seychelles,total,Drinking water,2017,0,0,Unimproved
+SYR,Syrian Arab Republic,total,Drinking water,2017,97.21651,17761327.35843,At least basic
+SYR,Syrian Arab Republic,total,Drinking water,2017,2.20625,403078.55445,Limited service
+SYR,Syrian Arab Republic,total,Drinking water,2017,0.57725,105462.08712,Unimproved
+TCA,Turks and Caicos Islands,total,Drinking water,2017,94.31818,33432.02273,At least basic
+TCA,Turks and Caicos Islands,total,Drinking water,2017,0,0,Limited service
+TCA,Turks and Caicos Islands,total,Drinking water,2017,0,0,Surface water
+TCA,Turks and Caicos Islands,total,Drinking water,2017,5.68182,2013.97727,Unimproved
+TCD,Chad,total,Drinking water,2017,38.7006,5766386.99294,At least basic
+TCD,Chad,total,Drinking water,2017,17.04311,2539421.74056,Limited service
+TCD,Chad,total,Drinking water,2017,5.52778,823638.29558,Surface water
+TCD,Chad,total,Drinking water,2017,38.72852,5770546.97093,Unimproved
+TGO,Togo,total,Drinking water,2017,65.12884,5078547.6636,At least basic
+TGO,Togo,total,Drinking water,2017,5.7753,450340.12595,Limited service
+TGO,Togo,total,Drinking water,2017,13.37451,1042903.21324,Surface water
+TGO,Togo,total,Drinking water,2017,15.72135,1225902.99721,Unimproved
+THA,Thailand,total,Drinking water,2017,99.93071,68989676.99638,At least basic
+THA,Thailand,total,Drinking water,2017,0.06929,47835.00362,Limited service
+THA,Thailand,total,Drinking water,2017,0,0,Surface water
+THA,Thailand,total,Drinking water,2017,0,0,Unimproved
+TJK,Tajikistan,total,Drinking water,2017,33.32923,2973414.6094,Basic service
+TJK,Tajikistan,total,Drinking water,2017,2.32353,207289.95391,Limited service
+TJK,Tajikistan,total,Drinking water,2017,47.86705,4270383.56887,Safely managed service
+TJK,Tajikistan,total,Drinking water,2017,14.17388,1264500.73987,Surface water
+TJK,Tajikistan,total,Drinking water,2017,2.30631,205754.12796,Unimproved
+TKL,Tokelau,total,Drinking water,2017,99.62425,1295.11525,At least basic
+TKL,Tokelau,total,Drinking water,2017,0,0,Limited service
+TKL,Tokelau,total,Drinking water,2017,0,0,Surface water
+TKL,Tokelau,total,Drinking water,2017,0.37575,4.88475,Unimproved
+TKM,Turkmenistan,total,Drinking water,2017,4.91034,282740.85385,Basic service
+TKM,Turkmenistan,total,Drinking water,2017,1.18567,68271.88393,Limited service
+TKM,Turkmenistan,total,Drinking water,2017,93.90399,5407062.26222,Safely managed service
+TKM,Turkmenistan,total,Drinking water,2017,0,0,Surface water
+TKM,Turkmenistan,total,Drinking water,2017,0,0,Unimproved
+TLS,Timor-Leste,total,Drinking water,2017,78.34387,1015580.14946,At least basic
+TLS,Timor-Leste,total,Drinking water,2017,2.30842,29924.28257,Limited service
+TLS,Timor-Leste,total,Drinking water,2017,4.42871,57409.91075,Surface water
+TLS,Timor-Leste,total,Drinking water,2017,14.919,193396.65722,Unimproved
+TON,Tonga,total,Drinking water,2017,99.90683,107919.35533,At least basic
+TON,Tonga,total,Drinking water,2017,0,0,Limited service
+TON,Tonga,total,Drinking water,2017,0,0,Surface water
+TON,Tonga,total,Drinking water,2017,0.09317,100.64467,Unimproved
+TTO,Trinidad and Tobago,total,Drinking water,2017,98.18496,1344274.8618,At least basic
+TTO,Trinidad and Tobago,total,Drinking water,2017,1.11698,15292.81464,Limited service
+TTO,Trinidad and Tobago,total,Drinking water,2017,0,0,Surface water
+TTO,Trinidad and Tobago,total,Drinking water,2017,0.69806,9557.32357,Unimproved
+TUN,Tunisia,total,Drinking water,2017,3.59718,414831.26238,Basic service
+TUN,Tunisia,total,Drinking water,2017,1.96382,226470.11137,Limited service
+TUN,Tunisia,total,Drinking water,2017,92.65752,10685383.40452,Safely managed service
+TUN,Tunisia,total,Drinking water,2017,0,0,Surface water
+TUN,Tunisia,total,Drinking water,2017,1.78148,205442.22172,Unimproved
+TUR,Turkey,total,Drinking water,2017,98.87572,79837222.3525,At least basic
+TUR,Turkey,total,Drinking water,2017,0,0,Limited service
+TUR,Turkey,total,Drinking water,2017,0.12689,102461.23196,Surface water
+TUR,Turkey,total,Drinking water,2017,0.99739,805340.41554,Unimproved
+TUV,Tuvalu,total,Drinking water,2017,99.27224,11110.5491,At least basic
+TUV,Tuvalu,total,Drinking water,2017,0,0,Limited service
+TUV,Tuvalu,total,Drinking water,2017,0,0,Surface water
+TUV,Tuvalu,total,Drinking water,2017,0.72776,81.4509,Unimproved
+TZA,United Republic of Tanzania,total,Drinking water,2017,56.72645,32509940.02222,At least basic
+TZA,United Republic of Tanzania,total,Drinking water,2017,11.43427,6552983.44322,Limited service
+TZA,United Republic of Tanzania,total,Drinking water,2017,14.22888,8154571.64099,Surface water
+TZA,United Republic of Tanzania,total,Drinking water,2017,17.6104,10092524.89357,Unimproved
+UGA,Uganda,total,Drinking water,2017,42.03823,18018828.92263,Basic service
+UGA,Uganda,total,Drinking water,2017,31.71679,13594752.20842,Limited service
+UGA,Uganda,total,Drinking water,2017,7.0658,3028610.8736,Safely managed service
+UGA,Uganda,total,Drinking water,2017,6.71672,2878983.63883,Surface water
+UGA,Uganda,total,Drinking water,2017,12.46246,5341780.35652,Unimproved
+UKR,Ukraine,total,Drinking water,2017,1.78396,788921.12659,Basic service
+UKR,Ukraine,total,Drinking water,2017,5.64457,2496193.72266,Limited service
+UKR,Ukraine,total,Drinking water,2017,92.00686,40688140.72809,Safely managed service
+UKR,Ukraine,total,Drinking water,2017,0.32871,145365.55599,Surface water
+UKR,Ukraine,total,Drinking water,2017,0.2359,104322.86667,Unimproved
+URY,Uruguay,total,Drinking water,2017,99.40236,3436091.2003,At least basic
+URY,Uruguay,total,Drinking water,2017,0.59764,20658.90651,Limited service
+URY,Uruguay,total,Drinking water,2017,0,0,Surface water
+URY,Uruguay,total,Drinking water,2017,0,0,Unimproved
+USA,United States of America,total,Drinking water,2017,0.26741,867650.51943,Basic service
+USA,United States of America,total,Drinking water,2017,0,0,Limited service
+USA,United States of America,total,Drinking water,2017,99.00178,321220630.04939,Safely managed service
+USA,United States of America,total,Drinking water,2017,0,0,Surface water
+USA,United States of America,total,Drinking water,2017,0.73081,2371175.43118,Unimproved
+UZB,Uzbekistan,total,Drinking water,2017,38.92965,12422699.62237,Basic service
+UZB,Uzbekistan,total,Drinking water,2017,0,0,Limited service
+UZB,Uzbekistan,total,Drinking water,2017,58.90381,18796581.27139,Safely managed service
+UZB,Uzbekistan,total,Drinking water,2017,1.94211,619739.1271,Surface water
+UZB,Uzbekistan,total,Drinking water,2017,0.22444,71619.97914,Unimproved
+VCT,Saint Vincent and the Grenadines,total,Drinking water,2017,95.14522,104561.74231,At least basic
+VCT,Saint Vincent and the Grenadines,total,Drinking water,2017,0,0,Limited service
+VCT,Saint Vincent and the Grenadines,total,Drinking water,2017,4.85478,5335.25769,Unimproved
+VEN,Venezuela (Bolivarian Republic of),total,Drinking water,2017,95.72371,30609632.43171,At least basic
+VEN,Venezuela (Bolivarian Republic of),total,Drinking water,2017,0.48102,153817.2484,Limited service
+VEN,Venezuela (Bolivarian Republic of),total,Drinking water,2017,1.37823,440716.91095,Surface water
+VEN,Venezuela (Bolivarian Republic of),total,Drinking water,2017,2.41704,772897.40894,Unimproved
+VGB,British Virgin Islands,total,Drinking water,2017,99.86438,31153.6931,At least basic
+VGB,British Virgin Islands,total,Drinking water,2017,0,0,Limited service
+VGB,British Virgin Islands,total,Drinking water,2017,0,0,Surface water
+VGB,British Virgin Islands,total,Drinking water,2017,0.13562,42.3069,Unimproved
+VIR,United States Virgin Islands,total,Drinking water,2017,98.71827,103556.44966,At least basic
+VIR,United States Virgin Islands,total,Drinking water,2017,0,0,Limited service
+VIR,United States Virgin Islands,total,Drinking water,2017,0,0,Surface water
+VIR,United States Virgin Islands,total,Drinking water,2017,1.28173,1344.55034,Unimproved
+VNM,Viet Nam,total,Drinking water,2017,94.71881,90495104.62662,At least basic
+VNM,Viet Nam,total,Drinking water,2017,0,0,Limited service
+VNM,Viet Nam,total,Drinking water,2017,0,0,Surface water
+VNM,Viet Nam,total,Drinking water,2017,5.28119,5045695.37338,Unimproved
+VUT,Vanuatu,total,Drinking water,2017,47.12648,130184.0688,Basic service
+VUT,Vanuatu,total,Drinking water,2017,1.06605,2944.90743,Limited service
+VUT,Vanuatu,total,Drinking water,2017,44.13033,121907.3767,Safely managed service
+VUT,Vanuatu,total,Drinking water,2017,7.67714,21207.64707,Surface water
+VUT,Vanuatu,total,Drinking water,2017,0,0,Unimproved
+WLF,Wallis and Futuna Islands,total,Drinking water,2017,99.55928,11721.11361,At least basic
+WLF,Wallis and Futuna Islands,total,Drinking water,2017,0,0,Limited service
+WLF,Wallis and Futuna Islands,total,Drinking water,2017,0,0,Surface water
+WLF,Wallis and Futuna Islands,total,Drinking water,2017,0.44072,51.88639,Unimproved
+WSM,Samoa,total,Drinking water,2017,38.56149,75750.18872,Basic service
+WSM,Samoa,total,Drinking water,2017,0.65258,1281.93219,Limited service
+WSM,Samoa,total,Drinking water,2017,58.82111,115548.18137,Safely managed service
+WSM,Samoa,total,Drinking water,2017,0.30789,604.80987,Surface water
+WSM,Samoa,total,Drinking water,2017,1.65694,3254.88785,Unimproved
+YEM,Yemen,total,Drinking water,2017,63.47347,17931523.08982,At least basic
+YEM,Yemen,total,Drinking water,2017,28.57406,8072291.9469,Limited service
+YEM,Yemen,total,Drinking water,2017,4.19288,1184506.18956,Surface water
+YEM,Yemen,total,Drinking water,2017,3.75959,1062098.77372,Unimproved
+ZAF,South Africa,total,Drinking water,2017,92.6787,52564723.95611,At least basic
+ZAF,South Africa,total,Drinking water,2017,2.79026,1582558.74635,Limited service
+ZAF,South Africa,total,Drinking water,2017,2.69656,1529413.29751,Surface water
+ZAF,South Africa,total,Drinking water,2017,1.83447,1040460.00003,Unimproved
+ZMB,Zambia,total,Drinking water,2017,59.96376,10250282.4905,At least basic
+ZMB,Zambia,total,Drinking water,2017,7.50412,1282763.78818,Limited service
+ZMB,Zambia,total,Drinking water,2017,8.63913,1476783.38057,Surface water
+ZMB,Zambia,total,Drinking water,2017,23.893,4084300.34076,Unimproved
+ZWE,Zimbabwe,total,Drinking water,2017,64.05123,10587606.78082,At least basic
+ZWE,Zimbabwe,total,Drinking water,2017,13.1998,2181913.77543,Limited service
+ZWE,Zimbabwe,total,Drinking water,2017,7.09885,1173433.54399,Surface water
+ZWE,Zimbabwe,total,Drinking water,2017,15.65012,2586949.89976,Unimproved
