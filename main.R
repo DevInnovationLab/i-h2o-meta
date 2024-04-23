@@ -28,7 +28,7 @@ source("code/wrangling/prep_trial_data.R")
 # - data/transformed/trials.Rda
 # - code/ma_models/logit_model.stan
 # Outputs: output/stan/cluster_bayes_models.Rdata (this file is very heavy and is ignored in GitHub)
-source("code/wrangling/prep_cluster_models.R")
+source("code/wrangling/prep_cluster_models.R") # Run time: ~30 min
 
 ## Merge inputs into a data frame with OR that can be meta-analysed ------------
 
@@ -67,7 +67,7 @@ source("code/cea/u5-per-hh.R") # Sometimes breaks when running from the main scr
 # Outputs: 
 # - output/stan/bayesian-ma-models.Rdata
 # - output/stan/bayesian-mr-models.Rdata
-source("code/ma_models/fit_ma_bayes.R")
+source("code/ma_models/fit_ma_bayes.R") # Run time: ~1h
 
 ## Prepare Bayesian models for plots and tables --------------------------------
 # Inputs: 

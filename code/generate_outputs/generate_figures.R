@@ -184,7 +184,7 @@ forest <- forestplot::forestplot(
     TRUE,
     TRUE
   ),
-  clip = c(0.062, 4),
+  clip = c(0.25, 4),
   xlog = T,
   col = fpColors(
     box = "black",
@@ -278,7 +278,7 @@ forest <-
     TRUE,
     TRUE
   ),
-  clip = c(0.062, 4),
+  clip = c(0.25, 4),
   xlog = T,
   col = fpColors(
     box = "black",
@@ -503,6 +503,46 @@ ggsave(
   height = 8,
   units = "cm"
 )
+
+# Mortality vs. Baseline #######################################################
+
+# or <- exp(effect_draw(bg_main, 1e05))
+# p1 <- seq(0, .1, length = 100)
+# m <- sapply(p1, function(p1) {
+#   o1 <- p1 / (1 - p1)
+#   o2 <- or * p1
+#   p2 <- o2 / (1 + o2)
+#   p2
+# })
+# 
+# t(apply(m, 2, baggr::mint, int = 0.9)) %>%
+#   as.data.frame() %>%
+#   setNames(c("low", "mean", "high")) %>%
+#   mutate(p1 = p1) %>%
+#   ggplot(aes(
+#     x = p1,
+#     y = mean,
+#     ymax = high,
+#     ymin = low
+#   )) +
+#   geom_line() + geom_ribbon(alpha = .2) + theme_minimal() +
+#   xlab("Control group mortality rate") + ylab("Treated group mortality rate") +
+#   scale_x_continuous(labels = scales::percent, limits = c(0, .11)) +
+#   scale_y_continuous(labels = scales::percent, limits = c(0, .11))
+# 
+# ggsave(
+#   "output/figures/mortality-vs-baseline.pdf",
+#   width = 14,
+#   height = 10,
+#   units = "cm"
+# )
+# 
+# ggsave(
+#   "output/figures/mortality-vs-baseline.png",
+#   width = 14,
+#   height = 10,
+#   units = "cm"
+# )
 
 # Diarrhea publication bias funnel plot ########################################
 

@@ -26,9 +26,11 @@ The code used to create the exhibits in the paper is in `code/`. `main.R` tracks
   - `fit_ma_frequentist.R` is called from other scripts as fits frequentist meta-analysis models.
 - **Scripts in `code/generate_outputs` recreate the results in the paper.**
   - `generate_figures.R` recreates all the figures.
-  - `generate_tables.R` recreates the meta-analysis tables in the paper.
-  - `generate_cea_results.R` recreates the cost-effectiveness results.
-  - `generate_text.Rmd` for printing the values that are cited inline in main text and supplement
+  - `code/generate_outputs/generate_tables.R` recreates the meta-analysis tables in the paper.
+  - `code/generate_outputs/generate_cea_results.R` recreates the cost-effectiveness results.
+  - `code/generate_outputs/generate_summary_of_individual_studies.R` recreates the table with summary of individual studies. The data required to run this script cannot be publicly shared.
+  _- `generate_text.R` for printing all values that are cited inline in main text and supplement_
+  _- `generate_incexcl_analysis.R` has values for supplement section 1 ("comparison with other RCTs")_
 - **Scripts in `code/publication_bias` perform the tests mentioned in supplement section 5.** 
 
 ### Controlled Randomness

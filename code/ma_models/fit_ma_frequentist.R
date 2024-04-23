@@ -2,6 +2,7 @@ library(tidyverse)
 library(metafor)
 
 load(here("data/final/ma_datasets.Rdata"))
+set.seed(566535) # Extracted from random.org on 2024-04-22 03:43:50 UTC
 
 # Fit models ===================================================================
 
@@ -14,6 +15,7 @@ fma_re <-
     data = df_main_ma_adj,
     method = "REML"
   )
+
 fma_fe <-
   rma(
     yi = tau,

@@ -6,7 +6,7 @@ set.seed(1990)
 # load(here("data/transformed/ma_datasets.Rdata"))
 # Main Bayesian model is used for these calculations
 source(here("code/cea/cea-setup.R"))
-
+load(here("output/stan/bayesian-ma-models.Rdata"))
 
 
 
