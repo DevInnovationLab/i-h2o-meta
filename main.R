@@ -1,5 +1,23 @@
+# Settings =====================================================================
+# Set update_tables to TRUE to update values in the paper manuscript. This will
+# only work if you have write access to the google sheet
+update_tables <- FALSE
+update_dhs <- FALSE # only necessary if new DHS data was downloaded
+data_wrangling <- TRUE
+fit_bayes <- TRUE
+recreate_outputs <- TRUE
+
+if (update_tables) {
+  library(googlesheets4)
+  gsheet <- "https://docs.google.com/spreadsheets/d/1P-gC4qvXYU40_gQXW4-qGs4wJppKVWr56wv20xNNK6w/edit#gid=0"
+  gs4_auth() # Authenticate via browser. You will need to manually select the option to allow R to modify spreadsheets
+}
+
 # Prepare data =================================================================
 # Running all the scripts in this section will only recreate the data sets in data/final
+
+## List of studies -------------------------------------------------------------
+if (data_wrangling) {
 
 # Inputs: 
 # - data/raw/diarrhea_studies.xlsx
@@ -42,7 +60,7 @@ source("code/wrangling/prep_adjusted_data.R")
 
 # Inputs:
 # - data/raw/weighted_mr/all_data.csv
-# - data/raw/weighted_mr/CLASS.xlsx
+# - data/raw/weighted_mr/OGHIST.xlsx
 # - data/raw/weighted_mr/JMP_2021_WLD.xlsx
 # - data/raw/weighted_mr/washdash-download.csv
 # - data/raw/weighted_mr/WPP2019_POP_F07_1_POPULATION_BY_AGE_BOTH_SEXES.xlsx
@@ -50,18 +68,20 @@ source("code/wrangling/prep_adjusted_data.R")
 # - data/transformed/weighted_u5_mr.csv
 # - data/final/mortality_rate.rds
 source("code/cea/weighted-mr.R")
+}
 
 # Inputs:
 # - data/raw/u5-per-hh/idhs_00001.xml
 # - data/raw/u5-per-hh/idhs_00001.dat.gz (needs to be unpacked before running the code)
-# - data/raw/u5-per-hh/un-country-codes.csv
 # Outputs: data/transformed/u5-per-hh.csv
-source("code/cea/u5-per-hh.R") # Sometimes breaks when running from the main script, in which case opening the R file directly should work
+if (update_dhs) source("code/cea/u5-per-hh.R") # Sometimes breaks when running from the main script, in which case opening the R file directly should work
 
 # Meta analysis models =========================================================
 
 ## Fit Bayesian models ---------------------------------------------------------
 
+if (fit_bayes) {
+  
 # Inputs: 
 # - data/final/ma_datasets.Rdata
 # Outputs: 
@@ -77,6 +97,8 @@ source("code/ma_models/fit_ma_bayes.R") # Run time: ~1h
 # - output/stan/bayesian-models-for-exhibits.Rdata
 source("code/ma_models/load_bayes_ma.R")
 
+}
+
 ## Fit frequentist models ------------------------------------------------------
 # (This code is called directly in the output scripts)
 # Inputs: data/final/ma_datasets.Rdata
@@ -84,8 +106,11 @@ source("code/ma_models/load_bayes_ma.R")
 
 # Paper exhibits ===============================================================
 
+
 ## Output all paper figures ----------------------------------------------------
 
+if (recreate_outputs) {
+  
 # Inputs:
 # - data/final/ma_datasets.Rdata
 # - output/stan/bayesian-models-for-exhibits.Rdata
@@ -144,3 +169,5 @@ rmarkdown::render(
   here::here('code/generate_outputs/generate_text.Rmd'), 
   output_file = here::here('output/numbers-in-text.html')
 )
+  
+}
