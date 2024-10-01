@@ -1,21 +1,21 @@
-trial_name_short,tcases,tnoncases,ccases,cnoncases
-"Boisson et al., 2013",2,1505,1,1483
-"Chiller et al., 2006",0,549,1,543
-"Conroy et al., 1999",1,174,2,172
-"Crump et al., 2005",9,872,15,447
-"Dupas et al., 2021",5,1288,2,1321
-"Haushofer et al., 2020",7,987,22,965
-"Humphrey et al., 2019",49,946,50,909
-"Kirby et al., 2019",8,1198,12,1252
-"Kremer et. al., 2011",18,691,47,1465
-"Luby et al., 2006",2,1013,0,533
-"Luby et al., 2018",27,629,62,1244
-"Mengistie et al., 2013",0,425,1,420
-"Morris et al., 2018",2,117,3,115
-"Null et al., 2018",30,858,114,2697
-"Peletz et al., 2012",3,58,6,54
-"Quick et al., 1999",0,400,0,391
-"Reller et al., 2003",10,729,5,182
-"Semenza et al., 1998",0,88,2,78
-"Boisson et al., 2010",4,81,1,104
-"du Preez et al., 2011",3,355,3,334
+trial_name,tcases,tnoncases,ccases,cnoncases,robustness
+"Boisson et al., 2013",2,1505,1,1483,FALSE
+"Chiller et al., 2006",0,549,1,543,FALSE
+"Conroy et al., 1999",1,131,2,130,FALSE
+"Crump et al., 2005",9,872,15,447,FALSE
+"Dupas et al., 2021",5,1288,2,1321,FALSE
+"Haushofer et al., 2020",7,987,22,965,FALSE
+"Humphrey et al., 2019",49,918,50,884,FALSE
+"Kirby et al., 2019",8,1198,12,1252,FALSE
+"Kremer et al., 2011",18,691,47,1465,FALSE
+"Luby et al., 2006",2,1013,0,533,FALSE
+"Luby et al., 2018",27,598,62,1138,FALSE
+"Mengistie et al., 2013",0,425,1,420,FALSE
+"Morris et al., 2018",2,117,3,115,FALSE
+"Null et al., 2018",30,858,114,2697,FALSE
+"Peletz et al., 2012",3,58,6,54,FALSE
+"Quick et al., 1999",0,400,0,391,FALSE
+"Reller et al., 2003",10,729,5,182,FALSE
+"Semenza et al., 1998",0,88,2,78,FALSE
+"Boisson et al., 2010",4,81,1,104,TRUE
+"du Preez et al., 2011",3,555,3,534,TRUE

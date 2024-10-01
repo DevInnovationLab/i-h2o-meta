@@ -1,9 +1,5 @@
 library(here)
 
-set.seed(1990)
-
-load(here("data/final/ma_datasets.Rdata"))
-
 # Main Bayesian model is used for these calculations
 # as well as m-a-weighted compliance
 load(here("output/stan/bayesian-models-for-exhibits.Rdata"))
@@ -15,22 +11,6 @@ default_takeup <- default_takeup_trt - default_takeup_ctrl
 
 default_or_ppd <- mean(bg_main_or_ppd)
 
-# GDP per capita
-# https://data.worldbank.org/indicator/NY.GDP.PCAP.PP.CD?locations=KE-IN
-gdp_pc_ppp     <- c("coupons" = 3142, 
-                    "ilc" = 8379, 
-                    "dsw" = 5736) #3142 is wrong?
-
-# https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=KE-IN
-# weighted avg LIC and LMICs:
-# https://data.worldbank.org/indicator/SP.POP.TOTL
-# https://data.worldbank.org/indicator/NY.GDP.PCAP.CD
-gdp_pc_nominal <- c("coupons" = 2217, #calculated by Andreas P-Z
-                    "ilc" = 2388, #India, 
-                    "dsw" = 2099) #Kenya
-
-# 27 Sep 2023 we decided to go with nominal for this version of the paper
-default_gdp_pc <- gdp_pc_nominal
 gdp_multiplier <- 1
 
 # Helper function that calculates cost per DALY -----
@@ -78,21 +58,22 @@ cea_v2 <- function(x, #either a baggr object, draws of ORs or RRs (see code)
   # WHO method of accounting for DALYs lost:
   daly_lost <- 81.25 - 2 #let's assume average age of death is 2
   daly_reduction <- daly_lost*reduction
-  
-  # Assume that the value of life of 3xGDP
   net_benefits <- mean(daly_reduction) * gdp_pc * gdp_multiplier - cost_per_u5
+  
   tab <- list(
     or = round(mean(exp(x)), 3),
     rr = round(mean(rr), 2),
     p1 = round(100*p1, 1),
     t_ma = default_takeup %>% round(2),
     effective_tkup = (tkup - tkup_ctrl) %>% round(2),
-    reduction = round(mean(reduction), 4),
-    daly_reduction = round(mean(daly_reduction), 2),
+    reduction = round(mean(reduction) * 1000),
+    daly_reduction = round(mean(daly_reduction), 2) * 1000,
     cost = round(cost_per_u5, 1),
     cost_per_death = round(cost_per_u5/mean(reduction)),
     cost_per_daly = round(cost_per_u5/mean(daly_reduction)),
-    net_ben = round(net_benefits)
+    net_ben = round(net_benefits),
+    net_dalys_gdp = ((daly_reduction - (cost_per_u5/gdp_pc)) * 1000) %>% round,
+    net_dalys_100 = ((daly_reduction - (cost_per_u5/100)) * 1000) %>% round
   )
   
   if(result == "table") #output the rows of Table 2
@@ -100,8 +81,6 @@ cea_v2 <- function(x, #either a baggr object, draws of ORs or RRs (see code)
   else
     return(daly_reduction)
 }
-
-
 
 # Default settings for 3 cases: DSW, ILC, coupons
 
@@ -112,14 +91,18 @@ cea_v2 <- function(x, #either a baggr object, draws of ORs or RRs (see code)
 dsw_cost <- 161.64 / 14.4
 
 # DSW
-cea_dsw <- function(or) cea_v2(result = "table", 
-                               x=or, 
-                               p1=.0692, 
-                               tkup=0.438,
-                               tkup_ctrl = 0.083,
-                               cost=dsw_cost, 
-                               u5_per_hh=1,
-                               gdp_pc=default_gdp_pc[["dsw"]])
+cea_dsw <- function(or, tkup = 0.438, tkup_ctrl = 0.083) {
+  cea_v2(
+    result = "table", 
+    x = or, 
+    p1 = .0692, 
+    tkup = tkup,
+    tkup_ctrl = tkup_ctrl,
+    cost = dsw_cost, 
+    u5_per_hh = 1,
+    gdp_pc = default_gdp_pc[["dsw"]]
+  )
+}
 
 # ILC (Kenya)
 # cea_ilc <- function(or) cea_v2(result = "table", 
@@ -131,14 +114,19 @@ cea_dsw <- function(or) cea_v2(result = "table",
 #                                gdp_pc=5211)
 
 # ILC (India)
-cea_ilc <- function(or) cea_v2(result = "table", 
-                               x = or, 
-                               p1 = 0.039, 
-                               tkup = 0.75, #Pickering et al 
-                               tkup_ctrl = 0.06,
-                               cost = 59.57/5, 
-                               u5_per_hh=1, #The calculation works differently, so we set it to 1
-                               gdp_pc=default_gdp_pc[["ilc"]])
+cea_ilc <- function(or, tkup = 0.75, tkup_ctrl = 0.06) {
+  cea_v2(
+    result = "table", 
+    x = or, 
+    p1 = 0.039, #Pickering et al ,
+    tkup = tkup,
+    tkup_ctrl = tkup_ctrl,
+    cost = 59.57/5, 
+    u5_per_hh=1, #The calculation works differently, so we set it to 1
+    gdp_pc=default_gdp_pc[["ilc"]]
+  )
+}
+  
 
 # coupons (global program)
 # Two pieces of this calculation are based on auxilliary scripts.
@@ -160,13 +148,15 @@ u5_per_hh_coupons <- read_csv(file = here("data/transformed/u5-per-hh.csv"))
 # total number of households with at least one <5 child over time. We take a weighted average across all 
 # countries for which household level data is available. All data is from IPUMS [add citation]);
 cost_vouchers <- 0.3 * 12 * 0.37 * 1.5 * 2 #/1.58 done inside the function (u5_per_hh) 
-cea_cou <- function(or) cea_v2(result = "table", 
-                               x = or, 
-                               p1 = u5_mr$avg_mortality_rate, 
-                               tkup = 0.3, 
-                               tkup_ctrl = 0.04,
-                               cost = cost_vouchers,
-                               u5_per_hh=u5_per_hh_coupons[["x"]], 
-                               gdp_pc=default_gdp_pc[["coupons"]])
-
-
+cea_cou <- function(or, tkup = 0.3, tkup_ctrl = 0.04) {
+  cea_v2(
+    result = "table", 
+    x = or, 
+    p1 = u5_mr$avg_mortality_rate, 
+    tkup = tkup, 
+    tkup_ctrl = tkup_ctrl,
+    cost = cost_vouchers,
+    u5_per_hh = u5_per_hh_coupons[["x"]], 
+    gdp_pc = default_gdp_pc[["coupons"]]
+  )
+} 

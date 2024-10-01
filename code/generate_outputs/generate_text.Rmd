@@ -18,6 +18,8 @@ source(here("code/functions/helpers.R"))
 load(here("output/stan/bayesian-mr-models.Rdata"))
 source(here("code/publication_bias/diarrhea-pub-bias.R"))
 load(here("data/transformed/trials.Rdata"))
+source(here("code/cea/cea-setup.R"))
+default_gdp_pc <- read_rds(here("data/transformed/default_gdp_pc.rds"))
 ```
 
 ```{r headline bayesian results}
@@ -52,6 +54,68 @@ df_studies <- read_rds(here("data/final/diarrhea_studies.rds"))
 
 n_found <- df_studies %>% pull(reference) %>% n_distinct
 n_included <- df_main_ma_adj %>% pull(trial) %>% n_distinct
+n_waddington <- df_studies %>% dplyr::filter(source == "Waddington et al., 2023") %>% pull(reference) %>% n_distinct
+n_waddington_included <- df_studies %>% dplyr::filter(source == "Waddington et al., 2023", included == 1) %>% pull(reference) %>% n_distinct
+n_added <- df_studies %>% dplyr::filter(source == "New addition") %>% pull(reference) %>% n_distinct
+
+n_mortality <- df_studies %>% dplyr::filter(mortality_reported == 1) %>% pull(reference) %>% n_distinct
+```
+
+```{r mortality reporting}
+df_main_ma <-
+  df_main_ma %>%
+  mutate(mortality_reported = !str_detect(mortality_reporting, "Not reported"))
+
+report_mortality <-
+  df_main_ma %>% 
+  dplyr::filter(mortality_reported) %>% 
+  nrow
+
+pre_registered <-
+  df_main_ma_adj %>% 
+  dplyr::filter(mortality_preregistered == 1) %>% 
+  nrow
+
+outcome <-
+  df_main_ma_adj %>% 
+  dplyr::filter(
+    str_detect(mortality_reporting, "outcome")
+  ) %>% 
+  nrow
+
+flow <-
+  df_main_ma_adj %>% 
+  dplyr::filter(
+    str_detect(mortality_reporting, "Flow diagram")
+  ) %>% 
+  nrow
+
+text <-
+  df_main_ma_adj %>% 
+  dplyr::filter(
+    str_detect(mortality_reporting, "text")
+  ) %>% 
+  nrow
+
+sample_reported <-
+  df_main_ma_adj %>% 
+  dplyr::filter(!str_detect(mortality_reporting, "Not reported")) %>% 
+  mutate(N = c_n + t_n) %>% 
+  pull(N) %>% 
+  sum %>% 
+  format(big.mark = ",")
+```
+
+```{r combined treatment}
+always_combined <-
+  df_main_ma_adj %>%
+  dplyr::filter(treatment_arm_combined == 1) %>%
+  nrow
+
+some_combined <-
+  df_main_ma_adj %>%
+  dplyr::filter(treatment_arm_combined == 0, treatment_combined == 1) %>%
+  nrow
 ```
 
 ```{r posterior prediction distribution}
@@ -65,27 +129,27 @@ round((sum(exp(effect_draw(bg_main, 1e06)) < 1)/1e06), 2)
 
 # Abstract
 
-We identified `r n_found` RCTs and then obtained child mortality data from each study for which these data were collected and available, contacting authors of the study where necessary; this resulted in `r n_included` studies.
+We identified 52 RCTs and then obtained child mortality data from each study for which these data were collected and available, contacting authors of the study where necessary; this resulted in `r n_included` studies.
 Frequentist and Bayesian methods were used to estimate the effect of water treatment on child mortality among included studies. We estimated a mean cross-study reduction in the odds of all-cause under-5 mortality of `r min(c(freq_reduction, bayes_reduction))`-`r max(c(freq_reduction, bayes_reduction))`% (frequentist odds ratio, OR, `r freq_or["mean"]`; 95% CI `r freq_or["lower"]` to `r freq_or["upper"]`; Bayes OR `r bayes_or["mean"]`; 95% CI `r bayes_or["lower"]` to `r bayes_or["upper"]`). The results were qualitatively similar under alternative modeling and data inclusion choices. Taking into account heterogeneity across studies, the expected reduction in a new study implementation is `r next_implementation`%.
 
 After accounting for delivery costs, we estimate a cost per expected DALY averted due to water treatment between USD `r min(cost_per_daly)` and USD `r max(cost_per_daly)`, depending on approach.
 
 
-# Main text
+# Results
 
 ## Systematic review
 
-We screened these titles and abstracts to obtain a sample of `r n_found` studies for full-text review. 52 studies matched the inclusion criteria and we requested child mortality data from the authors of each study.
+Figure 1 illustrates the search and the selection process. We identified 1,485 studies: 1,412 studies through databases and 73 studies included in (8) and (9). We screened these titles and abstracts to obtain a sample of `r n_found` studies for full-text review. **52** studies matched the inclusion criteria and we requested child mortality data from the authors of each study. **25** authors reported that they did not collect mortality data or that the data was no longer available. We screened additional `r n_waddington %>% english` studies, `r n_waddington_included %>% english` of which we included, based on another recent meta-analysis of safe drinking water interventions that was published after we performed our search (13). `r n_added %>% english` studies were added by us. 
 
-The sample of `r df_studies %>% dplyr::filter(mortality_reported == 1) %>% pull(reference) %>% n_distinct` studies with mortality data is summarized in Table 1. `r df_studies %>% dplyr::filter(mortality_reported == 1, included_dummy == 0) %>% pull(reference) %>% n_distinct %>% english %>% str_to_upper` studies were then excluded from the main analysis due to contamination in the control group but we conduct a sensitivity analysis with these studies included (see Supplementary Information, section 3).
+The sample of `r ` studies with mortality data is summarized in Table 1. `r df_studies %>% dplyr::filter(mortality_reported == 1, included_dummy == 0) %>% pull(reference) %>% n_distinct %>% english %>% str_to_upper` studies were then excluded from the main analysis due to contamination in the control group but we conduct a sensitivity analysis with these studies included (see Supplementary Information, section 3).
 
 ## Publication bias
 
-Based on the larger sample of `r n_found` studies, we also did not find evidence of the magnitude of effect or of positive significant effects on diarrhea being associated with availability of mortality outcomes. Since the power of these tests for mortality outcome may be limited when applied to our sample of `r n_included` studies, we also conducted post hoc simulations. We find that even if our search strategy has missed as many as **15** unpublished short studies with null effects (i.e. assuming mortality risk in both arms of **0.4%**, which is one quarter of annual mortality in our data) but, these were then found and added to our dataset, the meta-analytic estimate of OR would still be significant. 
+Neither Egger’s nor Andrews and Kasy’s tests provided evidence of publication bias on diarrhea or mortality outcomes. Based on the larger sample of `r n_found` studies, we also did not find evidence of the magnitude of effect or of positive significant effects on diarrhea being associated with availability of mortality outcomes. Since the power of these tests for mortality outcome may be limited when applied to our sample of `r n_included` studies, we also conducted post hoc simulations. We find that even if our search strategy has missed as many as **15** unpublished short studies with null effects (i.e. assuming mortality risk in both arms of **0.4%**, which is one quarter of annual mortality in our data) but, these were then found and added to our dataset, the meta-analytic estimate of OR would still be significant. 
 
 ## Characteristics of included studies
 
-```{r}
+```{r total number of participants}
 total_participants <-
   df_main_ma_adj %>% 
   mutate(N = c_n + t_n) %>% 
@@ -94,11 +158,16 @@ total_participants <-
   format(big.mark = ",")
 ```
 
-The studies included `r total_participants` participants. Out of `r n_included` studies, `r df_main_ma_adj %>% dplyr::filter(intervention == "Chlorination") %>% pull(trial) %>% n_distinct` were of water chlorination, `r df_main_ma_adj %>% dplyr::filter(intervention == "Filtration") %>% pull(trial) %>% n_distinct %>% english` of water filtration, and `r df_main_ma_adj %>% dplyr::filter(!(intervention %in% c("Filtration", "Chlorination"))) %>% group_by(intervention) %>% summarise(n = n_distinct(trial)) %>% pull(n) %>% unique %>% english` each of spring protection and solar disinfection. For `r df_main_ma_adj %>% dplyr::filter(data_source == "Microdata") %>% pull(trial) %>% n_distinct` studies we used individual-level data which were obtained from the authors or publicly available. In aggregate, `r tcases <- df_main_ma_adj %>% pull(tcases) %>% sum; tcases %>% format(big.mark = ",")` deaths occurred among `r t_n <- df_main_ma_adj %>% pull(t_n) %>% sum; t_n %>% format(big.mark = ",")` children in treatment arms (`r ((tcases/t_n) * 100) %>% round(1)`%); in the control arms, `r ccases <- df_main_ma_adj %>% pull(ccases) %>% sum; ccases %>% format(big.mark = ",")` deaths occurred among `r c_n <- df_main_ma_adj %>% pull(c_n) %>% sum; c_n %>% format(big.mark = ",")` children (`r ((ccases/c_n) * 100) %>% round(1)`%). Five studies had no deaths in control and/or treatment arms. The annual risk of mortality in the pooled control group was about `r df_main_ma_adj %>% mutate(ccases_per_yr = 52*ccases/weeks) %>% summarise((sum(ccases_per_yr)/sum(c_n))*100) %>% round(1)`%. We found studies to be representative of diarrhea prevalence in LMICs (see Figure S7) and found no significant differences to the larger set of RCTs which measured diarrhea. We provide detailed characteristics of `r n_included` included studies and details of the comparison with other RCTs in Materials and Methods, section 1. 
+The studies included `r total_participants` participants. Out of `r n_included` studies, `r df_main_ma_adj %>% dplyr::filter(water_intervention == "Chlorination") %>% pull(trial) %>% n_distinct` were of water chlorination, `r df_main_ma_adj %>% dplyr::filter(water_intervention == "Filtration") %>% pull(trial) %>% n_distinct %>% english` of water filtration, and `r df_main_ma_adj %>% dplyr::filter(!(water_intervention %in% c("Filtration", "Chlorination"))) %>% group_by(water_intervention) %>% summarise(n = n_distinct(trial)) %>% pull(n) %>% unique %>% english` each of spring protection and solar disinfection. For `r df_main_ma_adj %>% dplyr::filter(data_source == "Microdata") %>% pull(trial) %>% n_distinct` studies we used individual-level data which were obtained from the authors or publicly available. In aggregate, `r tcases <- df_main_ma_adj %>% pull(tcases) %>% sum; tcases %>% format(big.mark = ",")` deaths occurred among `r t_n <- df_main_ma_adj %>% pull(t_n) %>% sum; t_n %>% format(big.mark = ",")` children in treatment arms (`r ((tcases/t_n) * 100) %>% round(1)`%); in the control arms, `r ccases <- df_main_ma_adj %>% pull(ccases) %>% sum; ccases %>% format(big.mark = ",")` deaths occurred among `r c_n <- df_main_ma_adj %>% pull(c_n) %>% sum; c_n %>% format(big.mark = ",")` children (`r ((ccases/c_n) * 100) %>% round(1)`%). `r df_main_ma_adj %>% dplyr::filter(ccases == 0 | tcases == 0) %>% pull(trial_name) %>% n_distinct %>% english` studies had no deaths in control and/or treatment arms. The annual risk of mortality in the pooled control group was about `r df_main_ma_adj %>% mutate(ccases_per_yr = 52*ccases/weeks) %>% summarise((sum(ccases_per_yr)/sum(c_n))*100) %>% round(1)`%.
+
+Out of `r n_included` studies, `r report_mortality %>% english` reported mortality in publications. Of these, only `r outcome %>% english` clearly reported it as an outcome and `r flow %>% english` reported it in a participant flow diagram. Only `r pre_registered %>% english` study (23) clearly pre-registered mortality as an outcome.
+
+We found studies to be representative of diarrhea prevalence in LMICs (see Figure S6) and found no significant differences to the larger set of RCTs which measured diarrhea. At the time of intervention, `r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Lower middle income") %>% nrow %>% english` countries were lower-middle income and the remaining were all low income. `r always_combined %>% english` studies included other interventions (`r df_main_ma_adj  %>% dplyr::filter(treatment_arm_combined == 1) %>% pull(treatment_arm) %>% str_remove_all("(Filtration) | (Chlorination) | (Floc) | (Bleach) | (Flocculant-disinfectant)") %>% str_remove_all("[+]") %>% str_squish %>% unique %>% paste(collapse = ",")`) and we conducted sensitivity analysis which excluded these studies. 
+
 
 ## Meta-analysis
 
-```{r}
+```{r chlroination only estimates}
 load(here("output/stan/bayesian-models-subsets.Rdata"))
 
 # Chlorination only bayesian estimates
@@ -110,11 +179,9 @@ bayes_cl <-
 freq_cl <-
   oef(fma_subsets$df_chlorination, pval = FALSE) %>%
   round(2)
-
-
 ```
 
-In the full set of `r n_included` studies, using a random-effects model we estimated a significant average reduction in odds of all-cause child mortality of `r freq_reduction`% (frequentist OR `r freq_or["mean"]`; CI 95% `r freq_or["lower"]`, `r freq_or["upper"]`) or `r bayes_reduction`% (Bayes OR `r bayes_or["mean"]`; CrI 95% `r bayes_or["lower"]`, `r bayes_or["upper"]`), depending on the model (see Figure 2). OR confidence/credibility intervals for individual studies were typically wide, as one would expect in modeling rare event data. In fact, in only **two** studies the frequentist or Bayesian OR 95% intervals were below 1. Restricting the analysis to studies including chlorination, the reduction was `r (1 - freq_cl["mean"]) * 100`% and `r (1 - bayes_cl["mean"]) * 100`% respectively (frequentist OR `r freq_cl["mean"]`; CI 95% `r freq_cl["lower"]`, `r freq_cl["upper"]`; Bayes OR `r bayes_cl["mean"]`; CrI 95% `r bayes_cl["lower"]`, `r bayes_cl["upper"]`).
+In the full set of `r n_included` studies, using a random-effects model we estimated a significant average reduction in odds of all-cause child mortality of `r freq_reduction`% (frequentist OR `r freq_or["mean"]`; CI 95% `r freq_or["lower"]`, `r freq_or["upper"]`) or `r bayes_reduction`% (Bayes OR `r bayes_or["mean"]`; CrI 95% `r bayes_or["lower"]`, `r bayes_or["upper"]`), depending on the model (see Figure 2).^[Since at low event rates ORs are approximately equal to RRs, assuming under-5 mortality in settings without access to clean water is **5% (see Table S7 for details), our Bayesian OR estimate implies mean risk reduction of 29% (Bayes RR of 0.71; 95% CrI 0.50, 0.92)**] Restricting the analysis to studies including chlorination, the reduction was `r (1 - freq_cl["mean"]) * 100`% and `r (1 - bayes_cl["mean"]) * 100`% respectively (frequentist OR `r freq_cl["mean"]`; CI 95% `r freq_cl["lower"]`, `r freq_cl["upper"]`; Bayes OR `r bayes_cl["mean"]`; CrI 95% `r bayes_cl["lower"]`, `r bayes_cl["upper"]`).
 
 
 ```{r}
@@ -125,7 +192,7 @@ fma_re %>% print(exp = TRUE)
 bg_main_full %>% print(exp=TRUE)
 ```
 
-There is mixed evidence on cross-study heterogeneity. The frequentist restricted maximum likelihood estimator suggested no heterogeneity *(tau = 0; SE = 0.05)*, which means its estimated effect is the same as in the fixed-effects model (as well as the Bayesian fixed effects model; *OR = 0.75, 95% CrI 0.60, 0.93*). However, frequentist meta-analyses can underestimate between-study variation and “snap” estimates to zero (14). Given the differences in the studied interventions and in the settings where the studies were carried out, a random-effects model is most appropriate. The Bayesian estimate of heterogeneity, in contrast, was considerable 
+In Figure 2 we show a forest plot of study-level OR inputs into the analysis and the Bayesian and frequentist meta-analytic estimates. For posterior Bayesian estimates of effect in individual studies, mean ORs all fell within +-0.10 of the global mean. Despite strong pooling, there is mixed evidence on cross-study heterogeneity. The frequentist restricted maximum likelihood estimator suggested no heterogeneity *(tau = 0; SE = 0.05)*, which means its estimated effect is the same as in the fixed-effects model (as well as the Bayesian fixed effects model; *OR = 0.75, 95% CrI 0.60, 0.93*). However, frequentist meta-analyses can underestimate between-study variation and “snap” estimates to zero (14). Given the differences in the studied interventions and in the settings where the studies were carried out, a random-effects model is most appropriate. The Bayesian estimate of heterogeneity, in contrast, was considerable 
 
 ```{r}
 bg_main
@@ -135,7 +202,7 @@ bg_main
 
 Expected reduction in mortality odds in a new implementation, which is used by cost-effectiveness calculations and based on Bayesian posterior predictive distribution, was `r next_implementation`% (Bayes OR of `r bayes_ppd["mean"]`; 95% CrI `r bayes_ppd["2.5%"]`, `r bayes_ppd["97.5%"]`).
 
-```{r}
+```{r sensitivity analyses}
 all_sens_df <-
   bind_rows(
     freq_estimates_duration %>% 
@@ -159,15 +226,15 @@ all_sens_df <-
 
 We provide results for all sensitivity analyses of data and model choices that we performed in Materials and Methods, section 3. The estimates from sensitivity analyses we attempted remained qualitatively similar, with mean OR estimates from `r nrow(all_sens_df)` models ranging from `r min(all_sens_df$mean) %>% round(2)` to `r max(all_sens_df$mean) %>% round(2)` for alternative data and modeling choices.
 
-```{r}
+```{r diarrhea effects}
 mr_diarrhea <- lapply(mr_fits, function(x) fixed_effects(x, s=T)[,,1]) %>% pluck("diarrhea_effects")
 ```
 
-Univariate Bayesian meta-regression models found a significant relationship (in the sense of 95% interval not including zero) between effects on mortality and effects on diarrhea (beta = `r mr_diarrhea["mean"] %>% round(2)`, 95% CrI `r mr_diarrhea["lci"] %>% round(2)` to `r mr_diarrhea["uci"] %>% round(2)`)**, but not on compliance, prevalence of diarrhea, year of study, type of intervention, or randomisation unit (cluster vs individual).
+Univariate Bayesian meta-regression models found a significant relationship (in the sense of 95% interval not including zero) between effects on mortality and effects on diarrhea (beta = `r mr_diarrhea["mean"] %>% round(2)`, 95% CrI `r mr_diarrhea["lci"] %>% round(2)` to `r mr_diarrhea["uci"] %>% round(2)`), but not on compliance, prevalence of diarrhea, year of study, type of intervention, or randomisation unit (cluster vs individual).
 
 ## Cost-effectiveness
 
-```{r}
+```{r cost-effectiveness}
 df_cea_bigtab <-
   read_csv(
     here(
@@ -181,48 +248,62 @@ The cost-effectiveness calculations are based on the expected `r next_implementa
 
 ### Point-of-access
 
-We calculate the per-child cost of provision of chlorine treated drinking water for five years at USD `r df_cea_bigtab["cost", "DSW"]`. This leads to cost per DALY averted by the dispenser program of USD `r df_cea_bigtab["cost_per_daly", "DSW"]` (Table 2, Column 1), far lower than Kenya’s GDP per capita (USD 2,099 in 2022). Using a conservative metric of 3x GDP per capita for the value of statistical life, chlorine dispensers have net benefits of USD `r df_cea_bigtab["net_ben", "DSW"] %>% format(big.mark = ",")` per child under 5 served. 
+We calculate the per-child cost of provision of chlorine treated drinking water for five years at USD `r df_cea_bigtab["cost", "DSW"]`. This leads to cost per DALY averted by the dispenser program of USD `r df_cea_bigtab["cost_per_daly", "DSW"]` (Table 2, Column 1), far lower than Kenya’s GDP per capita (USD 2,099 in 2022). We estimate that chlorine dispensers program saves `r (10000/ df_cea_bigtab["cost_per_daly", "DSW"]) %>% plyr::round_any(10)` DALYs per $10,000 spent.
+
 
 ### Inline
 
-Based on this, we calculate `r df_cea_bigtab["cost_per_daly", "ILC"]` per DALY averted (Table 2 column 2). Again this is substantially lower than the 1x GDP threshold for India (USD 2,388 in 2022). This implies net benefits of almost USD `r df_cea_bigtab["net_ben", "ILC"] %>% format(big.mark = ",")` per child under 5 served.
+We use cost estimates from India, where state and national governments have expanded access to piped water in rural areas, and at least two state governments are planning to incorporate inline chlorination, with technical assistance from the NGO Evidence Action. We assume an increase in chlorination of `r df_cea_bigtab["effective_tkup", "ILC"]*100`% (observed in a study of inline chlorination in Bangladesh.) The estimated per-child cost for five years is about USD `r df_cea_bigtab["cost", "ILC"] %>% plyr::round_any(10)` (Table 2 column 2). Based on this, we calculate `r df_cea_bigtab["cost_per_daly", "ILC"]` per DALY averted (Table 2 column 2). Again this is substantially lower than the 1x GDP threshold for India (USD 2,388 in 2022). We estimate that this program saves around `r (10000/ df_cea_bigtab["cost_per_daly", "ILC"]) %>% plyr::round_any(10)` DALYs per $10,000 spent.
 
 ### Coupons
 
-This implies a cost of USD `r df_cea_bigtab["cost_per_death", "coupons"] %>% format(big.mark = ",")` per death of a child under 5 averted – or USD `r df_cea_bigtab["cost_per_daly", "coupons"]` per DALY averted (Table 2, column 3).
-
-We estimate that this program has net benefits of USD `r df_cea_bigtab["net_ben", "coupons"] %>% format(big.mark = ",")` per child under 5 served.
+A 150-milliliter bottle of dilute chlorine solution sufficient for treating one household-month of water costs USD 0.31 and we estimate the total program costs per-child at USD `r df_cea_bigtab["cost", "coupons"] %>% round` for five years (Table 2, column 3). This implies a cost of USD `r df_cea_bigtab["cost_per_daly", "coupons"]`  per DALY averted. This is substantially lower than the weighted average of GDP per capita for these countries (USD 2,200). MCH delivery appears to have lower cost per DALY than the other examples discussed here, in part because our analysis only considers the benefits of reduced child mortality and, unlike inline chlorination or dispensers, the coupon program specifically targets children under-5. We estimate that this program saves around `r (10000/ df_cea_bigtab["cost_per_daly", "coupons"]) %>% plyr::round_any(10)` DALYs per $10,000 spent. 
 
 ## Discussion
+
+Randomized control trials studying the impact of water treatment are typically not individually powered for mortality. Aggregating data from `n_included` studies, we estimate that water treatment reduced the odds of all-cause child mortality by about a quarter on average. 
+
 
 ### Cost-effectiveness thresholds and lists of priority health interventions
 
 The above cost-effectiveness estimates of \$`r min(cost_per_daly)`-\$`r max(cost_per_daly)` per DALY averted would place water treatment near the top of these lists. 
 
-```{r}
+```{r GDP thresholds}
 gdp_threshold_times <-
-  read_csv(
-    here(
-      "output/text/1x-gdp-threshold-exceed.csv"
-    )
-  )
+  round(rev(default_gdp_pc)/df_cea$cost_per_daly)
 
-ce_threshold <- 
-  read_csv(
-    here(
-      "output/text/ce-threshold.csv"
-    )
-  )
+benken <- Inf
+rr_check <- .999
+while(benken > default_gdp_pc[["dsw"]]){
+  benken <- cea_v2(result = "table", 
+                   input="rr", rr_check,
+                   p1=.0692, 
+                   tkup=0.51, 
+                   cost=dsw_cost, 
+                   u5_per_hh=1,
+                   gdp_pc=default_gdp_pc[["dsw"]])$cost_per_daly
+  rr_check <- rr_check - .001
+}
 
+ce_threshold <- (100*(1-rr_check)) %>% round(2)
 ```
 
-Our estimates suggest that water treatment exceeds the 1x GDP threshold `r min(gdp_threshold_times$x)`-`r max(gdp_threshold_times$x)` times. Indeed, because the cost of water treatment is low, even small effects on mortality would meet these thresholds. 
+Our estimates suggest that water treatment exceeds the 1x GDP threshold `r min(gdp_threshold_times)`-`r max(gdp_threshold_times)` times. Indeed, because the cost of water treatment is low, even small effects on mortality would meet these thresholds. 
 
-For example, repeating the calculation for chlorine dispensers in Kenya, we find that the threshold of 1x GDP is reached at `r ce_threshold$x` reduction in odds of under-5 mortality.
+For example, repeating the calculation for chlorine dispensers in Kenya, we find that the threshold of 1x GDP is reached at `r ce_threshold` reduction in odds of under-5 mortality.
 
-### Magnitude of benefits
+### Magnitude of benefits 
 
-To illustrate the potential magnitude of the benefits of water treatment, in Table S7 we present a back-of-envelope calculation, which suggests that a global coupon program delivering water treatment to all households with children under-5 who do not yet have access to piped water in low- and lower-middle income countries, **could save around 300,000 under-five lives at a cost of approximately USD 550 million each year**. 
+```{r global benefits}
+s6 <- read_csv(
+  here("output/tables/cea-globalbenefits.csv")
+)
+
+s6_total <- s6 %>% dplyr::filter(region == "Total")
+```
+
+
+To illustrate the potential magnitude of the benefits of water treatment, in Table S6 we present a back-of-envelope calculation, which suggests that a global coupon program delivering water treatment to all households with children under-5 who do not yet have access to piped water in low- and lower-middle income countries, could save over around `r (plyr::round_any(s6_total$u5_saved, 50) * 1000) %>% format(scientific  = FALSE, big.mark = ",")` under-five lives at a cost of approximately USD `r plyr::round_any(s6_total$coupons_cost, 50)` million each year
 
 ### Comparison with other sources of evidence
 
@@ -234,59 +315,81 @@ A formal way of combining these estimates in a way that takes model uncertainty 
  
  ### Limitations
 
-```{r}
-cea_compliance_df <-
-  read_csv(
-    here("output/text/1x-gdp-threshold-compliance.csv")
-  )
+```{r cea and takeup}
+cea_tkup <- function(...) {
+  cea_v2(x = mean(default_or_ppd), input = "or", ...)$cost_per_daly
+}
+
+cea_compliance_df <- rbind(
+  data.frame(method = "dsw",
+             p1=.0692, 
+             cost=dsw_cost, 
+             u5_per_hh=1,
+             gdp_pc=default_gdp_pc[["dsw"]]),
+  data.frame(method = "ilc",
+             p1 = 0.039,
+             cost = 59.57/5,
+             u5_per_hh=1,
+             gdp_pc=default_gdp_pc[["ilc"]]),
+  data.frame(method = "coupons",
+             p1 = u5_mr$avg_mortality_rate,
+             cost = cost_vouchers,
+             u5_per_hh=u5_per_hh_coupons[["x"]],
+             gdp_pc=default_gdp_pc[["coupons"]])
+) %>% 
+  expand_grid(tkup = seq(.001, .5, .0005)) %>%
+  mutate(result = "table") %>% 
+  mutate(res = pmap_dbl(select(., -method), cea_tkup)) %>% 
+  dplyr::filter(gdp_pc >= res) %>% 
+  group_by(method) %>% 
+  summarise(min(tkup)) 
 ```
 
 However, the effective take-up in water treatment needed to reach 1x GDP per capita threshold ranges from `r cea_compliance_df %>% dplyr::filter(method == "coupons") %>% pull("min(tkup)") %>% round(3) * 100`% (for coupons) to `r cea_compliance_df %>% dplyr::filter(method == "ilc") %>% pull("min(tkup)") %>% round(3) * 100`% (for ILC). We discuss the drivers of cost effectiveness further in Supplementary Information, section 4. 
 
+### Limitations
+
+However, we incorporate heterogeneity into our cost-effectiveness assessment by using predicted mean effect, which has a higher OR (smaller effect) than the mean within the `r n_included` studies.
+
+For example, our main estimate for dispensers uses compliance data from NGO Evidence Action. However, data from other implementations suggests lower effects of dispenser provision on water treatment, as take-up might decline over time (32), or counterfactual take-up might be higher than expected (36). We also conduct cost-effectiveness analyses using alternative, lower compliance values for each delivery method (Table S7). These alternative estimates of cost per DALY are inversely proportional to drop in compliance: \$`r df_cea_bigtab["cost_per_daly", "DSW_low"]` for dispensers, \$`r df_cea_bigtab["cost_per_daly", "ILC_low"]` for ILC, and \$`r df_cea_bigtab["cost_per_daly", "coupons_low"]` for MCH delivery. These are not directly comparable since some are based on real compliance data and others hypothetical.
+
+However, in terms of diarrhea prevalence we find that the studies included in this meta-analysis are broadly representative of the settings in which policymakers might implement water treatment programs in terms of diarrhea prevalence and there are no significant differences from a larger sample of **73** studies (Supplementary Information, section 1). 
+
 ### Lessons
 
-```{r}
-report_mortality <-
-  df_main_ma_adj %>% dplyr::filter(str_detect(`Report Mortality`, "Yes")) %>% nrow
-
-reduced_sample <-
-  df_main_ma_adj %>% dplyr::filter(str_detect(`Report Mortality`, "Yes")) %>% mutate(N = c_n + t_n) %>% pull(N) %>% sum %>% format(big.mark = ",")
-```
-
-
-We identified `r n_included` studies but for only `r report_mortality` of them mortality was available in publications. Relying on reported data only would reduce the total sample size from `r total_participants` to `r reduced_sample`. 
+Out of the `r report_mortality` studies that reported mortality in publications, `r outcome` report it as an outcome, `r flow` include number of deaths in a flow diagram, and `r text` discuss or report death in the text. Only `r pre_registered` includes mortality as an outcome in the pre-registration. Relying on reported data only would reduce the total sample size from `r total_participants` to `r sample_reported`. 
 
 # Supplement
 
-## Details of included studies and comparison with other RCTs
+## 1 Details of included studies and comparison with other RCTs
 
-```{r}
-income <-
-  read_excel(
-    here(
-      "data/raw/weighted_mr/CLASS.xlsx"
-    )
-  )
+### Summary of 18 included studies
 
-studies <-
-  df_main_ma_adj %>%
-  left_join(
-    income %>%
-      transmute(
-        country = Economy,
-        income_group = `Income group`
-      )
-  )
+```{r diarrhea ecdf}
+diarrhea_ecdf <-
+  read_csv(here("data/raw/IHME_GLOBAL_DIARRHEA_2000_2019_PREV_A1_S3_ADMIN_1_Y2020M08D31.CSV")) %>%
+  select(ADM1_NAME, mean) %>%
+  unique %>%
+  # multiply by 5, since the data are entered as a rate
+  # i.e. what is the prevalence of diarrhea among children of a given age, among u5s
+  # rather than the prevalence of diarrhea among all children under 5
+  mutate(
+    mean = 5 * mean
+  ) %>%
+  pull(mean) %>%
+  ecdf
 ```
 
-The median follow-up length for mortality was `r median(df_main_ma_adj$weeks)` weeks, with the longest follow-up being 4-6 years, in two studies conducted in Kenya  (1). `r studies %>% dplyr::filter(income_group == "Lower middle income") %>% pull(trial) %>% n_distinct`  studies were conducted in lower-middle income countries, and `r studies %>% dplyr::filter(income_group == "Low income") %>% pull(trial) %>% n_distinct`  were conducted in low-income countries, according to the World Bank classification at the time of the study (2).
+The median follow-up length for mortality was `r median(df_main_ma_adj$weeks)` weeks, with the longest follow-up being 4-6 years, in two studies conducted in Kenya  (1). `r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Lower middle income") %>% pull(trial_name) %>% n_distinct %>% english`  studies were conducted in lower-middle income countries, and `r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Low income") %>% pull(trial_name) %>% n_distinct %>% english`  were conducted in low-income countries, according to the World Bank classification at the time of the study (2). Since then, `r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Lower middle income", income_group == "Upper middle income") %>% pull(country) %>% n_distinct %>% english` lower-middle income country (`r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Lower middle income", income_group == "Upper middle income") %>% pull(country) %>% unique %>% paste(collapse = ", ")`) where `r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Lower middle income", income_group == "Upper middle income") %>% pull(trial_name) %>% n_distinct %>% english` studies were conducted has become an upper-middle income country, and `r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Low income", income_group == "Lower middle income") %>% pull(country) %>% n_distinct %>% english` low income country (`r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Low income", income_group == "Lower middle income") %>% pull(country) %>% unique %>% paste(collapse = ", ")`) where `r df_studies %>% dplyr::filter(included == "Included", income_group_hist == "Low income", income_group == "Lower middle income") %>% pull(trial_name) %>% n_distinct %>% english` studies were conducted have become lower-middle income.
 
-Out of the `r n_included` studies, `r n_rural <- studies %>% dplyr::filter(setting == "rural") %>% pull(trial) %>% n_distinct; n_rural` were conducted in rural areas, `r studies %>% dplyr::filter(setting == "mixed") %>% pull(trial) %>% n_distinct %>% english` were conducted in both rural and urban areas, and `r studies %>% dplyr::filter(setting == "urban") %>% pull(trial) %>% n_distinct %>% english` were conducted in a peri-urban setting. The compliance rate (see Table 1 for definition) in the sample ranged from a low of `r studies %>% pull(compliance) %>% min(na.rm = TRUE) * 100`% to a high of `r studies %>% pull(compliance) %>% max(na.rm = TRUE) * 100`%, with a median of `r (studies %>% pull(compliance) %>% median(na.rm = TRUE) * 100) %>% round(0)`%.  
+Out of the `r n_included` studies, `r n_rural <- df_studies %>% dplyr::filter(setting == "rural", included == "Included") %>% pull(reference) %>% n_distinct; n_rural` were conducted in rural areas, `r df_studies %>% dplyr::filter(setting == "mixed", included == "Included") %>% pull(reference) %>% n_distinct %>% english` were conducted in both rural and urban areas, and `r df_studies %>% dplyr::filter(setting == "urban", included == "Included") %>% pull(reference) %>% n_distinct %>% english` were conducted in a peri-urban setting. The compliance rate (see Table 1 for definition) in the sample ranged from a low of `r df_studies %>% pull(compliance) %>% min(na.rm = TRUE) * 100`% to a high of `r df_studies %>% pull(compliance) %>% max(na.rm = TRUE) * 100`%, with a median of `r round(median(df_studies$compliance, na.rm = TRUE) * 100, 0)`%.  Average use of water cleaning treatment (see later for definitions) in treatment groups was `r round(mean(df_studies$compliance, na.rm = TRUE) * 100, 0)`% and in control groups it was about `r df_main_ma_adj %>% select(trial_name, takeup_control) %>% mutate(takeup_control = takeup_control * 100) %>% unique %>% pull(takeup_control) %>% mean(na.rm = TRUE) %>% round(0)`%. Based on this, we assumed an effective compliance across meta-analysis (used for cost-effectiveness calculations) of **53%**.
 
 
 Contamination level measures are not consistently reported across studies. **Four studies report 54 to 181 TTC/100 ml (thermotolerant coliforms, which include E. Coli and three other bacteria species). Another 4 studies report E.Coli concentration from 34 to 98 per 100 ml.**
 
-```{r}
+Estimates of diarrhea prevalence among the `r n_included` included studies are representative of prevalence in low- and middle-income countries. Household surveys across 94 low- and middle-income countries found diarrhea prevalence in 2017 ranging from 0.2% to 56.7% across sub national units, with a median of 13.7% (3). Diarrhea prevalence rates (at baseline or, if baseline not available, in the control group) in our sample of studies range from `r round(min(df_main_ma$prevalence, na.rm = TRUE) * 100, 0)`% to `r round(max(df_main_ma$prevalence, na.rm = TRUE) * 100, 0)`%, with a weighted mean (using meta-analytic weights from the frequentist model) of `r prev <- summarise_prevalence_compliance$prevalence1; round(prev * 100, 1)`%; this corresponds to the `r round(diarrhea_ecdf(prev) * 100, 0)`st percentile of the distribution of sub national diarrhea estimates, see Figure S6. 
+
+```{r diarrhea prevalence}
 df_diarrhea_prev <-
   read_csv(here("data/raw/IHME_GLOBAL_DIARRHEA_2000_2019_PREV_A1_S3_ADMIN_1_Y2020M08D31.CSV"))
 
@@ -322,9 +425,18 @@ percentile <- sum(x < summarise_prevalence_compliance$prevalence1)/length(x)
 
 Diarrhea prevalence rates (at baseline or, if baseline not available, in the control group) in our sample of studies range from `r df_main_ma_adj %>% summarise(min(prevalence)) * 100`% to`r df_main_ma_adj %>% summarise(max(prevalence)) * 100`%, with a weighted mean (using weights from the frequentist model) of `r (summarise_prevalence_compliance["prevalence1"]* 100) %>% round(1)`%; this corresponds to the `r round(percentile * 100, 0)` percentile of the distribution of sub national diarrhea estimates (see Figure 2). 
 
+### Choice of treatment and control groups 
+
+For **fifteen** out of **eighteen* 18** studies, water treatment was compared to a pure control group which received no intervention. In three two of these, several experimental arms with different kinds of water treatment were combined. These included some combination of water chlorination, flocculant-disinfection, and safe storage vessels (Reller et al. 2003, Luby et al. 2006, Crump et al. 20054, 5). 
+
+In `r always_combined %>% english` out of the `r n_included %>% english` cases, water treatment was always combined with another intervention: cookstoves in Kirby et al 2019 (6), other sanitation and hygiene interventions in Humphrey et al 2019 (7), andor safe storage in Chiller et al 2006, Peletez et al. 2012 (8), and Semenza et al 2018 (9). These are removed in sensitivity analyses, see Section 3. Quick et al. 1999 also combined safe storage and water treatment. However, the control group also received safe storage containers. With the exception of one treatment arm in Dupas et al 2023, all other interventions involved some sort of educational or promotion intervention instructing study participants on how to treat water with the relevant method, so education is not considered a combined intervention.
+
+`r some_combined %>% english` studies have both a pure water treatment arm and combined intervention arms: Luby et al. 2006 includes an arm combining water treatment and handwashing; Luby et al. 2018 and Null et al. 2018 include a water, sanitation, and handwashing arm as well as a water, sanitation, handwashing, and nutrition arm; Reller et al 2003 combined water treatment and safe storage.
+
+
 ### Comparison of characteristics between included and excluded studies 
 
-```{r}
+```{r inclusion exclusion analysis}
 source("generate_incexcl_analysis.R")
 
 pvals <-
@@ -416,22 +528,22 @@ A t-test of mean difference between included and excluded studies yield insignif
 df_main_ma %>%
   select(
     trial_name,
-    Obs, 
+    obs, 
     weeks
   )
 ```
 
 
-## Meta-analysis models
+## 2 Meta-analysis models
 
 ### Comparing odds ratios and risk ratios for rare events
 
-## Sensitivity analysis
+## 3 Sensitivity analysis
 
 
-# Range of values in sensitivity analyses
+### Range of values in sensitivity analyses
 
-```{r}
+```{r values in SA}
 all_sens_df <-
   bind_rows(
     freq_estimates_duration %>% 
@@ -459,7 +571,7 @@ Over a set of all sensitivity analyses (`r n_models <- nrow(all_sens_df); n_mode
 ### Case-by-case details of sensitivity analyses
 
 
-```{r}
+```{r SA details}
 s4 <- 
   read_csv(
     here(
@@ -495,13 +607,16 @@ s4 <-
 The frequentist and Bayesian odds ratio estimates are given in Table S4.  For the Bayesian model, the mean OR ranged from `r min(s4$mean_bayes) %>% round(2)` to `r max(s4$mean_bayes) %>% round(2)`, with the lowest 95% CrI  lower bound of `r min(s4$CI_bayes_lb)` and the highest 95% CrI upper bound of `r max(s4$CI_bayes_ub)`. For frequentist OR, the means ranged from `r min(s4$mean_freq) %>% round(2)` to `r max(s4$mean_freq) %>% round(2)`, with the lowest lower bound of `r min(s4$CI_freq_lb)` and the highest upper bound of `r max(s4$CI_freq_ub)`.
 
 
-```{r}
+```{r more SA details}
 s5 <- 
   read_csv(
     here(
       "output/tables/additional-sa-results.csv"
     )
-  ) %>%
+  ) 
+
+s5_means <- 
+  s5 %>%
   slice(1) %>%
   mutate(
     across(
@@ -510,49 +625,62 @@ s5 <-
     )
   )
 
-mean_freq <- s5 %>% 
+mean_freq <- s5_means %>% 
   dplyr::select(contains("Freq")) %>%
   rowMeans()
 
-mean_bayesian <- s5 %>% 
+mean_bayesian <- s5_means %>% 
   dplyr::select(contains("Bayesian")) %>%
   rowMeans()
 ```
 
-The meta-analysis estimates remain quantitatively similar and significant with a mean reduction in mortality odds of `r round((1-s5[1,2])*100)`-`r round((1-s5[1,1])*100)`%, depending on the model (see Table S5). 
+The meta-analysis estimates remain quantitatively similar and significant with a mean reduction in mortality odds of `r round((1-s5_means[1,2])*100)`-`r round((1-s5_means[1,1])*100)`%, depending on the model (see Table S5). 
 
 
-Adding the solar disinfection trial (14) to the meta-analysis results in a mean reduction in mortality odds of `r round((1-s5[1,3])*100)`-`r round((1-s5[1,4])*100)`%; adding the blinded filtration study (4) results in a mean reduction of `r round((1-s5[1,5])*100)`-`r round((1-s5[1,6])*100)`% (see Table S5).
+Adding the solar disinfection trial (14) to the meta-analysis results in a mean reduction in mortality odds of `r round((1-s5_means[1,3])*100)`-`r round((1-s5_means[1,4])*100)`%; adding the blinded filtration study (4) results in a mean reduction of `r round((1-s5_means[1,5])*100)`-`r round((1-s5_means[1,6])*100)`% (see Table S5).
 
 
-Ignoring data from the passive control group (3) for the meta-analysis, leads to a mean reduction in mortality odds of `r round((1-s5[1,7])*100)`-`r round((1-s5[1,8])*100)`% (see Table S5).
+Ignoring data from the passive control group (3) for the meta-analysis, leads to a mean reduction in mortality odds of `r round((1-s5_means[1,7])*100)`-`r round((1-s5_means[1,8])*100)`% (see Table S5).
 
-When those who receive spring protection in year 2 are included in the treatment group (15) for the meta-analysis, the estimated mean reduction in mortality ranges from `r round((1-s5[1,9])*100)`-`r round((1-s5[1,10])*100)`% (see Table S5).
+When those who receive spring protection in year 2 are included in the treatment group (15) for the meta-analysis, the estimated mean reduction in mortality ranges from `r round((1-s5_means[1,9])*100)`-`r round((1-s5_means[1,10])*100)`% (see Table S5).
 
-Dropping studies where the water treatment intervention was combined with the provision of cookstoves (6) or other hygiene and sanitation interventions (7) leads to significant OR estimates, with a mean reduction in mortality odds around 30% (Frequentist OR `r s5[1,11]`, Bayes OR `r s5[1,12]`), see Table S5.
+Dropping studies where the water treatment intervention was combined with the provision of cookstoves (6) or other hygiene and sanitation interventions (7) leads to significant OR estimates, with a mean reduction in mortality odds around 30% (Frequentist OR `r s5_means[1,11]`, Bayes OR `r s5_means[1,12]`), see Table S5.
 
 The results are plotted in Figure S1. We find that the mean reduction in mortality odds ranges from `r freq_estimates_duration %>% summarise((1 - max(mean))*100) %>% round`% to `r freq_estimates_duration %>% summarise((1 - min(mean))*100) %>% round`%. Estimates remain significant at 5% until eleven shortest studies are excluded, but the trend is mild: all estimates are significant at the 10% level.
+
+We also recalculated the ORs using a fixed continuity correction of **0.25** and an assumption of an ICC of **1.8%** (in the clustered RCTs; see Section 2, “Obtaining input odds ratios for the model”) for the **11** studies for which we don’t have individual-level data. For the remaining **seven** studies we used the Bayesian model to appropriately account for clustering and no continuity corrections. With these inputs, a Bayesian model estimates a `r round((1-s5_means[1,13])*100)`% reduction in mortality odds (95% CrI `r s5[2,13] %>% str_remove_all("[(]") %>% str_remove_all("[)]")`), while a frequentist model estimates a `r round((1-s5_means[1,14])*100)`% reduction (95% CrI `r s5[2,14] %>% str_remove_all("[(]") %>% str_remove_all("[)]")`).
+
 
 We conducted an additional check of whether short studies may be unduly impacting the model. We started from **11** studies in the dataset that include one year or more of follow-up data and fit the frequentist model. Then, we considered a hypothetical short study of 13 weeks (3 months), where the death risk is supposed to (crudely) approximate event rates in the dataset, 0.4%, and the size of the control arm is same as average size of control in the dataset, 1178. We assumed 1:1 randomization and that the true OR is the same as in the model of 10 long studies (0.80). We then simulated a growing number of short studies, 1, 2, 3, …, 10, in each case conducting 100 replications. We examined the behavior of mean and 95% intervals. Predictably, the mean was not affected and the intervals shrank only slightly: in the model of only 10 long studies the 95% interval was **60.6% to 93.0%**. In the model with 10 long and 10 simulated short studies the 95% interval was **66.9% to 95.2%** (averaged over 100 replications). This suggests that including short studies has a negligible impact on precision of the estimate, unless they have high event rates.
 
 
-# Fixed and random effects Bayesian models
+#### Fixed and random effects Bayesian models
 
-```{r}
+```{r fe vs re}
 load(here("output/stan/bayesian-ma-models.Rdata"))
+
+bayes_or_fe <- 
+  oeb(bg_loo_full$full_model) %>% 
+  round(2) 
 ```
 
-We fitted both fixed-effects and random-effects models. Under a fixed effect Bayesian logit model the reduction in odds was **24% (OR 0.76, 95% CrI 0.63, 0.91)**, compared to `r bayes_reduction`% under the random effects model. Using a leave-one-study-out cross-validation (LOO CV) procedure, the expected log predictive density (ELPD) for the partial pooling model was `r bg_loo$elpd %>% round(1)` (with SE of `r bg_loo$se %>% round(1)`) and for the full pooling model `r bg_loo_full$elpd %>% round(1)` (SE of `r bg_loo_full$se %>% round(1)`). This suggests no significant differences in the out-of-sample performance of both models, with slight preference for the full pooling model.
+We fitted both fixed-effects and random-effects models. Under a fixed effect Bayesian logit model the reduction in odds was `r (1-bayes_or_fe["mean"])*100`% (OR `r bayes_or_fe["mean"]`, 95% CrI `r bayes_or_fe["lower"]`, `r bayes_or_fe["upper"]`), compared to `r bayes_reduction`% under the random effects model. Using a leave-one-study-out cross-validation (LOO CV) procedure, the expected log predictive density (ELPD) for the partial pooling model was `r bg_loo$elpd %>% round(1)` (with SE of `r bg_loo$se %>% round(1)`) and for the full pooling model `r bg_loo_full$elpd %>% round(1)` (SE of `r bg_loo_full$se %>% round(1)`). This suggests no significant differences in the out-of-sample performance of both models, with slight preference for the full pooling model.
+
+## 4 Cost-effectiveness analysis
 
 
-## Cost-effectiveness analysis
+Table S6 presents estimates of the magnitude of benefits of a hypothetical global program to deliver water treatment through MCH. MCH programs are most relevant in settings where piped water (which can be treated using inline chlorination) is not available. As such table S6 considers the cost of a program targeting households in low- and lower-middle income countries who do not yet have access to piped water. 
 
-Based on the expected effect of water treatment on child mortality in a new implementation and adjusting for coupon usage rates, it is estimated that a program that targets this population would save approximately **305,000** under-5 lives at a cost of approximately **555 million** USD each year. 
+2.2 billion people around the world do not have access to safely managed drinking water services (9), see row 1. This number is similar in magnitude to the global estimates from other studies (20, 21). Of this population approximately 220 million are children under the age of 5 (22, 23). 
+
+The under-5 mortality rate among populations without access to safe drinking water implies **2.3** million deaths per year in absence of water treatment. Based on the expected effect of water treatment on child mortality in a new implementation, and assuming a 26 percentage point increase in chlorination, as observed in Malawi (18), we estimate that a program that targets this population would save around `r (plyr::round_any(s6_total$u5_saved, 50) * 1000) %>% format(scientific  = FALSE, big.mark = ",")` under-five lives at a cost of approximately USD `r plyr::round_any(s6_total$coupons_cost, 50)` million each year (Table S6). 
+
+As noted, we include these estimates not to recommend these particular approaches to water treatment, as other approaches may be better suited to particular contexts. However, since this could be achievable virtually anywhere, it serves as a lower bound. Additionally, as the developing world becomes increasingly urban, our estimates potentially can be applied to improving access to clean water through piped water systems. 
 
 
-## Publication bias
+## 5 Publication bias
 
-```{r}
+```{r pub bias}
 # Andrews-kasy
 source(here("code/publication_bias/andrews-kasy.R"))
 
@@ -562,7 +690,7 @@ pub_bias_2 <- round(pub_bias, 2)
 
 ### Publication bias on diarrhea outcome
 
-Using the same dataset of **80** diarrhea outcomes as in section 1, but with diarrhea outcomes from several studies included in this meta-analysis added to the original dataset, for a total of `r nrow(df_diarrhea)` observations (see Materials and Methods section 1 just above for details). For simplicity, we assumed multiple observations from the same publication are independent. The outcome variable was risk ratio for diarrhea in children under-5, same as in (8).
+Using the same dataset of diarrhea outcomes as in section 1, but with diarrhea outcomes from several studies included in this meta-analysis added to the original dataset, for a total of `r nrow(df_diarrhea)` observations (see Materials and Methods section 1 just above for details). For simplicity, we assumed multiple observations from the same publication are independent. The outcome variable was risk ratio for diarrhea in children under-5, same as in (8).
 
 We created funnel plots (Figure S4) and estimated Egger’s tests for funnel plot asymmetry for all studies and studies that include chlorination interventions only. We rejected the hypothesis of asymmetry in both cases (p-value = `r bias_clean_fit$pval %>% round(3)`, p-value = `r bias_chlorine_fit$pval %>% round(3)` respectively), which matches the result in Wolf et al., who also found no evidence of funnel plot asymmetry across water interventions (p-value = 0.8).
 
@@ -573,4 +701,4 @@ Repeating the same method for the subset of studies that considered chlorination
 
 ### Relationship between mortality and diarrhea
 
-As mentioned, point estimates and z-values for diarrhea outcome are available for `r nrow(mr_rep_df)` observations, including **17** out of `r df_main_ma_adj %>% nrow` studies with mortality data. We tested (using a logistic model) if availability of mortality data in a given study depends on (1) point estimate of diarrhea effect in that study, (2) absolute z-value of the diarrhea effect exceeding 1.96. In both cases the diarrhea effect was measured as log(RR). We found no evidence of either association, with p-values of `r summary(logit_1) %>% pluck(coefficients) %>% as.data.frame() %>% slice(2) %>% pull('Pr(>|z|)') %>% round(2)` and **0.99** respectively.
+As mentioned, point estimates and z-values for diarrhea outcome are available for `r df_studies %>% dplyr::filter(!is.na(effect_estimate_on_diarrhea)) %>% nrow` observations, including `r df_studies %>% dplyr::filter(!is.na(effect_estimate_on_diarrhea), trial_name %in% df_all_ma_adj$trial_name) %>% nrow` out of `r n_included` studies with mortality data. We tested (using a logistic model) if availability of mortality data in a given study depends on (1) point estimate of diarrhea effect in that study, (2) absolute z-value of the diarrhea effect exceeding 1.96. In both cases the diarrhea effect was measured as log(RR). We found no evidence of either association, with p-values of `r summary(logit_1) %>% pluck(coefficients) %>% as.data.frame() %>% slice(2) %>% pull('Pr(>|z|)') %>% round(2)` and `r summary(logit_2) %>% pluck(coefficients) %>% as.data.frame() %>% slice(2) %>% pull('Pr(>|z|)') %>% round(2)` respectively.

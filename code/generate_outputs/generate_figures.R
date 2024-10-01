@@ -122,6 +122,16 @@ data_for_fp <- function(chlori_studies_freq,
   
 }
 
+cases <-
+  df_main_ma_adj %>%
+  transmute(
+    labeltext = trial_name,
+    tcases, 
+    tobs = tcases + tnoncases,
+    ccases, 
+    cobs = ccases + cnoncases
+  )
+
 data_for_fp_freq <- data_for_fp(
   chlori_studies_freq,
   filter_studies_freq,
@@ -129,7 +139,14 @@ data_for_fp_freq <- data_for_fp(
   sodis_studies_freq,
   sub_estimates_freq,
   overall_est_freq
-)
+) %>%
+  left_join(
+    data.frame(
+      labeltext = names(weights_freq),
+      weight = weights_freq
+    )
+  ) %>%
+  left_join(cases)
 
 sub_estimates_bayes <-
   sub_estimates_bayes[c("mean", "lower", "upper", "pval", "CI")]
@@ -141,28 +158,40 @@ data_for_fp_bayes <- data_for_fp(
   sodis_studies_bayes,
   sub_estimates_bayes,
   overall_est_bayes
-)
+) %>%
+  left_join(
+    data.frame(
+      labeltext = names(weights_bayes),
+      weight = weights_bayes
+    )
+  )  %>%
+  left_join(cases)
 
 ## Frequentist plots ===========================================================
 
-output <-
+output_freq <-
   data_for_fp_freq %>%
   select(mean, lower, upper) %>%
   as.matrix()
 
-tabletext <-
+tabletext_freq <-
   data_for_fp_freq %>%
-  mutate(mean = round(mean, 2)) %>%
-  select(labeltext, mean, ci) %>%
+  mutate(
+    across(
+      c(mean, weight),
+      ~ round(., 2)
+    )
+  ) %>%
+  select(labeltext, weight, ccases, cobs, tcases, tobs, mean, ci) %>%
   as.matrix()
 
-tabletext[1,] <- c("Study", "OR", "95% CI")
+tabletext_freq[1, ] <- c("Study", "Weight", "a", "a + b", "c", "c + d", "OR", "95% CI")
 
 forest <- forestplot::forestplot(
-  tabletext,
-  output[, 1],
-  output[, 2],
-  output[, 3],
+  tabletext_freq,
+  mean = output_freq[, "mean"],
+  lower = output_freq[, "lower"],
+  upper = output_freq[, "upper"],
   new_page = FALSE,
   is.summary = c(
     TRUE,
@@ -186,20 +215,21 @@ forest <- forestplot::forestplot(
   ),
   clip = c(0.25, 4),
   xlog = T,
+  colgap = unit(4, "mm"),
   col = fpColors(
     box = "black",
     line = "black",
     summary = "black"
   ),
   txt_gp = fpTxtGp(ticks = gpar(cex = 0.9)),
-  hrzl_lines = list("2" = gpar(lwd = 1, columns = 1:3))
+  hrzl_lines = list("2" = gpar(lwd = 1, columns = 1:8))
 )
 
 dev.off()
 
 png(
   file = here('output/figures/freq-forest.png'),
-  width = 8,
+  width = 9,
   height = 8,
   unit = "in",
   res = 300
@@ -211,7 +241,7 @@ dev.off()
 
 pdf(
   file = here('output/figures/freq-forest.pdf'),
-  width = 8,
+  width = 9,
   height = 8
 )
 
@@ -219,26 +249,29 @@ print(forest)
 
 dev.off()
 
-# Bayes FP =====================================================================
+## Bayes FP =====================================================================
 
-output2 <-
+output_bayes <-
   data_for_fp_bayes %>%
   select(mean, lower, upper) %>%
   as.matrix()
 
-colnames(output2) <- c("coef", "low", "high")
-
-tabletext <-
+tabletext_bayes <-
   data_for_fp_bayes %>%
-  mutate(mean = round(mean, 2)) %>%
-  select(labeltext, mean, ci) %>%
+  mutate(
+    across(
+      c(mean, weight),
+      ~ round(., 2)
+    )
+  ) %>%
+  select(labeltext, weight, ccases, cobs, tcases, tobs, mean, ci) %>%
   as.matrix()
 
-tabletext[1,] <- c("Study", "OR", "95% CI")
+tabletext_bayes[1, ] <- c("Study", "Weight", "a", "a + b", "c", "c + d", "OR", "95% CI")
 
 png(
   file = here('output/figures/bayes-forest.png'),
-  width = 8,
+  width = 9,
   height = 8,
   unit = "in",
   res = 300
@@ -247,16 +280,16 @@ png(
 plot <- dev.cur()
 
 pdf(file = here('output/figures/bayes-forest.pdf'), 
-    width = 8, height = 8)
+    width = 9, height = 8)
 
 dev.control("enable")
 
 forest <-
   forestplot::forestplot(
-  tabletext,
-  output2[, 1],
-  output2[, 2],
-  output2[, 3],
+  tabletext_bayes,
+  mean = output_bayes[, "mean"],
+  lower = output_bayes[, "lower"],
+  upper = output_bayes[, "upper"],
   new_page = FALSE,
   is.summary = c(
     TRUE,
@@ -280,17 +313,103 @@ forest <-
   ),
   clip = c(0.25, 4),
   xlog = T,
+  colgap = unit(4, "mm"),
   col = fpColors(
     box = "black",
     line = "black",
     summary = "black"
   ),
   txt_gp = fpTxtGp(ticks = gpar(cex = 0.9)),
-  hrzl_lines = list("2" = gpar(lwd = 1, columns = 1:3))
-)
+  hrzl_lines = list("2" = gpar(lwd = 1, columns = 1:8))
+  )
+
 
 print(forest)
   
+dev.copy(which = plot)
+dev.off()
+dev.off()
+
+## Frequentis FP w Bayes estimates =============================================
+
+tabletext_freq[nrow(chlori_studies_freq) + 4, 1] <- "Sub-group estimate (Frequentist)"
+tabletext_freq[nrow(tabletext_freq), 1] <- "Overall estimate (Frequentist)"
+
+tabletext <-
+  rbind(
+    c("Study", "weight", "a", "a + b", "c", "c + d", "OR", "95% CI"),
+    tabletext_freq[2:(nrow(chlori_studies_freq) + 4),],
+    c("Sub-group estimate (Bayesian)", tabletext_bayes[(nrow(chlori_studies_bayes) + 4), 2:ncol(tabletext_bayes)]),
+    tabletext_freq[(nrow(chlori_studies_freq) + 5):nrow(tabletext_freq),],
+    c("Overall estimate (Bayesian)", tabletext_bayes[nrow(tabletext_bayes), 2:ncol(tabletext_bayes)])
+  )[, c(1, 3:8)] 
+  
+output <-
+  rbind(
+    output_freq[1:(nrow(chlori_studies_freq) + 4),],
+    output_bayes[nrow(chlori_studies_bayes) + 4,],
+    output_freq[(nrow(chlori_studies_freq) + 5):nrow(output_freq),],
+    output_bayes[nrow(output_bayes),]
+  )
+
+png(
+  file = here('output/figures/forest.png'),
+  width = 9.5,
+  height = 8,
+  unit = "in",
+  res = 300
+)
+
+plot <- dev.cur()
+
+pdf(file = here('output/figures/forest.pdf'), 
+    width = 9.5, height = 8)
+
+dev.control("enable")
+
+forest <-
+  forestplot::forestplot(
+    tabletext,
+    mean = output[, "mean"],
+    lower = output[, "lower"],
+    upper = output[, "upper"],
+    new_page = FALSE,
+    is.summary = c(
+      TRUE,
+      TRUE,
+      TRUE,
+      rep(FALSE, nrow(chlori_studies_freq)),
+      TRUE,
+      TRUE,
+      TRUE,
+      TRUE,
+      FALSE,
+      FALSE,
+      FALSE,
+      TRUE,
+      TRUE,
+      FALSE,
+      TRUE,
+      TRUE,
+      FALSE,
+      TRUE,
+      TRUE,
+      TRUE
+    ),
+    clip = c(0.25, 4),
+    xlog = T,
+    colgap = unit(4, "mm"),
+    col = fpColors(
+      box = "black",
+      line = "black",
+      summary = "black"
+    ),
+    txt_gp = fpTxtGp(ticks = gpar(cex = 0.9)),
+    hrzl_lines = list("2" = gpar(lwd = 1, columns = 1:7))
+  )
+
+print(forest)
+
 dev.copy(which = plot)
 dev.off()
 dev.off()
@@ -429,7 +548,7 @@ ggplot(df_prev, aes(x = mean, fill = group)) +
   ) +
   geom_density(
     data = subset(df_prev, group == 'IHME'),
-    aes(y = ..density.., fill = group),
+    aes(y = after_stat(density), fill = group),
     alpha = 0.2,
     adjust = 1,
     color = "black",
@@ -467,7 +586,7 @@ ggsave(
 
 df_studies <-
   read_rds("data/final/diarrhea_studies.rds") %>%
-  select(effect_estimate_on_diarrhea, compliance_rate, reference, included) %>%
+  select(effect_estimate_on_diarrhea, compliance, reference, included) %>%
   unique
 
 hist_diarr_effect <- 
@@ -481,7 +600,7 @@ hist_diarr_effect <-
 
 hist_compliance <- 
   df_studies %>%
-  ggplot(aes(x = compliance_rate)) +
+  ggplot(aes(x = compliance)) +
   geom_histogram() +
   facet_grid(included ~ .) +
   ylab("Number of studies") +

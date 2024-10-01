@@ -87,13 +87,13 @@ df_main_ma_abcd <- df_all_ma %>%
 df_subsets_ma_adj <- list(
   # (1)
   df_chlorination = df_main_ma_adj %>%
-    dplyr::filter(intervention %in% "Chlorination") ,
+    dplyr::filter(water_intervention %in% "Chlorination") ,
   # (2)
   df_filtration = df_main_ma_adj %>%
-    dplyr::filter(intervention %in% "Filtration"),
+    dplyr::filter(water_intervention %in% "Filtration"),
   # (3)
   df_spring = df_main_ma_adj %>%
-    dplyr::filter(intervention %in% "Spring protection"),
+    dplyr::filter(water_intervention %in% "Spring protection"),
   # (4)
   df_repChildMA = df_main_ma_adj %>%
     dplyr::filter(
@@ -171,8 +171,7 @@ df_subsets_ma_adj <- list(
   # (11) studies that report mortality outcomes
   df_report_mortality = df_main_ma_adj %>%
     dplyr::filter(
-      trial == "Boisson et al., 2013 (Chlor vs. control (placebo))" |
-        grepl("Yes", `Report Mortality`)
+      !str_detect(mortality_reporting, "Not reported")
     )
 )
 

@@ -29,7 +29,8 @@ The code used to create the exhibits in the paper is in `code/`. `main.R` tracks
   - `code/generate_outputs/generate_tables.R` recreates the meta-analysis tables in the paper.
   - `code/generate_outputs/generate_cea_results.R` recreates the cost-effectiveness results.
   - `code/generate_outputs/generate_summary_of_individual_studies.R` recreates the table with summary of individual studies. The data required to run this script cannot be publicly shared.
-  - `generate_text.R` for printing all values that are cited inline in main text and supplement
+  _- `generate_text.R` for printing all values that are cited inline in main text and supplement_
+  _- `generate_incexcl_analysis.R` has values for supplement section 1 ("comparison with other RCTs")_
 - **Scripts in `code/publication_bias` perform the tests mentioned in supplement section 5.** 
 
 ### Controlled Randomness
@@ -62,6 +63,8 @@ Code is licensed under [![License: Unlicense](https://img.shields.io/badge/Licen
 
 Some data used in this study **cannot be made** publicly available. The raw data files used by the code are listed below.
 
+### Raw data
+
 | Data              | File                              | Provided | Citation | License | Notes |
 | ----------------- | --------------------------------- | -------- | -------- | ------- |----- |
 | List of diarrhea studies | `data/raw/diarrhea_studies.xlsx`  | Yes |   | [![License: CC BY 3.0 IGO](https://img.shields.io/badge/License-CC_BY_3.0_IGO-lightgrey.svg)](http://creativecommons.org/licenses/by/3.0/igo/) | Contains data provided in the supplementary material Wolf et al., 2018. The original dataset extracted from the publication is available [here](https://onlinelibrary.wiley.com/doi/10.1111/tmi.13051). The data was provided for 80 studies included in the meta-analysis. We added the relevant data for studies included in the meta-analysis but not included in the Wolf et al., 2018 study (Peletz et al., 2012, Null et al., 2018, 	Luby et al., 2018, Humphrey et al., 2019, Kirby et al., 2019, Haushofer et al., 2020, Dupas et al., 2021, and ucation vs control) Quick et al., 1999, Conroy et al. 1999, Morris et al. 2018). In addition to the existing data, we added the following information for each of the studies: (1) Compliance rate, and (2) How is compliance defined. Wolf et al., 2018 collects estimates for under-5 diarrhea morbidity in studies with any WaSH intervention. |
@@ -71,12 +74,15 @@ Some data used in this study **cannot be made** publicly available. The raw data
 | Studies microdata | Files in `data/raw/mortality_counts` | No       |          |         | This data was acquired directly from the authors of each paper included in the study. |
 | DHS data | `data/raw/u5-per-hh/idhs_00001` | No | Elizabeth Heger Boyle, Miriam King and Matthew Sobek. IPUMS-Demographic and Health Surveys: Version 9 [dataset]. IPUMS and ICF, 2022. https://doi.org/10.18128/D080.V9 | | Accessed through [https://dhsprogram.com/data/Access-Instructions.cfm] on Apr 5, 2023 |
 | IHME Diarrhea Prevalence | `data/raw/IHME_GLOBAL_DIARRHEA_2000_2019_PREV_A1_S3_ADMIN_1_Y2020M08D31.CSV` | No | Institute for Health Metrics and Evaluation (IHME). Global Under-5 Diarrhea Incidence, Prevalence, and Mortality Geospatial Estimates 2000-2019. Seattle, United States of America: Institute for Health Metrics and Evaluation (IHME), 2020. |Terms of use can be found [here](https://www.healthdata.org/Data-tools-practices/data-practices/ihme-free-charge-non-commercial-user-agreement) | Downloaded from [https://ghdx.healthdata.org/](https://ghdx.healthdata.org/sites/default/files/record-attached-files/IHME_GLOBAL_DIARRHEA_2000_2019_DATA_INPUT_SOURCES_Y2020M08D31_0.XLSX)) on on Jul 28, 2023|
-| World Bank region and income groups | `data/raw/weighted_mr/CLASS.xlsx` | Yes | World Bank: World Bank Country and Lending Groups. Downloaded on April 5, 2023. |[![License: CC BY 4.0 IGO](https://img.shields.io/badge/License-CC_BY_4.0_IGO-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) Detailed terms of use for data is available [here](https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets) | Downloaded from [https://datahelpdesk.worldbank.org](https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups) on Apr 5, 2023 |
+| World Bank income groups | `data/raw/weighted_mr/OGHIST.xlsx` | Yes | World Bank: World Bank Country and Lending Groups. Downloaded on August 13, 2024. |[![License: CC BY 4.0 IGO](https://img.shields.io/badge/License-CC_BY_4.0_IGO-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) Detailed terms of use for data is available [here](https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets) | Downloaded from [https://datahelpdesk.worldbank.org](https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups) on Aug 13, 2024 |
+| World Bank regions | `data/raw/weighted_mr/CLASS.xlsx` | Yes | World Bank: World Bank Country and Lending Groups. Downloaded on April 5, 2023. |[![License: CC BY 4.0 IGO](https://img.shields.io/badge/License-CC_BY_4.0_IGO-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) Detailed terms of use for data is available [here](https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets) | Downloaded from [https://datahelpdesk.worldbank.org](https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups) on Apr 5, 2023 |
 | | `data/raw/weighted_mr/all_data.csv` | | | | |
 | WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene (JMP) - Household data | `data/raw/weighted_mr/JMP_2021_WLD.xlsx` | Yes | Progress on household drinking water, sanitation and hygiene 2000–2022: special focus on gender. New York: United Nations Children’s Fund (UNICEF) and World Health Organization (WHO), 2023. | [![License: CC BY 4.0 IGO](https://img.shields.io/badge/License-CC_BY_4.0_IGO-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)| Downloaded from [https://washdata.org](https://washdata.org/data/country/WLD/household/download) on on Apr 5, 2023 |
 | WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene (JMP) - Access to drinking water | `data/raw/weighted_mr/washdash-download.csv` | Yes | Progress on household drinking water, sanitation and hygiene 2000–2022: special focus on gender. New York: United Nations Children’s Fund (UNICEF) and World Health Organization (WHO), 2023. |[![License: CC BY 4.0 IGO](https://img.shields.io/badge/License-CC_BY_4.0_IGO-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) | Downloaded from [https://washdata.org/](https://washdata.org/data/household#!/table?geo0=region&geo1=sdg) on Apr 5, 2023 |
 
- Intermediate data sets created during data processing are stored in `data/transformed`. The final data sets used for analysis or to create exhibits in the paper are stored in `data/final` and listed below
+### Intermediate data
+
+Intermediate data sets created during data processing are stored in `data/transformed`. The final data sets used for analysis or to create exhibits in the paper are stored in `data/final` and listed below
 
 | File                        | Created by | Provided | Citation |
 | --------------------------- | ---------- | -------- | -------- |
