@@ -1,19 +1,19 @@
 
-- Number of observations: 11
+- Number of observations: 0
 - Number of variables: 5
-- Disk size: 3 KB
-- Last saved: 2024-04-22 02:06:02
+- Disk size: 1 KB
+- Last saved: 2024-09-30 19:59:52
 
 
 ## Variable type: character
-|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
-|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
-|trial         |         0|             1|  33|  50|     0|       11|          0|
+|skim_variable | n_missing| complete_rate|min |max | empty| n_unique| whitespace|
+|:-------------|---------:|-------------:|:---|:---|-----:|--------:|----------:|
+|trial         |         0|              |    |    |     0|        0|          0|
 
 ## Variable type: numeric
-|skim_variable  | n_missing| complete_rate|      mean|        sd|        p0|      p25|       p50|      p75|      p100|hist  |
-|:--------------|---------:|-------------:|---------:|---------:|---------:|--------:|---------:|--------:|---------:|:-----|
-|total_clusters |         1|     0.9090909| 179.50000| 178.53120| 28.000000| 52.00000| 121.50000| 246.0000| 605.00000|▇▁▂▁▁ |
-|cluster_size   |         1|     0.9090909|  19.90965|  14.56085|  2.219835| 12.35599|  17.35186|  23.9939|  55.28571|▇▇▇▁▂ |
-|m_ctrl         |         1|     0.9090909|  85.70000| 115.08166| 18.000000| 26.00000|  50.00000|  84.5000| 404.00000|▇▁▁▁▁ |
-|m_trt          |         1|     0.9090909|  93.80000|  83.36106|  9.000000| 26.00000|  69.50000| 157.7500| 238.00000|▇▃▁▂▃ |
+|skim_variable  | n_missing| complete_rate| mean| sd| p0| p25| p50| p75| p100|hist |
+|:--------------|---------:|-------------:|----:|--:|--:|---:|---:|---:|----:|:----|
+|total_clusters |         0|              |     |   |   |    |    |    |     |     |
+|cluster_size   |         0|              |     |   |   |    |    |    |     |     |
+|m_ctrl         |         0|              |     |   |   |    |    |    |     |     |
+|m_trt          |         0|              |     |   |   |    |    |    |     |     |

@@ -1,5 +1,5 @@
 "","Mean Freq  OR","Mean Bayesian OR","Mean Freq OR","Mean Bayesian OR"
-"ITT effect on child mortality","0.75","0.72","0.76","0.73"
-"CI 95%","(0.60, 0.93)","(0.51, 0.94)","(0.60, 0.97)","(0.42, 1.11)"
+"ITT effect on child mortality","0.76","0.73","0.78","0.74"
+"CI 95%","(0.63, 0.93)","(0.52, 0.95)","(0.62, 0.98)","(0.41, 1.11)"
 "Interventions","All","All","Chlorination","Chlorination"
 "Studies","18","18","13","13"
