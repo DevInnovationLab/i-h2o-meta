@@ -58,7 +58,7 @@ ind_est_freq <-
   mutate_all(round, 3) %>%
   mutate(
     trial_name = df_main_ma_adj$trial_name,
-    intervention = df_main_ma_adj$intervention,
+    intervention = df_main_ma_adj$water_intervention,
     year = df_main_ma_adj$year
   ) %>%
   mutate(CI = interval2(lower, upper)) %>%
@@ -82,7 +82,7 @@ loo_freq <- do.call(rbind, loo_freq) %>% as.data.frame()
 loo_freq$excluded_study <- df_main_ma_adj$trial_name
 
 # Weights
-weights_freq <- weights(fma_re)
+weights_freq <- weights(fma_re) %>% set_names(df_main_ma_adj$trial_name)
 
 # Filter subsets of studies and create helper objects -----
 chlori_studies_freq <-

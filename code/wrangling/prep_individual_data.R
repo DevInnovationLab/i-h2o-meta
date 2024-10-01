@@ -4,6 +4,7 @@ library(tidyverse)
 library(digest)
 library(here)
 library(lubridate)
+library(assertthat)
 
 # (0) Functions for data processing and checks =================================
 
@@ -1110,13 +1111,52 @@ for (i in 1:length(mortality_all)) {
 # (5) Checks ===================================================================
 
 # Individual level data
-mortality_counts <- lapply(mortality_all, function(x) {
-  counts <- x %>%
-    group_by(wtreatment) %>%
-    summarise(cases = sum(death),
-              count = n()) %>%
-    mutate(noncases = count - cases)
-})
+mortality_counts <- 
+  lapply(mortality_all, function(x) {
+    counts <- x %>%
+      group_by(wtreatment) %>%
+      summarise(cases = sum(death),
+                count = n()) %>%
+      mutate(noncases = count - cases)
+  }) %>%
+  bind_rows(.id = "trial_name") %>%
+  mutate(
+    wtreatment = case_when(
+      wtreatment == 1 ~ "t",
+      wtreatment == 0 ~ "c"
+    )
+  ) %>%
+  pivot_wider(
+    values_from = c(cases, count, noncases),
+    names_from = wtreatment,
+    names_glue = "microdata_{wtreatment}{.value}"
+  )
+
+# Manually input data
+cases <-
+  read_csv("data/raw/summary_data.csv") %>%
+  dplyr::filter(trial %in% trials_to_use, data_source == "Microdata") %>%
+  select(trial_name, ccases, cnoncases, tcases, tnoncases)
+
+check <-
+  mortality_counts %>%
+  left_join(cases) %>%
+  select(
+    trial_name, 
+    ends_with("ccases"), ends_with("cnoncases"), 
+    ends_with("tcases"), ends_with("tnoncases"),
+    everything()
+  ) %>%
+  dplyr::filter(
+    microdata_ccases != ccases |
+      microdata_cnoncases != cnoncases |
+      microdata_tcases != tcases |
+      microdata_tnoncases != tnoncases
+  )
+
+assert_that(
+  check %>% pull(trial_name) == "Dupas et al., 2021"
+)
 
 # (6) Final data-set of event counts for all papers ============================
 

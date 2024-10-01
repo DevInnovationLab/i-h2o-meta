@@ -77,16 +77,30 @@ WPP2019_POP_F07_1_POPULATION_BY_AGE_BOTH_SEXES <-
     skip = 16
   )
 
-# GNI data from https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups
-# provides GNI class (i.e. LIC and LMIC) from world bank
-gni_class <- read_excel(here("data/raw/weighted_mr/CLASS.xlsx"))
-
-
+# World Bank regions
 wb_regions <- 
-  gni_class %>%
+  read_excel(
+    here(
+      "data/raw/weighted_mr/CLASS.xlsx"
+    )
+  ) %>%
   select(
     Country = Economy,
+    Code,
     Region
+  )
+
+# GNI data from https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups
+# provides historical GNI class (i.e. LIC and LMIC) from world bank
+gni_class <- 
+  read_excel(
+    here(
+      "data/raw/weighted_mr/OGHIST.xlsx"
+    ),
+    sheet = "Country Analytical History",
+    range = "B12:AM229",
+    na = c("",".."),
+    col_names = c("country", 1987:2023)
   ) 
 
 # Prepare wash data ============================================================
@@ -96,7 +110,6 @@ wash_data <-
   dplyr::filter(year == 2019) %>% 
   select(
     c(
-      name,
       iso3,
       year,
       pop_n,
@@ -130,7 +143,6 @@ wash_data <-
     )
   ) %>%
   rename(
-    Country = name,
     'Basic service' = wat_bas_n,
     'Limited service' = wat_lim_n,
     'Unimproved' = wat_unimp_n,
@@ -142,8 +154,34 @@ wash_data <-
 
 gni_class <- 
   gni_class %>% 
-  rename(Country = Economy) %>%
-  select(Country, `Income group`)
+  # Keep only L + LMICs
+  dplyr::filter(
+    `2019` %in% c("L", "LM")
+  ) %>%
+  # harmonize with country names from CLASS.xlsx
+  transmute(
+    Country = country %>%
+      str_replace_all("Viet Nam", "Vietnam") %>%
+      str_replace_all("Côte d'Ivoire", "Côte d’Ivoire")
+  ) %>%
+  left_join(wb_regions) %>%
+  # harmonize with country names from other sources
+  mutate(
+    Country = Country %>%
+      str_replace_all("Côte d’Ivoire", "Côte d'Ivoire") %>%
+      str_replace_all("Korea, Dem. Rep.", "Korea, Dem. People's Rep.") %>%
+      str_replace_all("Bolivia", "Bolivia (Plurinational State of)") %>%
+      str_replace_all("Congo, Dem. Rep.", "Democratic Republic of the Congo") %>%
+      str_replace_all("Congo, Rep.", "Congo") %>%
+      str_replace_all("Egypt, Arab Rep.", "Egypt") %>%
+      str_replace_all("Gambia, The", "Gambia") %>%
+      str_replace_all("Kyrgyz Republic", "Kyrgyzstan") %>%
+      str_replace_all("Lao PDR", "Lao People's Democratic Republic") %>%
+      str_replace_all("Micronesia, Fed. Sts.", "Micronesia (Fed. States of)") %>%
+      str_replace_all("São Tomé and Príncipe", "Sao Tome and Principe") %>%
+      str_replace_all("Yemen, Rep.", "Yemen") %>%
+      str_replace_all("Vietnam", "Viet Nam")
+  )
 
 # Prepare WPP data =============================================================
 # then find the share of the population under 5 years of age
@@ -196,23 +234,11 @@ mortality <-
 
 # Combine datasets =============================================================
 # observations now at the country level
-
-joined <- 
-  mortality %>%
-  left_join(wash_data) %>%
-  left_join(pop) %>%
-  left_join(gni_class) %>%
-  left_join(wb_regions)
-
-# filter observations at the national level by income group
-# keep only LICs and LMICs
 joined <-
-  joined %>%
-  dplyr::filter(
-    `Income group` %in% c("Low income", "Lower middle income")
-  ) %>%
-  select(-`Income group`) %>%
-  remove_empty(which = "rows")
+  mortality %>%
+  inner_join(gni_class, by = "Country") %>%
+  left_join(wash_data, by = c("Code" = "iso3"), keep = F) %>%
+  left_join(pop, by = "Country") 
 
 # calculate the population without access to piped water 
 # as per https://washdata.org/monitoring/drinking-water
@@ -252,3 +278,4 @@ joined %>%
   write_meta(
     path_data = "data/final/mortality_rate"
   )
+

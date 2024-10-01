@@ -7,7 +7,7 @@
 # The data is stored in a compressed format as `idhs_00001.dat 1.gz` and has to 
 # be unpacked to make the replication work (attention: filesize goes from 33MB to 1.6GB).
 # 
-# Author: Alex Lehner
+# Author: Alex Lehner, Luiza Andrade
 # ------------------------------------------------------------------------------
 #
 #   The final output that produces the (single) average number 
@@ -46,57 +46,36 @@ library(tidyverse)
 # Load and prepare data ========================================================
 # please unpack the .gz file if you want to replicate the code (attention, 1.6GB in size)
 
-ddi         <- read_ipums_ddi(here("data/raw/u5-per-hh/idhs_00001.xml")) #IPUMS data
-data        <- read_ipums_micro(ddi)
+ddi <- read_ipums_ddi(here("data/raw/u5-per-hh/idhs_00001.xml")) #IPUMS data
+data <- read_ipums_micro(ddi) %>%
+  select(
+    SAMPLE, COUNTRY, YEAR, HHID, HHLINENO, HHWEIGHT, POPWT_HH, HHMWEIGHT, KIDLT5NO
+  )
 
-# file with country codes:
-un_csv      <- read_csv(here("data/raw/u5-per-hh/UNSD.csv")) #UN country code to country name
+# Country-level data ===========================================================
 
-# select DDI columns needed:
-data_subset <- data[ , c(1, 3, 4, 9, 10, 11, 12, 13, 110)] # adding 9, hhid, hhlineno
-
-# unique countries
-df          <- data.frame("COUNTRY" = unique(data_subset$COUNTRY)) 
-
-
-# ============================================================================
-# NOW DOING IT FOR EVERY COUNTRY
-
-df$population       <- NA
-df$hhsize           <- NA
-df$share_u5hh       <- NA
-df$avg_u5_per_u5_hh <- NA
-
-# computationally not the best, a function and then an lapply + bind_rows would have been better
-for (country in df$COUNTRY) {
- 
-  holdout <- data_subset[data_subset$COUNTRY == country, ]
-  
-  df[df$COUNTRY == country, ]$population <- sum(holdout$POPWT_HH) # total pop in country
-  
-  # here we collapse everything to the household level
-  holdout.hhsumm                     <- holdout |> group_by(HHID) |> dplyr::filter(HHLINENO == max(HHLINENO))
-  df[df$COUNTRY == country, ]$hhsize <- mean(holdout.hhsumm$HHLINENO) # average hhsize
-  
-  holdout.hhsumm$u5hh                     <- holdout.hhsumm$KIDLT5NO > 0
-  df[df$COUNTRY == country, ]$share_u5hh  <-  mean(holdout.hhsumm$u5hh) # share of households with u5 child
-  
-  # now we select only the households with children U5
-  holdout.hhsumm                               <- holdout.hhsumm |> dplyr::filter(KIDLT5NO > 0)
-  # the mean over all non zero U5 households gives us the average we want:
-  df[df$COUNTRY == country, ]$avg_u5_per_u5_hh <- mean(holdout.hhsumm$KIDLT5NO) 
-  
-}
+df <- 
+  data %>%
+  group_by(HHID, COUNTRY) %>%
+  summarise(
+    population_weight = sum(POPWT_HH),
+    KIDLT5NO = unique(KIDLT5NO) %>% na_if(0)
+  ) %>%
+  group_by(COUNTRY) %>%
+  summarise(
+    population = sum(population_weight),
+    avg_u5_per_u5_hh = mean(KIDLT5NO, na.rm = TRUE)
+  )
 
 # assumption of the exercise was that all the surveys that were used were nationally representative
 # ... for DHS and MICS this is certainly the case
 # weighted mean to account for different country sizes
-df$global_weighted_avg <- weighted.mean(df$avg_u5_per_u5_hh, w = df$population)
+global_weighted_avg <- weighted.mean(df$avg_u5_per_u5_hh, w = df$population)
 
 
 # Save output ==================================================================
 write.csv(
-  df$global_weighted_avg[1], 
+  global_weighted_avg, 
   file = here("data/transformed/u5-per-hh.csv")
 )
 

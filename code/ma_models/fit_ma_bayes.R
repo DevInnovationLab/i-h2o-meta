@@ -105,13 +105,14 @@ save(bg_loo, bg_loo_full, bg_none, bg_subsets, bg_priors,
 
 # Meta-regression (Bayesian) models -----
 
-df_main_ma_mr <- df_main_ma_adj %>%
+df_main_ma_mr <- 
+  df_main_ma_adj %>%
   mutate(
-    randomisation_unit = ifelse(cluster_rand == "yes", "Cluster", "Household"),
-    chlorination      = ifelse(intervention == "Chlorination", "Chlorination", "Other"),
-    filtration        = ifelse(intervention == "Filtration", "Filtration", "Other"),
+    randomisation_unit = ifelse(cluster_rand == 1, "Cluster", "Household"),
+    chlorination      = ifelse(water_intervention == "Chlorination", "Chlorination", "Other"),
+    filtration        = ifelse(water_intervention == "Filtration", "Filtration", "Other"),
     spring            = ifelse(
-      intervention == "Spring protection",
+      water_intervention == "Spring protection",
       "Spring protection",
       "Other"
     )
@@ -128,7 +129,7 @@ df_main_ma_mr <- df_main_ma_adj %>%
     compliance,
     diarrhea_effects,
     prevalence,
-    intervention,
+    water_intervention,
     tau,
     se
   )
@@ -142,7 +143,7 @@ mr_variables <- c(
   "compliance",
   "diarrhea_effects",
   "prevalence",
-  "intervention"
+  "water_intervention"
 )
 mr_fits <- lapply(as.list(mr_variables), function(var) {
   dfc <- df_main_ma_mr[!is.na(df_main_ma_mr[[var]]), ]
@@ -163,23 +164,3 @@ names(mr_fits) <- mr_variables
 
 save(mr_fits,
      file = here("output/stan/bayesian-mr-models.Rdata"))
-
-bg_mr_all <- df_main_ma_mr %>%
-  mutate(compliance = ifelse(is.na(compliance), mean(compliance, na.rm =
-                                                       T), compliance)) %>%
-  baggr(
-    group = "trial_name",
-    model = "rubin",
-    effect = "logOR",
-    prior = def_priors,
-    chains = 6,
-    iter = 6000,
-    control = list(adapt_delta = 0.99),
-    covariates = c(
-      "randomisation_unit",
-      "year",
-      "diarrhea_effects",
-      "prevalence",
-      "intervention"
-    )
-  )

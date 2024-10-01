@@ -4,6 +4,7 @@ library(readxl)
 library(tidyverse)
 library(janitor)
 library(here)
+library(assertthat)
 
 # Functions --------------------------------------------------------------------
 
@@ -28,10 +29,17 @@ impute_se = function(ci_data, bound) {
     se_ln_RR = (ln_upper - ln_point)/1.96
   }
   if (bound == "lower") {
-    ci_data <- mutate(ci_data,
-                      ifelse(lower_95_percent_confidence_interval == 0, 
-                             0.01, 
-                             lower_95_percent_confidence_interval))
+    
+    # If lower bound is exactly zero, change it to 0.01 so we can take the log
+    ci_data <- 
+      ci_data %>%
+      mutate(
+        lower_95_percent_confidence_interval = if_else(
+          lower_95_percent_confidence_interval == 0, 
+          0.01, 
+          lower_95_percent_confidence_interval)
+      )
+    
     ln_lower = log(ci_data$lower_95_percent_confidence_interval)
     ln_point = log(ci_data$effect_estimate_on_diarrhea)
     se_ln_RR = (ln_lower - ln_point)/1.96*-1
@@ -56,11 +64,11 @@ df_studies <-
   mutate(
     upper_95_percent_confidence_interval = 
       as.numeric(upper_95_percent_confidence_interval),
-    compliance_rate =
+    compliance =
       ifelse(
-        compliance_rate %in% c("not reported", "Not reported", "NA"), 
+        compliance %in% c("not reported", "Not reported", "NA"), 
         NA, 
-        compliance_rate
+        compliance
       ) %>%
       str_remove_all("%") %>%
       as.numeric,
@@ -90,7 +98,6 @@ df_studies <-
       str_detect(intervention, "spring protection") ~ "Community improved water supply" 
     ),
     ref_first_word = str_extract(reference, "^\\w+"), 
-    shorthand_ref = paste0(ref_first_word, "-", study_year),
     se_imp_upper = impute_se(., bound = "upper"),
     se_imp_lower = impute_se(., bound = "lower"),
     se_imp = (se_imp_upper + se_imp_lower)/2, 
@@ -102,10 +109,7 @@ df_studies <-
     chlorination = intervention_group  == "Chlorination",
     filtration = intervention_group == "Filtration",
     community = intervention_group == "Community improved water supply"
-  ) %>%
-  group_by(shorthand_ref) %>%
-  mutate(shorthand_ref = paste0(shorthand_ref, "-", rank(shorthand_ref))) %>%
-  ungroup() 
+  )
 
 # Add income group -------------------------------------------------------------
 
@@ -120,6 +124,37 @@ income <-
     income_group = `Income group`
   )
 
+
+income_hist <-
+  read_excel(
+    here(
+      "data/raw/weighted_mr/OGHIST.xlsx"
+    ),
+    sheet = "Country Analytical History",
+    range = "B12:AM229",
+    na = c("",".."),
+    col_names = c("country", 1987:2023)
+  ) %>%
+  pivot_longer(
+    cols = !country,
+    names_to = "cal_year",
+    values_to = "group"
+  ) %>%
+  mutate(
+    fy_start = as.numeric(cal_year) + 1,
+    income_group_hist = case_when(
+      group == "L" ~ "Low income",
+      group == "LM" ~ "Lower middle income",
+      group == "UM" ~ "Upper middle income",
+      group == "H" ~ "High income"
+    ),
+    country = country %>%
+      # different apostrophe in historical data
+      str_replace_all("Côte d'Ivoire", "Côte d’Ivoire") %>%
+      str_replace_all("Viet Nam", "Vietnam")
+  ) %>%
+  select(country, fy_start, income_group_hist)
+
 df_studies <-
   df_studies %>%
   mutate(
@@ -131,7 +166,29 @@ df_studies <-
       str_replace_all("Democratic Republic of the Kongo", "Congo, Dem. Rep.") %>%
       str_replace_all("Ivory Coast", "Côte d’Ivoire")
   ) %>%
+  left_join(
+    income_hist,
+    by = join_by(
+      country == country,
+      intervention_start == fy_start
+    ),
+    keep = FALSE
+  ) %>%
   left_join(income)
+
+assert_that(
+  df_studies %>% 
+    dplyr::filter(is.na(income_group_hist), included == "Included") %>%
+    nrow
+  == 0
+)
+
+assert_that(
+  df_studies %>% 
+    dplyr::filter(is.na(income_group), included == "Included") %>%
+    nrow
+  == 0
+)
 
 # Are studies present in Wolf et al (2018)? -----------------------------------
 

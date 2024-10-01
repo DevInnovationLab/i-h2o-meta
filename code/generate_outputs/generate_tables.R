@@ -1,10 +1,33 @@
 library(tidyverse)
 library(here)
 library(baggr)
+library(googlesheets4)
 
 source(here("code/ma_models/fit_ma_frequentist.R"))
 load(here("output/stan/bayesian-models-for-exhibits.Rdata"))
 load(here("output/stan/bayesian-models-subsets.Rdata"))
+
+mortality_col <- c("Study", "Events", "Non-events", "Events", "Non-events")
+
+loo_col <- c("Excluded Study", 
+             "Mean Effect", 
+             "CrI 95%", 
+             "% Weight in Meta Analysis", 
+             "Mean Effect", 
+             "CrI 95%", 
+             "% Weight in Meta Analysis")
+
+loo_nums <- c(" ", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)")
+
+sa_col <- rep(c("Freq OR", "Bayesian OR"), 7)
+
+sa_row <- c("",
+            "ITT effect on child mortality",
+            "CI/CrI 95%",
+            "p-value")
+
+sa_nums <- c("(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)", "(8)", "(9)",
+             "(10)", "(11)", "(12)", "(13)", "(14)")
 
 # Table Summary Estimates (main results) ======================================
 
@@ -45,18 +68,19 @@ mortality_all_summary <-
     ))
   ) %>%
   mutate(
-    robustness = trial_name_short %in% c("du Preez et al., 2011", "Boisson et al., 2010")
+    robustness = trial_name %in% c("du Preez et al., 2011", "Boisson et al., 2010")
   ) %>%
   arrange(
     robustness,
-    trial_name_short
+    trial_name
   ) %>%
   dplyr::select(
-    trial_name_short,
+    trial_name,
     tcases,
     tnoncases,
     ccases,
-    cnoncases
+    cnoncases,
+    robustness
   ) 
 
 write_csv(
@@ -65,6 +89,39 @@ write_csv(
     "output/tables/mortality_all_summary.csv" 
   )
 )
+
+if (update_tables) {
+  mortality_gsheet <- 
+  mortality_all_summary %>%
+  dplyr::filter(!robustness) %>%
+  select(-robustness) %>%
+  add_row(trial_name = "Total",
+          tcases = sum(.$tcases),
+          tnoncases = sum(.$tnoncases),
+          ccases = sum(.$ccases),
+          cnoncases = sum(.$cnoncases)) %>%
+  mutate(across(everything(), as.character)) %>%
+  add_row(trial_name = "A. Main sample",
+          tcases = "",
+          tnoncases = "",
+          ccases = "",
+          cnoncases = "",
+          .before = 1) %>%
+  bind_rows(
+    rbind(
+      c("B. Studies included for robustness checks", "", "", "", ""),
+      mortality_all_summary %>% 
+        dplyr::filter(robustness) %>%
+        select(-robustness)
+    )
+  ) %>%
+  setNames(mortality_col)
+  
+  sheet_write(mortality_gsheet, 
+              gsheet,
+              "mortality_all_summary")
+}
+
 
 #  Sensitivity of main results to dropping each study ==========================
 
@@ -101,6 +158,17 @@ table_loo_study <-
   arrange(desc(weights_freq))
 
 write_csv(table_loo_study, "output/tables/table-loo-study.csv")
+
+
+if (update_tables) {
+  table_loo_gsheet <- rbind(loo_col, table_loo_study) %>% 
+    setNames(loo_nums)
+  
+  sheet_write(table_loo_gsheet,
+              gsheet,
+              "table-loo-study")  
+}
+
 
 # Additional sensitivity checks ================================================
 
@@ -162,3 +230,16 @@ write_csv(
   additional_sa_table,
   "output/tables/additional-sa-results.csv"
 )
+
+if (update_tables) {
+  sa_gsheet <- rbind(sa_nums, additional_sa_table) %>%
+    mutate(across(everything(), as.character)) %>%
+    mutate(across(everything(), ~replace(.x, .x == "NA", ""))) %>%
+    add_column(row_names = sa_row, .before = 1) %>%
+    setNames(c("row_names", sa_col)) %>%
+    setNames(replace(names(.), names(.) == "row_names", ""))
+  
+  sheet_write(sa_gsheet,
+              gsheet,
+              "additional-sa-results")
+}

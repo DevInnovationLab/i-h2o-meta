@@ -2,10 +2,108 @@
 
 library(here)
 library(tidyverse)
+library(common)
+library(googlesheets4)
 
 source(here("code/cea/cea-setup.R"))
+load(here("data/final/ma_datasets.Rdata"))
 
-# Combine CEA for all approaches -----------------------------------------------
+## Labels ----------------------------------------------------------------------
+cea_bigtab_cols <- c("Chlorine Dispensers in Western Kenya",
+              "Chlorine Dispensers in Western Kenya (Alternative)",
+              "Inline Chlorination in India",
+              "Inline Chlorination in India (Alternative)",
+              "Hypothetical Global MCH Delivery",
+              "Hypothetical Global MCH Delivery (Alternative)")
+
+cea_cols <- c("Chlorine Dispensers in Western Kenya",
+              "Inline Chlorination in India",
+              "Hypothetical Global MCH Delivery")
+
+global_ben_cols <- c("Target Population",
+                     "Population under five years of age (millions)",
+                     "Proportion of population without access to piped water (p.p.)",
+                     "# of <5y children without access to piped water (millions)",
+                     "<5y mortality rate (p.p.)",
+                     "Number of deaths among <5y without access to piped water per year (thousands)",
+                     "Cost to serve full population without access to piped water per year ($ millions)",
+                     "Total <5y lives saved per year (thousands)")
+
+global_ben_nums <- c(" ", "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)")
+
+cea_bigtab_rows <- c(paste0("(1) <5y mortality rate (in p.p.)", supsc("a")),
+                     paste0("(2) Posterior predictive mean (RR) of effect", supsc("b")),
+                     paste0("(3) Average effective compliance in meta-analysis"),
+                     paste0("(4) Effective take-up rate for intervention", supsc("c")),
+                     paste0("(5) Expected deaths averted, per 1,000 served", supsc("d")),
+                     paste0("(6) Expected DALYs averted, per 1,000 <5 children", supsc("e")),
+                     paste0("(7) Cost of provision per <5 child, 5 years (USD)", supsc("f")),
+                     paste0("(8) Cost per death of a <5 child averted (USD)", supsc("g")),
+                     paste0("(9) Cost per DALY averted (USD)", supsc("h")),
+                     paste0("(10) Net DALYs averted per 1,000 <5 children", supsc("i")),
+                     paste0("(11) Net DALYs averted per 1,000 <5 children per USD 100 spent", supsc("j"))
+                    )
+
+cea_summary_rows <- c("Estimated mean OR effect of water treatment on child mortality, mean (95% CrI)",
+                      "95% CrI",
+                      "Posterior predictive estimate (RR) of effect, mean",
+                      "Effective take-up",
+                      "Expected deaths averted, per 1,000 served",
+                      "Expected DALYs averted, per 1,000 eligible <5 child",
+                      "Cost of provision per <5 child, 5 years (USD)",
+                      "Cost per expected death of <5 child averted (USD)",
+                      "Cost per expected DALY averted (USD)",
+                      "Net DALYs averted per 1,000 <5 children",
+                      "Net DALYs averted per 1,000 <5 children per USD 100 spent"
+                      )
+
+## Load auxiliary information --------------------------------------------------
+
+### GDP pc ---------------------------------------------------------------------
+# https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?locations=KE-IN
+# weighted avg LIC and LMICs:
+# https://data.worldbank.org/indicator/SP.POP.TOTL
+# https://data.worldbank.org/indicator/NY.GDP.PCAP.CD
+default_gdp_pc <- c("coupons" = 2217, #calculated by Andreas P-Z
+                    "ilc" = 2388, #India, 
+                    "dsw" = 2099) #Kenya
+
+default_gdp_pc %>%
+  write_rds("data/transformed/default_gdp_pc.rds")
+  
+### DSW ------------------------------------------------------------------------
+# From https://docs.google.com/spreadsheets/d/1yjVpBgZZhp5IANmGBD7yQ69203yKlR10pKEoDugdLMk/edit#gid=965674898
+dsw_cost <- 161.64/14.4
+dsw_u5_mr_untreated <- .0692
+
+### Vouchers -------------------------------------------------------------------
+
+# coupons (global program)
+# Two pieces of this calculation are based on auxilliary scripts.
+# We load in their outputs.
+u5_mr <- read_csv(file = here("data/transformed/weighted_u5_mr.csv"))
+
+#In Apr 2023 we calculated this as 1.82, but it has been updated since then
+u5_per_hh_coupons <- read_csv(file = here("data/transformed/u5-per-hh.csv"))
+
+# Cost of COUPONS: 
+# 0.30 USD (Retail cost per bottle of chlorine) 
+# * 12 months 
+# * 0.37 (Average share of coupons redeemed across Dupas et al., 2016 (29) and Dupas et al., 2020 (28)) 
+# * 1.5 (Assumption that for every two households with a child <5y without access to piped drinking water, 
+# one untargeted household receives coupons) 
+# * 2 (Assumption that administrative costs are as large as the price of chlorine bottles) 
+# / 1.58 (number of <5 children per household with at least one 
+# <5 child, calculated as a weighted average of the total number of <5 children over time divided by the 
+# total number of households with at least one <5 child over time. We take a weighted average across all 
+# countries for which household level data is available. All data is from IPUMS [add citation]);
+cost_vouchers <- 0.3 * 12 * 0.37 * 1.5 * 2 #/1.58 done inside the function (u5_per_hh) 
+
+### ILC ------------------------------------------------------------------------
+ilc_u5_mr_untreated <- 0.039
+ilc_cost <- 59.57/5
+
+## Using observed take up from other sources -----------------------------------
 df_cea <- 
   bind_rows(
     list(
@@ -21,8 +119,8 @@ df_cea %>%
     path_data = "data/transformed/df_cea"
   )
 
-# Clean up ---------------------------------------------------------------------
-df_cea_tab <- 
+# Formatting
+tab_cea_base <- 
   df_cea %>%
   mutate_all(as.character) %>%
   mutate(
@@ -35,110 +133,91 @@ df_cea_tab <-
     )
   )
 
-# Big table in the supplement (Table S7 at the time of writing) ----------------
-df_cea_bigtab <- 
-  df_cea_tab %>% 
-  select(
-    bayes_OR, bayes_CI, 
+## Conservative uptake estimates -----------------------------------------------
+
+tab_cea_low <- 
+  bind_rows(
+    list(
+      DSW = cea_dsw(default_or_ppd, tkup = 0.07, tkup_ctrl = 0),
+      ILC = cea_ilc(default_or_ppd, tkup = 0.45, tkup_ctrl = 0),
+      coupons = cea_cou(default_or_ppd, tkup =  0.1, tkup_ctrl = 0)
+    ),
+    .id = "model"
+  ) %>%
+  mutate_all(as.character) %>%
+  mutate(
+    bayes_OR = round(overall_est_bayes["mean"], 2),
+    bayes_CI = paste0(
+      "(", 
+      round(overall_est_bayes["lower"],2), 
+      ", ", 
+      round(overall_est_bayes["upper"],2), ")"
+    ),
+    model = paste0(model, "_low")
+  ) 
+
+## Supplementary table ---------------------------------------------------------
+cea_bigtab_full <- 
+  bind_rows(tab_cea_base, tab_cea_low) %>% 
+  transmute(
     p1, rr, t_ma, effective_tkup, 
     reduction, daly_reduction, 
-    cost, cost_per_death, cost_per_daly, net_ben
-  ) %>% 
+    cost, cost_per_death, cost_per_daly,
+    net_dalys_gdp, 
+    net_dalys_100 = if_else(as.numeric(net_dalys_100) < 0, "0", net_dalys_100)
+  ) %>%
   t()
 
-colnames(df_cea_bigtab) <- df_cea[["model"]]
-df_cea_bigtab %>% 
+colnames(cea_bigtab_full) <- c(tab_cea_base$model, tab_cea_low$model)
+
+cea_bigtab_full %>% 
   write.csv("output/tables/table-cea-estimates.csv")
 
-# Summary table in the main text -----------------------------------------------
+if (update_tables) {
+  
+  cea_bigtab_full <-
+    bind_cols(
+      cea_bigtab_rows,
+      cea_bigtab_full
+    ) %>%
+    relocate(DSW_low, .after = DSW) %>%
+    relocate(ILC_low, .after = ILC) %>%
+    relocate(coupons_low, .after = coupons)
+  
+  sheet_write(cea_bigtab_full, gsheet, "table-cea-estimates_s7")
+  
+}
+
+## Summary table in the main text ----------------------------------------------
 df_cea_summary <- 
-  df_cea_tab %>% 
-  select(
-    c(
-      bayes_OR, 
-      bayes_CI, 
-      effective_tkup, 
-      daly_reduction, 
-      cost, 
-      cost_per_death, 
-      cost_per_daly, 
-      net_ben
-    )
-  ) %>% 
+  tab_cea_base %>%
+  transmute(
+    bayes_OR, 
+    bayes_CI,
+    rr,
+    effective_tkup,
+    reduction,
+    daly_reduction, 
+    cost, 
+    cost_per_death, 
+    cost_per_daly,
+    net_dalys_gdp,
+    net_dalys_100 = if_else(as.numeric(net_dalys_100) < 0, "0", net_dalys_100)
+  ) %>%
   t()
 
-colnames(df_cea_summary) <- df_cea[["model"]]
+colnames(df_cea_summary) <- c("DSW", "ILC", "coupons")
 
 df_cea_summary %>% 
   write.csv("output/tables/table-cea-summary.csv")
 
-# Some text --------------------------------------------------------------------
-
-# Discussion: Ratio of GDP to cost per DALY reduction
-# Our estimates suggest that water treatment exceeds the 1x GDP threshold over xx-xx times
-round(rev(default_gdp_pc)/df_cea$cost_per_daly) %>% 
-  write.csv("output/text/1x-gdp-threshold-exceed.csv") 
-
-# Discussion: threshold of compliance at which CE matches 1x GDP:
-cea_tkup <- function(...) {
-  cea_v2(x = mean(default_or_ppd), input = "or", ...)$cost_per_daly
+if (update_tables) {
+  cea_summary_gsheet <- data.frame(cbind(cea_summary_rows, df_cea_summary)) %>%
+    setNames(c("Stats", cea_cols)) %>%
+    setNames(replace(names(.), names(.) == "Stats", ""))
+  
+  sheet_write(cea_summary_gsheet, gsheet, "table-cea-estimates")
 }
-cea_compliance_df <- rbind(
-  data.frame(method = "dsw",
-             p1=.0692, 
-             cost=dsw_cost, 
-             u5_per_hh=1,
-             gdp_pc=default_gdp_pc[["dsw"]]),
-  data.frame(method = "ilc",
-             p1 = 0.039,
-             cost = 59.57/5,
-             u5_per_hh=1,
-             gdp_pc=default_gdp_pc[["ilc"]]),
-  data.frame(method = "coupons",
-             p1 = u5_mr$avg_mortality_rate,
-             cost = cost_vouchers,
-             u5_per_hh=u5_per_hh_coupons[["x"]],
-             gdp_pc=default_gdp_pc[["coupons"]])
-) %>% 
-  # mutate(x = default_or_ppd) %>% 
-  expand_grid(tkup = seq(.001, .5, .0005)) %>%
-  mutate(result = "table") %>% 
-  # group_by(method) %>% 
-  mutate(res = pmap_dbl(select(., -method), cea_tkup))
-# min(cea_compliance_df$tkup[cea_compliance_df$res < default_gdp_pc[["dsw"]] & 
-                             # cea_compliance_df$method == "dsw"])
-
-# However, the effective take-up in water treatment needed to reach 1x GDP per 
-# capita threshold ranges from 0.4% (for coupons) to 1.9% (for ILC)
-cea_compliance_df %>% 
-  dplyr::filter(gdp_pc >= res) %>% 
-  group_by(method) %>% 
-  summarise(min(tkup)) %>% 
-  write_csv(
-    "output/text/1x-gdp-threshold-compliance.csv"
-  )
-
-# Discussion: "we find that cost-effectiveness threshold
-# is reached at 0.7% reduction in risk of under 5 mortality":
-benken <- Inf
-rr_check <- .999
-while(benken > default_gdp_pc[["dsw"]]){
-  benken <- cea_v2(result = "table", 
-                   input="rr", rr_check,
-                   p1=.0692, 
-                   tkup=0.51, 
-                   cost=dsw_cost, 
-                   u5_per_hh=1,
-                   gdp_pc=default_gdp_pc[["dsw"]])$cost_per_daly
-  rr_check <- rr_check - .001
-}
-
-ce_threshold <- (100*(1-rr_check)) %>% round(2)
-
-write.csv(
-  ce_threshold,
-  "output/text/ce-threshold.csv"
-)
 
 # Global benefits --------------------------------------------------------------
 
@@ -173,7 +252,7 @@ mortality_rate <-
     )
   )
 
-mortality_rate %>%
+globalbenefits <- mortality_rate %>%
   dplyr::filter(
     Region %in% c(
       "East Asia & Pacific", 
@@ -231,11 +310,17 @@ mortality_rate %>%
       where(is.numeric),
       ~ round(., 1)
     )
-  ) %>%
-  write_csv(
-    here("output/tables/cea-globalbenefits.csv")
   )
 
+globalbenefits %>%
+  write_csv(here("output/tables/cea-globalbenefits.csv"))
 
-
+if (update_tables) {
+  globalbenefits_gsheet <- rbind(global_ben_nums, globalbenefits) %>%
+    setNames(global_ben_cols)
+  
+  sheet_write(globalbenefits_gsheet, 
+              gsheet,
+              "cea-globalbenefits")
+}
 

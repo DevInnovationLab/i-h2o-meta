@@ -15,8 +15,10 @@ df_diarrhea <-
   ) %>%
   dplyr::filter( 
     !is.na(ln_RR),
-    !is.na(se_imp), 
-    !is.infinite(se_imp)
+    !is.na(se_imp)
+  ) %>% 
+  mutate(
+    z_I = abs((effect_estimate_on_diarrhea - mean(effect_estimate_on_diarrhea))/sd(effect_estimate_on_diarrhea)) > 1.96
   )
 
 df_diarrhea_chlor = 
@@ -43,22 +45,14 @@ bias_chlorine_fit = metabias(chlorine_fit)
 
 # Mortality reporting vs. diarrhea prevalence, z-values ------------------------
 
-mr_rep_df <- 
-  read_csv(
-    here("data/raw/diarrhea_studies.csv")
-  ) %>% 
-  mutate(
-    z_I = ifelse(`upper 95% confidence interval` <= 1, 1, 0)
-  )
-
 logit_1 <- glm(
-  `Mortality reported` ~ `effect estimate (on diarrhea)`, 
+  mortality_reported ~ effect_estimate_on_diarrhea, 
   family = "binomial", 
-  data = mr_rep_df
+  data = df_diarrhea
 )
 
 logit_2 <- glm(
-  `Mortality reported` ~ z_I, 
+  mortality_reported ~ z_I, 
   family = "binomial", 
-  data = mr_rep_df
+  data = df_diarrhea
 )

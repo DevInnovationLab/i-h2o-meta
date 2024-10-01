@@ -23,7 +23,7 @@ load(here("data/final/ma_datasets.Rdata"))
 # Compile their results using this function:
 ctdf_helper <- function(x) {
   left_join(
-    select(df_main_ma_adj, trial_name, intervention),
+    select(df_main_ma_adj, trial_name, water_intervention),
     #this is the only important line here:
     group_effects(x, s = T, transform = exp)[, , 1] %>%
       as.data.frame() %>%
@@ -32,7 +32,7 @@ ctdf_helper <- function(x) {
   ) %>%
     transmute(
       trial_name,
-      intervention,
+      water_intervention,
       lower = lci,
       mean = mean,
       upper = uci
@@ -66,7 +66,7 @@ loo_bayes <- data.frame(
 
 
 # Calculate weighted prevalence -----
-
+################################################## WARKING HERHEEE
 summarise_prevalence_compliance <- 
   df_main_ma_adj %>%
   select(
@@ -75,12 +75,12 @@ summarise_prevalence_compliance <-
     compliance,
     takeup_control,
     year,
-    Obs,
+    obs,
     weeks,
-    intervention
+    water_intervention
   ) %>%
   mutate(
-    person_wks = Obs * weeks,
+    person_wks = obs * weeks,
     weights1 = weights_bayes / 100, # THIS IS SENSITIVE TO ORDERING OF ROWS, REMEMBER
     weights2 = person_wks / sum(person_wks)
   ) %>%
@@ -104,7 +104,7 @@ summarise_prevalence_compliance <-
         mean(prevalence, na.rm = T), 
         prevalence
       ),
-    chlor = 1 * (intervention == "Chlorination")
+    chlor = 1 * (water_intervention == "Chlorination")
   ) %>%
   mutate(
     prevalence1 = prevalence * weights1,
@@ -135,13 +135,13 @@ summarise_prevalence_compliance <-
 # Filter subsets of studies and create helper objects -----
 
 chlori_studies_bayes <-
-  dplyr::filter(ind_est_bayes, intervention == "Chlorination")
+  dplyr::filter(ind_est_bayes, water_intervention == "Chlorination")
 filter_studies_bayes <-
-  dplyr::filter(ind_est_bayes, intervention == "Filtration")
+  dplyr::filter(ind_est_bayes, water_intervention == "Filtration")
 spring_studies_bayes <-
-  dplyr::filter(ind_est_bayes, intervention == "Spring protection")
+  dplyr::filter(ind_est_bayes, water_intervention == "Spring protection")
 sodis_studies_bayes <-
-  dplyr::filter(ind_est_bayes, intervention == "SODIS")
+  dplyr::filter(ind_est_bayes, water_intervention == "SODIS")
 
 save(
   loo_bayes,
