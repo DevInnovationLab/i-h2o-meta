@@ -94,7 +94,7 @@ Example text example text Example text example text Example text example text Ex
 ### Summary of Findings (mortality)
 
 | Outcome | Status | Result | Effect | Goals | Certainty |
-|------------|------------|------------|------------|------------|------------|
+|----|----|----|----|----|----|
 | Under-5 mortality | No treatment | 0.XX (0.XX–0.XX) | X fewer (Y–Z fewer) | Test | 3/10 |
 
 ## Economic evaluation
