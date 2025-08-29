@@ -19,6 +19,41 @@
         margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
         vertical-align: middle;
       }
+      /* CSS for syntax highlighting */
+      html { -webkit-text-size-adjust: 100%; }
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+        }
+      pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
     </style>
 
     <style>
@@ -221,7 +256,7 @@ blockquote{ border-left:4px solid #e0e6ef; padding-left:.85rem; color:#555; }
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Quick ummary
+Quick Summary
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -233,16 +268,14 @@ Quick ummary
 </div>
 <section id="abstract" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Abstract</h1>
-<p>Write a 200–300 word IMRaD abstract (Introduction, Methods, Results, Conclusions).</p>
+<p>(Introduction, Methods, Results, Conclusions).</p>
 </section>
 <section id="background" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Background</h1>
 <ul>
 <li>Global burden of diarrheal disease; why water treatment.<br>
 </li>
-<li>Prior evidence and gaps.<br>
-</li>
-<li>Protocol registration (if applicable).</li>
+<li>Prior evidence and gaps.</li>
 </ul>
 </section>
 <section id="objectives" class="level1" data-number="3">
@@ -259,7 +292,7 @@ Quick ummary
 <h1 data-number="4"><span class="header-section-number">4</span> Methods</h1>
 <section id="eligibility-criteria" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="eligibility-criteria"><span class="header-section-number">4.1</span> Eligibility criteria</h2>
-<p>Population, Intervention, Comparator, Outcomes, Design (RCTs / cluster RCTs).</p>
+<p>Population, Intervention, Outcomes, Design (RCTs).</p>
 </section>
 <section id="information-sources-search-strategy" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="information-sources-search-strategy"><span class="header-section-number">4.2</span> Information sources &amp; search strategy</h2>
@@ -274,13 +307,13 @@ Quick ummary
 <p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart TD
-  A[Records identified] --&gt; B[After deduplication]
-  B --&gt; C[Title/abstract screening]
-  C --&gt;|Excluded| D[Reasons listed]
-  C --&gt; E[Full-text assessed]
-  E --&gt;|Excluded with reasons| F[Full-text exclusions]
-  E --&gt; G[Qualitative synthesis]
-  G --&gt; H[Meta-analysis]
+  A[Start] --&gt; B[Process 1]
+  B --&gt; C[Process 2]
+  C --&gt;|Branch 1| D[Outcome 1]
+  C --&gt; E[Process 3]
+  E --&gt;|Branch 2| F[Outcome 2]
+  E --&gt; G[Process 4]
+  G --&gt; H[End]
 </pre>
 </div>
 <p></p></figure><p></p>
@@ -290,23 +323,23 @@ Quick ummary
 </section>
 <section id="data-extraction-risk-of-bias" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="data-extraction-risk-of-bias"><span class="header-section-number">4.4</span> Data extraction &amp; risk of bias</h2>
-<p>Independent extraction; RoB 2; cluster adjustments.</p>
+<p>Example text example text Example text example textExample text example textExample text example textExample text example text.</p>
 </section>
 <section id="effect-measures-synthesis" class="level2" data-number="4.5">
 <h2 data-number="4.5" class="anchored" data-anchor-id="effect-measures-synthesis"><span class="header-section-number">4.5</span> Effect measures &amp; synthesis</h2>
-<p>Primary measure: Odds Ratio (OR); random-effects; τ², I²; prediction interval; small-study bias.</p>
+<p>Example text example text Example text example text</p>
 </section>
 <section id="subgroups-sensitivity" class="level2" data-number="4.6">
 <h2 data-number="4.6" class="anchored" data-anchor-id="subgroups-sensitivity"><span class="header-section-number">4.6</span> Subgroups &amp; sensitivity</h2>
-<p>By intervention type, baseline water quality, age; leave-one-out; RoB-restricted.</p>
+<p>Example text example textExample text example textExample text example textExample text example text</p>
 </section>
 <section id="certainty-grade" class="level2" data-number="4.7">
 <h2 data-number="4.7" class="anchored" data-anchor-id="certainty-grade"><span class="header-section-number">4.7</span> Certainty (GRADE)</h2>
-<p>Summarize certainty; prepare SoF table.</p>
+<p>Example text example textExample text example textExample text example textExample text example text</p>
 </section>
 <section id="results" class="level2" data-number="4.8">
 <h2 data-number="4.8" class="anchored" data-anchor-id="results"><span class="header-section-number">4.8</span> Results</h2>
-<p>Study selection; characteristics; risk of bias; effects (primary &amp; secondary).</p>
+<p>Example text example text Example text example text Example text example text Example text example text</p>
 <section id="summary-of-findings-mortality" class="level3" data-number="4.8.1">
 <h3 data-number="4.8.1" class="anchored" data-anchor-id="summary-of-findings-mortality"><span class="header-section-number">4.8.1</span> Summary of Findings (mortality)</h3>
 <table class="caption-top table">
@@ -321,10 +354,10 @@ Quick ummary
 <thead>
 <tr class="header">
 <th>Outcome</th>
-<th>Comparator</th>
-<th>OR (95% CI)</th>
-<th>Absolute effect/1,000</th>
-<th>N (k)</th>
+<th>Status</th>
+<th>Result</th>
+<th>Effect</th>
+<th>Goals</th>
 <th>Certainty</th>
 </tr>
 </thead>
@@ -334,8 +367,8 @@ Quick ummary
 <td>No treatment</td>
 <td>0.XX (0.XX–0.XX)</td>
 <td>X fewer (Y–Z fewer)</td>
-<td>N (k)</td>
-<td>⨁⨁⨁◯</td>
+<td>Test</td>
+<td>3/10</td>
 </tr>
 </tbody>
 </table>
@@ -343,27 +376,32 @@ Quick ummary
 </section>
 <section id="economic-evaluation" class="level2" data-number="4.9">
 <h2 data-number="4.9" class="anchored" data-anchor-id="economic-evaluation"><span class="header-section-number">4.9</span> Economic evaluation</h2>
-<p>Perspective, cost inputs, DALY assumptions, ICERs by delivery model.</p>
+<p>Example text example text Example text example text Example text example text Example text example text</p>
 </section>
 <section id="discussion" class="level2" data-number="4.10">
 <h2 data-number="4.10" class="anchored" data-anchor-id="discussion"><span class="header-section-number">4.10</span> Discussion</h2>
-<p>Main findings vs prior reviews; limitations; external validity; policy notes.</p>
+<p>MExample text example text Example text example text Example text example text Example text example text</p>
 </section>
 <section id="conclusions" class="level2" data-number="4.11">
 <h2 data-number="4.11" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">4.11</span> Conclusions</h2>
-<p>One-paragraph, actionable takeaway.</p>
+<p>Example text example text Example text example text Example text example text Example text example text</p>
 </section>
 <section id="funding" class="level2" data-number="4.12">
 <h2 data-number="4.12" class="anchored" data-anchor-id="funding"><span class="header-section-number">4.12</span> Funding</h2>
-<p>State funders or “none”.</p>
+<p>Example text example text Example text example text Example text example text Example text example text</p>
 </section>
 <section id="conflicts-of-interest" class="level2" data-number="4.13">
 <h2 data-number="4.13" class="anchored" data-anchor-id="conflicts-of-interest"><span class="header-section-number">4.13</span> Conflicts of interest</h2>
-<p>Declare any potential conflicts.</p>
+<p>Example text example text Example text example text Example text example text Example text example text</p>
 </section>
 <section id="data-code-availability" class="level2" data-number="4.14">
 <h2 data-number="4.14" class="anchored" data-anchor-id="data-code-availability"><span class="header-section-number">4.14</span> Data &amp; code availability</h2>
-<p>Repository link and access notes.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"This is a code block test."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "This is a code block test."</code></pre>
+</div>
+</div></div>
 </section>
 <section id="appendices" class="level2" data-number="4.15">
 <h2 data-number="4.15" class="anchored" data-anchor-id="appendices"><span class="header-section-number">4.15</span> Appendices</h2>

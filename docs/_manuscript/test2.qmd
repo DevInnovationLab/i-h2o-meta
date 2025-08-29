@@ -23,7 +23,7 @@ blockquote{ border-left:4px solid #e0e6ef; padding-left:.85rem; color:#555; }
 ```
 
 ::: callout-note
-## Quick ummary
+## Quick Summary
 
 **What is this about?** *\[XYZ\]*\
 **What did we do?** *\[XYZ\]*\
@@ -33,13 +33,12 @@ blockquote{ border-left:4px solid #e0e6ef; padding-left:.85rem; color:#555; }
 
 # Abstract
 
-Write a 200–300 word IMRaD abstract (Introduction, Methods, Results, Conclusions).
+(Introduction, Methods, Results, Conclusions).
 
 # Background
 
 -   Global burden of diarrheal disease; why water treatment.\
--   Prior evidence and gaps.\
--   Protocol registration (if applicable).
+-   Prior evidence and gaps.
 
 # Objectives
 
@@ -51,7 +50,7 @@ Write a 200–300 word IMRaD abstract (Introduction, Methods, Results, Conclusio
 
 ## Eligibility criteria
 
-Population, Intervention, Comparator, Outcomes, Design (RCTs / cluster RCTs).
+Population, Intervention, Outcomes, Design (RCTs).
 
 ## Information sources & search strategy
 
@@ -63,64 +62,66 @@ Dual screening; PRISMA flow:
 
 ```{mermaid}
 flowchart TD
-  A[Records identified] --> B[After deduplication]
-  B --> C[Title/abstract screening]
-  C -->|Excluded| D[Reasons listed]
-  C --> E[Full-text assessed]
-  E -->|Excluded with reasons| F[Full-text exclusions]
-  E --> G[Qualitative synthesis]
-  G --> H[Meta-analysis]
+  A[Start] --> B[Process 1]
+  B --> C[Process 2]
+  C -->|Branch 1| D[Outcome 1]
+  C --> E[Process 3]
+  E -->|Branch 2| F[Outcome 2]
+  E --> G[Process 4]
+  G --> H[End]
 ```
 
 ## Data extraction & risk of bias
 
-Independent extraction; RoB 2; cluster adjustments.
+Example text example text Example text example textExample text example textExample text example textExample text example text.
 
 ## Effect measures & synthesis
 
-Primary measure: Odds Ratio (OR); random-effects; τ², I²; prediction interval; small-study bias.
+Example text example text Example text example text
 
 ## Subgroups & sensitivity
 
-By intervention type, baseline water quality, age; leave-one-out; RoB-restricted.
+Example text example textExample text example textExample text example textExample text example text
 
 ## Certainty (GRADE)
 
-Summarize certainty; prepare SoF table.
+Example text example textExample text example textExample text example textExample text example text
 
 ## Results
 
-Study selection; characteristics; risk of bias; effects (primary & secondary).
+Example text example text Example text example text Example text example text Example text example text
 
 ### Summary of Findings (mortality)
 
-| Outcome | Comparator | OR (95% CI) | Absolute effect/1,000 | N (k) | Certainty |
+| Outcome | Status | Result | Effect | Goals | Certainty |
 |------------|------------|------------|------------|------------|------------|
-| Under-5 mortality | No treatment | 0.XX (0.XX–0.XX) | X fewer (Y–Z fewer) | N (k) | ⨁⨁⨁◯ |
+| Under-5 mortality | No treatment | 0.XX (0.XX–0.XX) | X fewer (Y–Z fewer) | Test | 3/10 |
 
 ## Economic evaluation
 
-Perspective, cost inputs, DALY assumptions, ICERs by delivery model.
+Example text example text Example text example text Example text example text Example text example text
 
 ## Discussion
 
-Main findings vs prior reviews; limitations; external validity; policy notes.
+MExample text example text Example text example text Example text example text Example text example text
 
 ## Conclusions
 
-One-paragraph, actionable takeaway.
+Example text example text Example text example text Example text example text Example text example text
 
 ## Funding
 
-State funders or “none”.
+Example text example text Example text example text Example text example text Example text example text
 
 ## Conflicts of interest
 
-Declare any potential conflicts.
+Example text example text Example text example text Example text example text Example text example text
 
 ## Data & code availability
 
-Repository link and access notes.
+```{r}
+print("This is a code block test.")
+```
 
 ## Appendices
 
