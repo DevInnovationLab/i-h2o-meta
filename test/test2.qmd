@@ -1,0 +1,133 @@
+---
+title: "Water Treatment and Child Mortality: A Meta-analysis and Cost-effectiveness Analysis"
+subtitle: "Quarto manuscript skeleton"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: flatly
+editor: visual
+execute:
+  eval: true   
+---
+
+```{=html}
+<style>
+:root { --coch-blue:#0b4d88; }
+h1,h2,h3 { color: var(--coch-blue); scroll-margin-top: 6rem; }
+.callout-note > .callout-header { background:#eaf3ff; color:#0b3c6b; border-left:4px solid var(--coch-blue); }
+table thead th { background:#f4f7fb; border-bottom:2px solid #e0e6ef; }
+blockquote{ border-left:4px solid #e0e6ef; padding-left:.85rem; color:#555; }
+</style>
+```
+
+::: callout-note
+## Quick ummary
+
+**What is this about?** *\[XYZ\]*\
+**What did we do?** *\[XYZ\]*\
+**What did we find?** *\[XYZ\]*\
+**How confident are we?** *\[XYZ\]*
+:::
+
+# Abstract
+
+Write a 200–300 word IMRaD abstract (Introduction, Methods, Results, Conclusions).
+
+# Background
+
+-   Global burden of diarrheal disease; why water treatment.\
+-   Prior evidence and gaps.\
+-   Protocol registration (if applicable).
+
+# Objectives
+
+-   **Primary:** Effect on all-cause under-5 mortality.\
+-   **Secondary:** e.g., diarrhea, hospitalizations.\
+-   **Economic:** Cost-effectiveness by delivery model.
+
+# Methods
+
+## Eligibility criteria
+
+Population, Intervention, Comparator, Outcomes, Design (RCTs / cluster RCTs).
+
+## Information sources & search strategy
+
+Databases, dates, languages, gray literature; full strings in Appendix A.
+
+## Study selection
+
+Dual screening; PRISMA flow:
+
+```{mermaid}
+flowchart TD
+  A[Records identified] --> B[After deduplication]
+  B --> C[Title/abstract screening]
+  C -->|Excluded| D[Reasons listed]
+  C --> E[Full-text assessed]
+  E -->|Excluded with reasons| F[Full-text exclusions]
+  E --> G[Qualitative synthesis]
+  G --> H[Meta-analysis]
+```
+
+## Data extraction & risk of bias
+
+Independent extraction; RoB 2; cluster adjustments.
+
+## Effect measures & synthesis
+
+Primary measure: Odds Ratio (OR); random-effects; τ², I²; prediction interval; small-study bias.
+
+## Subgroups & sensitivity
+
+By intervention type, baseline water quality, age; leave-one-out; RoB-restricted.
+
+## Certainty (GRADE)
+
+Summarize certainty; prepare SoF table.
+
+## Results
+
+Study selection; characteristics; risk of bias; effects (primary & secondary).
+
+### Summary of Findings (mortality)
+
+| Outcome | Comparator | OR (95% CI) | Absolute effect/1,000 | N (k) | Certainty |
+|------------|------------|------------|------------|------------|------------|
+| Under-5 mortality | No treatment | 0.XX (0.XX–0.XX) | X fewer (Y–Z fewer) | N (k) | ⨁⨁⨁◯ |
+
+## Economic evaluation
+
+Perspective, cost inputs, DALY assumptions, ICERs by delivery model.
+
+## Discussion
+
+Main findings vs prior reviews; limitations; external validity; policy notes.
+
+## Conclusions
+
+One-paragraph, actionable takeaway.
+
+## Funding
+
+State funders or “none”.
+
+## Conflicts of interest
+
+Declare any potential conflicts.
+
+## Data & code availability
+
+Repository link and access notes.
+
+## Appendices
+
+### Appendix A. Full search strategy
+
+### Appendix B. Risk of bias details
+
+### Appendix C. Subgroup/sensitivity analyses
+
+### Appendix D. Cost inputs & assumptions

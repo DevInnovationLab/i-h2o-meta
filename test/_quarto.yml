@@ -1,0 +1,16 @@
+project:
+  type: manuscript
+
+manuscript:
+  article: test2.qmd
+  notebooks: []
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    theme: flatly
+  pdf:
+    toc: true
+    number-sections: true
