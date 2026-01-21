@@ -90,3 +90,15 @@ Intermediate data sets created during data processing are stored in `data/transf
 | `data/final/ma_datasets.Rdata`    | `code/wrangling/prep_adjusted_data.R` | Yes | |
 | `data/final/mortality_rate.rds`   | `code/cea/weighted-mr.R` | Yes | |
 | `data/final/individual_data_anonymised.rds`  | `code/individual_data_anonymised/pre_individual_data.R` | Yes | |
+
+### Variable Descriptions
+
+#### Summary Data (`data/raw/summary_data.csv`)
+
+This file contains summary statistics for each RCT included in the meta-analysis. Key variables include:
+
+| Variable | Description |
+|----------|-------------|
+| prevalence | Diarrhea prevalence at baseline in the trial |
+| weeks | Length of period of observation for mortality in weeks |
+| diarrhea_effects | Treatment effect for diarrhea (Risk Ratio) |
