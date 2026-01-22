@@ -95,7 +95,7 @@ Intermediate data sets created during data processing are stored in `data/transf
 
 #### Summary Data (`data/raw/summary_data.csv`)
 
-This file contains summary statistics for each RCT included in the meta-analysis. Key variables include:
+This file contains summary statistics for each RCT included in the meta-analysis. Below are descriptions of select variables.
 
 | Variable | Description |
 |----------|-------------|
